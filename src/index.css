@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #e6ecf5;
+  --color-primary-100: #b3c4e0;
+  --color-primary-200: #809bcb;
+  --color-primary-300: #4d73b6;
+  --color-primary-400: #264fa1;
+  --color-primary-500: #003087;
+  --color-primary-600: #002a79;
+  --color-primary-700: #002165;
+  --color-primary-800: #001951;
+  --color-primary-900: #000f3d;
+
+  --color-secondary-50: #fde8eb;
+  --color-secondary-100: #f5b0b8;
+  --color-secondary-200: #ed7885;
+  --color-secondary-300: #d44455;
+  --color-secondary-400: #c52e42;
+  --color-secondary-500: #B22234;
+  --color-secondary-600: #9e1e2e;
+  --color-secondary-700: #831924;
+  --color-secondary-800: #68141d;
+  --color-secondary-900: #4d0f16;
+
+  --color-accent-50: #fef6e8;
+  --color-accent-100: #fce5b6;
+  --color-accent-200: #fad484;
+  --color-accent-300: #f7c352;
+  --color-accent-400: #F5A623;
+  --color-accent-500: #e59510;
+  --color-accent-600: #c47e0d;
+  --color-accent-700: #a3680a;
+  --color-accent-800: #825207;
+  --color-accent-900: #613c04;
+
+  --color-success-50: #e8f5e9;
+  --color-success-500: #2E7D32;
+  --color-success-600: #256b29;
+
+  --color-warning-50: #fff8e1;
+  --color-warning-500: #F5A623;
+
+  --color-danger-50: #fdecea;
+  --color-danger-500: #B22234;
+
+  --color-surface: #F8F9FB;
+  --color-card: #FFFFFF;
+  --color-text: #1A1A2E;
+  --color-text-light: #5A5A7A;
+  --color-border: #E2E4EA;
+
+  --font-heading: 'Merriweather', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    @apply antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200;
+    background-color: var(--color-primary-500);
+    font-family: var(--font-body);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-primary-600);
+    @apply shadow-md -translate-y-0.5;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200;
+    background-color: var(--color-secondary-500);
+    color: white;
+    font-family: var(--font-body);
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-secondary-600);
+    @apply shadow-md -translate-y-0.5;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border-2 px-5 py-2.5 text-sm font-semibold transition-all duration-200;
+    border-color: var(--color-primary-500);
+    color: var(--color-primary-500);
+    font-family: var(--font-body);
+  }
+  .btn-outline:hover {
+    background-color: var(--color-primary-500);
+    color: white;
+  }
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-bold shadow-sm transition-all duration-200;
+    background-color: var(--color-accent-400);
+    color: var(--color-primary-900);
+    font-family: var(--font-body);
+  }
+  .btn-accent:hover {
+    background-color: var(--color-accent-500);
+    @apply shadow-md -translate-y-0.5;
+  }
+  .card {
+    @apply rounded-xl bg-white p-6 shadow-sm transition-all duration-200;
+    border: 1px solid var(--color-border);
+  }
+  .card:hover {
+    @apply shadow-lg -translate-y-1;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    font-family: var(--font-body);
+  }
+  .badge-easy { background-color: var(--color-success-50); color: var(--color-success-500); }
+  .badge-moderate { background-color: var(--color-warning-50); color: var(--color-accent-700); }
+  .badge-complex { background-color: var(--color-danger-50); color: var(--color-danger-500); }
+  .badge-time {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium;
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-600);
+  }
+  .section-title {
+    @apply text-3xl font-bold tracking-tight;
+    color: var(--color-text);
+    font-family: var(--font-heading);
+  }
+  .page-container {
+    @apply mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8;
+  }
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+@keyframes typing {
+  0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+  30% { opacity: 1; transform: scale(1); }
+}
+.typing-dot {
+  @apply inline-block w-2 h-2 rounded-full;
+  background-color: var(--color-primary-400);
+  animation: typing 1.4s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(178,34,52,0.5); }
+  50% { box-shadow: 0 0 12px 4px rgba(178,34,52,0.3); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-primary-200); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary-400); }
+
+/* Print */
+@media print {
+  nav, footer, .no-print { display: none !important; }
+  .card { box-shadow: none !important; border: 1px solid #ccc; }
+  body { background: white; }
+}
