@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Send, Trash2, Download, Key, AlertCircle, MessageSquare } from 'lucide-react';
+import { Send, Trash2, Download, AlertCircle, MessageSquare } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useChatContext } from '../context/ChatContext';
 import { exportChatToPdf } from '../utils/chatApi';
@@ -12,10 +12,6 @@ export default function Chat() {
   const { t } = useLanguage();
   const { messages, isLoading, error, sendMessage, clearChat } = useChatContext();
   const [input, setInput] = useState('');
-  const [apiKey, setApiKey] = useState(() => {
-    try { return localStorage.getItem('immigrationiq-api-key') || import.meta.env.VITE_ANTHROPIC_API_KEY || ''; } catch { return import.meta.env.VITE_ANTHROPIC_API_KEY || ''; }
-  });
-  const [showKeyInput, setShowKeyInput] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const [searchParams] = useSearchParams();
@@ -23,11 +19,10 @@ export default function Chat() {
   // Handle pre-loaded query from URL
   useEffect(() => {
     const q = searchParams.get('q');
-    if (q && apiKey && messages.length === 0) {
-      sendMessage(q, apiKey);
-    } else if (q && !apiKey) {
+    if (q && messages.length === 0) {
+      sendMessage(q);
+    } else if (q) {
       setInput(q);
-      setShowKeyInput(true);
     }
   }, []);
 
@@ -38,25 +33,11 @@ export default function Chat() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!input.trim()) return;
-    if (!apiKey) {
-      setShowKeyInput(true);
-      return;
-    }
+    if (!input.trim() || isLoading) return;
     const msg = input;
     setInput('');
-    await sendMessage(msg, apiKey);
+    await sendMessage(msg);
     inputRef.current?.focus();
-  };
-
-  const handleSaveKey = () => {
-    try { localStorage.setItem('immigrationiq-api-key', apiKey); } catch {}
-    setShowKeyInput(false);
-    if (input.trim()) {
-      const msg = input;
-      setInput('');
-      sendMessage(msg, apiKey);
-    }
   };
 
   const suggestions = [t('chatSuggestion1'), t('chatSuggestion2'), t('chatSuggestion3')];
@@ -70,9 +51,6 @@ export default function Chat() {
           <p className="text-xs" style={{ color: 'var(--color-text-light)' }}>{t('chatSubtitle')}</p>
         </div>
         <div className="flex gap-2 no-print">
-          <button onClick={() => setShowKeyInput(!showKeyInput)} className="p-2 rounded-lg hover:bg-gray-100 transition" title="API Key">
-            <Key className="h-4 w-4" style={{ color: apiKey ? 'var(--color-success-500)' : 'var(--color-text-light)' }} />
-          </button>
           {messages.length > 0 && (
             <>
               <button onClick={() => exportChatToPdf(messages)} className="p-2 rounded-lg hover:bg-gray-100 transition" title="Export PDF">
@@ -85,25 +63,6 @@ export default function Chat() {
           )}
         </div>
       </div>
-
-      {/* API Key Input */}
-      {showKeyInput && (
-        <div className="px-4 py-3 border-b" style={{ backgroundColor: 'var(--color-primary-50)', borderColor: 'var(--color-border)' }}>
-          <p className="text-xs font-medium mb-2" style={{ color: 'var(--color-primary-700)' }}>Enter your Anthropic API key to use the AI assistant:</p>
-          <div className="flex gap-2">
-            <input
-              type="password"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              placeholder="sk-ant-..."
-              className="flex-1 rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
-              style={{ borderColor: 'var(--color-border)', fontFamily: 'var(--font-mono)' }}
-            />
-            <button onClick={handleSaveKey} className="btn-primary text-sm">Save</button>
-          </div>
-          <p className="text-[10px] mt-1" style={{ color: 'var(--color-text-light)' }}>Your key is stored locally and never sent to our servers.</p>
-        </div>
-      )}
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6" style={{ backgroundColor: 'var(--color-surface)' }}>
@@ -122,10 +81,7 @@ export default function Chat() {
               {suggestions.map((s, i) => (
                 <button
                   key={i}
-                  onClick={() => {
-                    if (!apiKey) { setInput(s); setShowKeyInput(true); }
-                    else { sendMessage(s, apiKey); }
-                  }}
+                  onClick={() => sendMessage(s)}
                   className="rounded-full border px-4 py-2 text-sm transition-colors hover:bg-white hover:shadow-sm"
                   style={{ borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
                 >

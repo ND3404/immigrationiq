@@ -24,7 +24,7 @@ export function ChatProvider({ children }) {
     }
   }, [messages]);
 
-  const sendMessage = useCallback(async (content, apiKey) => {
+  const sendMessage = useCallback(async (content) => {
     setError(null);
 
     const userMessage = {
@@ -33,32 +33,25 @@ export function ChatProvider({ children }) {
       timestamp: Date.now(),
     };
 
-    setMessages((prev) => {
-      const updated = [...prev, userMessage];
-      // Build API messages (role + content only) for the request
-      return updated;
-    });
+    setMessages((prev) => [...prev, userMessage]);
 
     setIsLoading(true);
 
     try {
       // We need the latest messages including the new user message for the API call.
-      // Use a state-reading pattern to get the current value.
       let apiMessages;
       setMessages((prev) => {
         apiMessages = prev.map(({ role, content }) => ({ role, content }));
         return prev; // no change, just reading
       });
 
-      // Small delay to ensure state setter above runs
       await new Promise((r) => setTimeout(r, 0));
 
-      // If apiMessages wasn't captured (edge case), build from scratch
       if (!apiMessages) {
         apiMessages = [{ role: 'user', content }];
       }
 
-      const responseText = await apiSendMessage(apiMessages, apiKey);
+      const responseText = await apiSendMessage(apiMessages);
 
       const assistantMessage = {
         role: 'assistant',

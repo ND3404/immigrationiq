@@ -1,49 +1,32 @@
-const SYSTEM_PROMPT = `You are an expert U.S. immigration assistant with deep knowledge of USCIS, DOS, and immigration law. Provide accurate, up-to-date guidance. Always clarify you are not a lawyer and recommend consulting one for legal advice. Be empathetic, clear, and thorough. When referencing official information, mention the relevant USCIS or DOS website. Format your responses with clear structure using markdown when helpful.`;
-
 /**
- * Send a message to the Claude API via the Vite proxy.
+ * Send a message to the serverless API proxy.
+ * The API key is kept server-side — never exposed to the browser.
  * @param {Array<{role: string, content: string}>} messages - Conversation history
- * @param {string} apiKey - Anthropic API key
  * @returns {Promise<string>} The assistant's response text
  */
-export async function sendMessage(messages, apiKey) {
+export async function sendMessage(messages) {
   try {
-    const response = await fetch('/api/v1/messages', {
+    const response = await fetch('/api/chat', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1024,
-        system: SYSTEM_PROMPT,
         messages: messages.map(({ role, content }) => ({ role, content })),
       }),
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      const errorMessage =
-        errorData?.error?.message || `API request failed with status ${response.status}`;
+      const errorMessage = errorData?.error || `API request failed with status ${response.status}`;
       throw new Error(errorMessage);
     }
 
     const data = await response.json();
 
-    // Extract text from the response content blocks
-    const text = data.content
-      ?.filter((block) => block.type === 'text')
-      .map((block) => block.text)
-      .join('');
-
-    if (!text) {
+    if (!data.text) {
       throw new Error('No text content in API response');
     }
 
-    return text;
+    return data.text;
   } catch (error) {
     if (error.name === 'TypeError' && error.message.includes('fetch')) {
       throw new Error('Network error. Please check your internet connection and try again.');
