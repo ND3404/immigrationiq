@@ -32,7 +32,7 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-sonnet-4-20250514',
         max_tokens: 1024,
         system: SYSTEM_PROMPT,
         messages: sanitizedMessages,
@@ -42,6 +42,11 @@ export default async function handler(req, res) {
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       const errorMessage = errorData?.error?.message || `Anthropic API error: ${response.status}`;
+      console.error('Anthropic upstream error', {
+        status: response.status,
+        type: errorData?.error?.type,
+        message: errorMessage,
+      });
       return res.status(response.status).json({ error: errorMessage });
     }
 
