@@ -18,7 +18,7 @@ const toolsDropdownItems = [
   { to: '/processing-times', key: 'processingTimes', icon: Clock, desc: 'Check USCIS times' },
   { to: '/checklist', key: 'checklist', icon: FileCheck, desc: 'Document checklists' },
   { to: '/glossary', key: 'glossary', icon: BookOpen, desc: 'Immigration terms' },
-  { href: 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html', key: 'visaBulletin', icon: CalendarDays, desc: 'Monthly DOS bulletin', external: true },
+  { to: '/visa-bulletin', key: 'visaBulletin', icon: CalendarDays, desc: 'Final action & filing dates' },
 ];
 
 export default function Navbar() {

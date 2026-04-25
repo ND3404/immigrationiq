@@ -256,14 +256,19 @@ export default function Home() {
                 Family — {bulletin.uscisFilingChart.family === 'datesForFiling' ? 'Dates for Filing' : 'Final Action Dates'};{' '}
                 Employment — {bulletin.uscisFilingChart.employment === 'datesForFiling' ? 'Dates for Filing' : 'Final Action Dates'}.
               </p>
-              <a
-                href={bulletin.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-accent no-underline inline-flex items-center gap-2"
-              >
-                {t('visaBulletinCta')} <ExternalLink className="h-4 w-4" />
-              </a>
+              <div className="flex flex-wrap gap-2">
+                <Link to="/visa-bulletin" className="btn-accent no-underline inline-flex items-center gap-2">
+                  Open Bulletin Dashboard <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a
+                  href={bulletin.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white no-underline inline-flex items-center gap-2 hover:bg-white/10"
+                >
+                  Official Source <ExternalLink className="h-4 w-4" />
+                </a>
+              </div>
             </div>
 
             {/* Right: snapshot + priority date explainer */}
