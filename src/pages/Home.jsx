@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, ArrowRight, MessageSquare, FileCheck, Clock, Scale, Compass, Shield, Zap, CalendarDays, ExternalLink, Info } from 'lucide-react';
+import {
+  Search, ArrowRight, MessageSquare, FileCheck, Clock, Scale, Compass, Shield, Zap,
+  CalendarDays, ExternalLink, Info, Sparkles, Newspaper,
+} from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { categories } from '../data/categories';
 import { newsItems } from '../data/news';
+import { currentVisaBulletin } from '../data/visaBulletin';
 import CategoryCard from '../components/immigration/CategoryCard';
 import NewsCard from '../components/shared/NewsCard';
 
@@ -14,19 +18,47 @@ const quickAccessItems = [
   { icon: FileCheck, label: 'Checklist', to: '/checklist', color: 'var(--color-success-500)' },
 ];
 
+const chatPrompts = [
+  'How do I apply for a green card through marriage?',
+  'What are the H-1B requirements for FY 2027?',
+  'How long does naturalization take in 2026?',
+  'Can I file Adjustment of Status under the May 2026 visa bulletin?',
+];
+
+const HEADLINE_TERRACOTTA = '#C75B45';
+
 export default function Home() {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
+  const [chatInput, setChatInput] = useState('');
 
-  const popularCategories = categories.filter(c => ['h1b', 'family-based', 'naturalization', 'marriage-green-card', 'f1', 'b1-b2', 'daca', 'eb2'].includes(c.id));
+  const popularCategories = categories.filter(c =>
+    ['h1b', 'family-based', 'naturalization', 'marriage-green-card', 'f1', 'b1-b2', 'daca', 'eb2'].includes(c.id)
+  );
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchValue.trim()) {
-      navigate(`/chat?q=${encodeURIComponent(searchValue)}`);
-    }
+    if (searchValue.trim()) navigate(`/chat?q=${encodeURIComponent(searchValue)}`);
   };
+
+  const handleChatStart = (e) => {
+    e.preventDefault();
+    const q = chatInput.trim();
+    navigate(q ? `/chat?q=${encodeURIComponent(q)}` : '/chat');
+  };
+
+  const bulletin = currentVisaBulletin;
+  const eb = bulletin.employment.finalActionDates;
+  const fam = bulletin.family[bulletin.uscisFilingChart.family];
+  const snapshotRows = [
+    { label: 'EB-1 (India)', value: eb.EB1.india },
+    { label: 'EB-2 (India)', value: eb.EB2.india },
+    { label: 'EB-3 (Worldwide)', value: eb.EB3.all },
+    { label: 'EB-5 Unreserved (China)', value: eb.EB5_UNRESERVED.china },
+    { label: 'F2A (Worldwide)', value: fam.F2A.all },
+    { label: 'F4 (Philippines)', value: fam.F4.philippines },
+  ];
 
   return (
     <div>
@@ -65,8 +97,70 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Ask ImmigrationIQ — primary AI Chat CTA, just below hero */}
+      <section className="page-container -mt-10 relative z-10">
+        <div
+          className="rounded-2xl p-6 sm:p-8 shadow-xl"
+          style={{
+            background: 'linear-gradient(135deg, #ffffff 0%, var(--color-primary-50) 100%)',
+            border: '1px solid var(--color-primary-100)',
+          }}
+        >
+          <div className="flex flex-col lg:flex-row lg:items-center gap-6">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 mb-3" style={{ backgroundColor: 'var(--color-primary-50)', color: 'var(--color-primary-600)' }}>
+                <Sparkles className="h-3.5 w-3.5" />
+                <span className="text-xs font-semibold uppercase tracking-wide">AI Assistant</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
+                Ask ImmigrationIQ — Your AI Immigration Assistant
+              </h2>
+              <p className="text-base mb-5" style={{ color: 'var(--color-text-light)' }}>
+                Get instant answers to your U.S. immigration questions.
+              </p>
+
+              <form onSubmit={handleChatStart} className="flex gap-2">
+                <input
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  placeholder="Ask anything — visas, green cards, citizenship…"
+                  className="flex-1 rounded-full border bg-white px-5 py-3 text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
+                  style={{ borderColor: 'var(--color-border)', fontFamily: 'var(--font-body)' }}
+                />
+                <button type="submit" className="btn-primary rounded-full px-5 whitespace-nowrap">
+                  <MessageSquare className="h-4 w-4" /> Start Chat
+                </button>
+              </form>
+
+              <div className="flex flex-wrap gap-2 mt-4">
+                {chatPrompts.map((p) => (
+                  <Link
+                    key={p}
+                    to={`/chat?q=${encodeURIComponent(p)}`}
+                    className="rounded-full border bg-white px-3 py-1.5 text-xs no-underline transition hover:shadow-sm"
+                    style={{ borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
+                  >
+                    {p}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="hidden lg:flex lg:w-72 flex-col items-center justify-center rounded-xl p-6 text-center"
+              style={{ background: 'linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-500) 100%)' }}
+            >
+              <MessageSquare className="h-10 w-10 text-white mb-3" />
+              <p className="text-white text-sm leading-relaxed">
+                Trained on USCIS guidance, visa bulletins, and immigration law — available 24/7 in English &amp; Spanish.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Quick Access Cards */}
-      <section className="page-container -mt-8 relative z-10">
+      <section className="page-container">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {quickAccessItems.map(({ icon: Icon, label, to, color }) => (
             <Link key={to} to={to} className="card flex items-center gap-3 no-underline hover:shadow-lg">
@@ -75,6 +169,29 @@ export default function Home() {
               </div>
               <span className="font-semibold text-sm" style={{ color: 'var(--color-text)' }}>{label}</span>
             </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Latest Immigration News */}
+      <section className="page-container">
+        <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+          <div className="flex items-center gap-2">
+            <Newspaper className="h-6 w-6" style={{ color: HEADLINE_TERRACOTTA }} />
+            <h2 className="section-title m-0" style={{ color: HEADLINE_TERRACOTTA }}>
+              Latest Immigration News
+            </h2>
+          </div>
+          <Link to="/news" className="btn-outline text-sm no-underline">
+            {t('viewAll')} <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+        <p className="-mt-3 mb-6 text-sm" style={{ color: 'var(--color-text-light)' }}>
+          The latest U.S. immigration headlines — USCIS policy, visa bulletins, executive orders, and court decisions.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {newsItems.slice(0, 6).map(item => (
+            <NewsCard key={item.id} item={item} />
           ))}
         </div>
       </section>
@@ -114,21 +231,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Recent News */}
-      <section className="page-container">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="section-title">{t('recentNews')}</h2>
-          <Link to="/news" className="btn-outline text-sm no-underline">
-            {t('viewAll')} <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {newsItems.slice(0, 3).map(item => (
-            <NewsCard key={item.id} item={item} />
-          ))}
-        </div>
-      </section>
-
       {/* Visa Bulletin */}
       <section className="page-container">
         <div className="card p-0 overflow-hidden">
@@ -143,16 +245,19 @@ export default function Home() {
                   <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>
                     {t('visaBulletinTitle')}
                   </h2>
-                  <p className="text-sm text-blue-200">
-                    {new Date().toLocaleString(language === 'es' ? 'es-US' : 'en-US', { month: 'long', year: 'numeric' })}
-                  </p>
+                  <p className="text-sm text-blue-200">{bulletin.label}</p>
                 </div>
               </div>
-              <p className="text-sm text-blue-100 leading-relaxed mb-6">
+              <p className="text-sm text-blue-100 leading-relaxed mb-4">
                 {t('visaBulletinDesc')}
               </p>
+              <p className="text-xs text-blue-200 mb-6">
+                <strong>USCIS filing chart for {bulletin.label}:</strong>{' '}
+                Family — {bulletin.uscisFilingChart.family === 'datesForFiling' ? 'Dates for Filing' : 'Final Action Dates'};{' '}
+                Employment — {bulletin.uscisFilingChart.employment === 'datesForFiling' ? 'Dates for Filing' : 'Final Action Dates'}.
+              </p>
               <a
-                href="https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html"
+                href={bulletin.sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-accent no-underline inline-flex items-center gap-2"
@@ -160,17 +265,36 @@ export default function Home() {
                 {t('visaBulletinCta')} <ExternalLink className="h-4 w-4" />
               </a>
             </div>
-            {/* Right: priority date explainer */}
+
+            {/* Right: snapshot + priority date explainer */}
             <div className="lg:w-3/5 p-8">
               <div className="flex items-center gap-2 mb-3">
                 <Info className="h-5 w-5" style={{ color: 'var(--color-primary-500)' }} />
                 <h3 className="text-lg font-bold" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
-                  {t('visaBulletinPriorityDate')}
+                  Snapshot — {bulletin.label} Final Action Dates
                 </h3>
               </div>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-light)' }}>
-                {t('visaBulletinPriorityDateDesc')}
-              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                      <th className="text-left font-semibold py-2 pr-4" style={{ color: 'var(--color-text-light)' }}>Category</th>
+                      <th className="text-left font-semibold py-2" style={{ color: 'var(--color-text-light)' }}>Cutoff</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {snapshotRows.map((row) => (
+                      <tr key={row.label} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                        <td className="py-2 pr-4" style={{ color: 'var(--color-text)' }}>{row.label}</td>
+                        <td className="py-2 font-mono" style={{ color: row.value === 'C' ? 'var(--color-success-500)' : 'var(--color-text)' }}>
+                          {row.value}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
               <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--color-primary-50)' }}>
                   <p className="text-xs font-semibold mb-1" style={{ color: 'var(--color-primary-600)' }}>Final Action Dates</p>

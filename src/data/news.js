@@ -1,82 +1,56 @@
 export const newsItems = [
   {
     id: 1,
-    title: 'USCIS Announces New Filing Fee Schedule Effective April 2026',
-    date: '2026-03-28',
-    category: 'Fee Changes',
-    summary: 'USCIS has published a final rule adjusting filing fees across most immigration benefit categories. The I-485 fee will increase to $1,540 while N-400 will rise to $840. Fee waivers remain available for qualifying applicants.',
-    source: 'USCIS Official Notice'
+    title: 'USCIS Switches to Final Action Dates for All Employment-Based I-485 Filings in May 2026',
+    date: '2026-04-09',
+    category: 'Visa Bulletins',
+    summary: 'Beginning May 1, 2026, USCIS will require employment-based adjustment of status applicants to use the Final Action Dates chart instead of the more permissive Dates for Filing chart. April 30 is the last day many backlogged EB-2 and EB-3 applicants can file under the Dates for Filing chart. Family-sponsored applicants may continue to use Dates for Filing.',
+    source: 'USCIS / Department of State',
+    url: 'https://www.uscis.gov/green-card/green-card-processes-and-procedures/visa-availability-priority-dates/when-to-file-your-adjustment-of-status-application-for-family-sponsored-or-employment-based-124',
   },
   {
     id: 2,
-    title: 'March 2026 Visa Bulletin Shows Advancement for EB-2 India',
-    date: '2026-03-15',
+    title: 'May 2026 Visa Bulletin: F2A Advances Six Months, F4 Worldwide Moves Forward',
+    date: '2026-04-09',
     category: 'Visa Bulletins',
-    summary: 'The Department of State Visa Bulletin for March 2026 shows significant movement in the EB-2 India category, advancing the final action date by four months. EB-3 worldwide remains current while F2A shows continued backlog.',
-    source: 'Department of State'
+    summary: 'The Department of State released the May 2026 Visa Bulletin showing F2A final action dates advancing to August 1, 2024 (worldwide), and F4 worldwide moving from June 8, 2008 to September 15, 2008. EB categories largely held steady, with EB-3 Other Workers worldwide advancing from November 2021 to February 2022.',
+    source: 'Department of State',
+    url: 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/2026/visa-bulletin-for-may-2026.html',
   },
   {
     id: 3,
-    title: 'Federal Court Upholds DACA Renewal Processing',
-    date: '2026-03-10',
-    category: 'Court Decisions',
-    summary: 'The Fifth Circuit Court ruled that USCIS may continue processing DACA renewal applications while the broader legal challenge to the program continues. Initial DACA applications remain blocked pending further review.',
-    source: 'Federal Court Ruling'
+    title: 'USCIS Reaches FY 2027 H-1B Cap; Selection Process Completed',
+    date: '2026-03-31',
+    category: 'USCIS Policy',
+    summary: 'USCIS announced it has received enough electronic registrations to reach the FY 2027 H-1B cap, including the advanced-degree (Master\'s) cap. Cap-subject petitioners may begin filing on April 1, 2026, and must use the 02/27/26 edition of Form I-129. The registration fee remained $215 per beneficiary.',
+    source: 'USCIS Newsroom',
+    url: 'https://www.uscis.gov/newsroom/alerts/fy-2026-h-1b-initial-registration-selection-process-completed',
   },
   {
     id: 4,
-    title: 'USCIS Extends TPS Designation for Venezuela Through 2027',
-    date: '2026-03-01',
-    category: 'USCIS Policy',
-    summary: 'The Secretary of Homeland Security has extended Temporary Protected Status for Venezuela through March 2027. Current TPS holders must re-register during the 60-day period. An estimated 340,000 individuals are eligible.',
-    source: 'DHS Announcement'
+    title: 'DOL Proposes Major Prevailing Wage Increases for H-1B and PERM',
+    date: '2026-03-27',
+    category: 'Executive Orders',
+    summary: 'The Department of Labor published a proposed rule that would significantly raise the prevailing wage levels employers must offer for H-1B workers and employment-based green card sponsorships. If finalized, the rule could meaningfully affect Level 1 and Level 2 wage tiers across most occupations. Public comments are open through May 26, 2026.',
+    source: 'U.S. Department of Labor',
+    url: 'https://www.mondaq.com/unitedstates/work-visas/1770494/us-immigration-updates-april-2026',
   },
   {
     id: 5,
-    title: 'H-1B Registration Period Opens March 7-24 for FY2027',
-    date: '2026-02-28',
-    category: 'USCIS Policy',
-    summary: 'USCIS has announced the H-1B electronic registration period for FY2027 will open March 7 through March 24, 2026. The registration fee remains $215 per beneficiary. Lottery results expected by end of March.',
-    source: 'USCIS Official Notice'
+    title: 'Supreme Court Hears Arguments in Birthright Citizenship Case Trump v. Barbara',
+    date: '2026-04-01',
+    category: 'Court Decisions',
+    summary: 'The U.S. Supreme Court heard oral arguments in Trump v. Barbara, a challenge to the executive order seeking to end birthright citizenship for U.S.-born children of undocumented parents and certain temporary visa holders, including F-1, J-1, H-1B, and L-1 nonimmigrants. A decision is expected later this term and would have sweeping consequences for U.S.-born children of nonimmigrants.',
+    source: 'AILA / SCOTUSblog',
+    url: 'https://www.aila.org/library/featured-issue-threats-to-citizenship-and-naturalization',
   },
   {
     id: 6,
-    title: 'Executive Order Expands Premium Processing to I-539 Applications',
-    date: '2026-02-15',
-    category: 'Executive Orders',
-    summary: 'A new executive order directs USCIS to expand premium processing eligibility to I-539 change of status and extension applications. This is expected to reduce processing times for students and visitors seeking status changes.',
-    source: 'White House Executive Order'
-  },
-  {
-    id: 7,
-    title: 'USCIS Updates Policy on O-1 Visa Evidentiary Criteria',
-    date: '2026-02-01',
+    title: 'USCIS Expands Strengthened Screening and Vetting; Holds Some Asylum and DV Filings',
+    date: '2026-04-15',
     category: 'USCIS Policy',
-    summary: 'New USCIS policy guidance clarifies how adjudicators should evaluate evidence for O-1A extraordinary ability petitions, particularly regarding digital publications, open-source contributions, and online recognition metrics.',
-    source: 'USCIS Policy Manual Update'
-  },
-  {
-    id: 8,
-    title: 'Asylum Processing Times Expected to Improve with New Hires',
-    date: '2026-01-20',
-    category: 'USCIS Policy',
-    summary: 'USCIS has hired 500 new asylum officers as part of efforts to reduce the asylum backlog. The agency projects that first interview times will decrease from 4+ years to under 18 months for newly filed cases.',
-    source: 'USCIS Press Release'
-  },
-  {
-    id: 9,
-    title: 'Court Blocks Proposed Public Charge Rule Changes',
-    date: '2026-01-10',
-    category: 'Court Decisions',
-    summary: 'A federal district court has issued a nationwide preliminary injunction blocking proposed changes to the public charge rule that would have expanded the types of government benefits considered in inadmissibility determinations.',
-    source: 'Federal Court Ruling'
-  },
-  {
-    id: 10,
-    title: 'EB-5 Reform: New Rural Set-Aside Visas Showing Faster Processing',
-    date: '2026-01-05',
-    category: 'USCIS Policy',
-    summary: 'The EB-5 rural set-aside visa category created by the 2022 Reform and Integrity Act is showing significantly faster processing times than traditional EB-5, with some approvals in under 12 months. USCIS encourages investors to consider rural projects.',
-    source: 'USCIS Stakeholder Engagement'
+    summary: 'USCIS issued updated guidance expanding case-level screening for applicants from designated high-risk countries and pausing certain asylum filings, diversity visa adjustment cases, and selected naturalization oath ceremonies. Holds may be lifted on a case-by-case or group basis after enhanced vetting concludes.',
+    source: 'USCIS Newsroom',
+    url: 'https://www.uscis.gov/newsroom/alerts/update-on-uscis-strengthened-screening-and-vetting',
   },
 ];
