@@ -1,32 +1,36 @@
-name: Update Visa Bulletin
+name: Update Visa Bulletin & News
 
-# The Department of State typically publishes the next month's bulletin
-# between the 8th and the 15th. We poll once a day in that window so we
+# The Department of State publishes the next month's Visa Bulletin
+# between the 9th and the 16th. We poll once a day in that window so we
 # pick it up the morning it goes live, then stop until the next month.
+# The news fetcher runs in the same job so headlines stay fresh.
+#
+# Required secrets: only the default GITHUB_TOKEN — no extra setup.
 on:
   schedule:
-    # 14:00 UTC = 10:00 ET — daily on days 8..15 of every month
-    - cron: '0 14 8-15 * *'
+    # 12:00 UTC = 08:00 ET — daily on days 9..16 of every month
+    - cron: '0 12 9-16 * *'
   workflow_dispatch:
     inputs:
       month:
-        description: 'Month to fetch (e.g. may). Leave blank for next calendar month.'
+        description: 'Bulletin month (e.g. may). Leave blank to auto-detect latest.'
         required: false
       year:
-        description: 'Year to fetch (e.g. 2026). Leave blank for current year.'
+        description: 'Bulletin year (e.g. 2026). Leave blank for current year.'
         required: false
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
-  update-bulletin:
-    name: Fetch & open PR
+  update:
+    name: Fetch bulletin + news, commit to main
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -37,93 +41,58 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run updater
-        id: update
+      - name: Fetch visa bulletin
+        id: bulletin
         env:
           INPUT_MONTH: ${{ github.event.inputs.month }}
           INPUT_YEAR: ${{ github.event.inputs.year }}
         run: |
-          set -e
           ARGS=""
           if [ -n "$INPUT_MONTH" ]; then ARGS="$ARGS --month=$INPUT_MONTH"; fi
           if [ -n "$INPUT_YEAR"  ]; then ARGS="$ARGS --year=$INPUT_YEAR";  fi
-          # Exit code 1 = bulletin not yet published — treat as soft-success.
           set +e
-          node scripts/update-visa-bulletin.mjs $ARGS
+          node scripts/fetch-visa-bulletin.js $ARGS
           code=$?
           set -e
           if [ $code -eq 1 ]; then
-            echo "bulletin_published=false" >> "$GITHUB_OUTPUT"
             echo "::notice::Bulletin not yet published; will retry tomorrow."
+            echo "ok=skipped" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           if [ $code -ne 0 ]; then
-            echo "Updater failed with code $code"
+            echo "::error::fetch-visa-bulletin.js failed with code $code"
             exit $code
           fi
-          echo "bulletin_published=true" >> "$GITHUB_OUTPUT"
+          echo "ok=true" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch immigration news (best effort)
+        continue-on-error: true
+        run: node scripts/fetch-news.js
 
       - name: Detect changes
-        if: steps.update.outputs.bulletin_published == 'true'
         id: diff
         run: |
-          if git diff --quiet -- src/data/visaBulletin.js; then
+          if git diff --quiet -- src/data/visaBulletin.js src/data/news.js; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "changed=true"  >> "$GITHUB_OUTPUT"
           fi
 
       - name: Verify build still passes
         if: steps.diff.outputs.changed == 'true'
         run: npm run build
 
-      - name: Compute target month label
+      - name: Commit & push to main
         if: steps.diff.outputs.changed == 'true'
-        id: label
         env:
-          INPUT_MONTH: ${{ github.event.inputs.month }}
-          INPUT_YEAR: ${{ github.event.inputs.year }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [ -n "$INPUT_MONTH" ] && [ -n "$INPUT_YEAR" ]; then
-            MONTH="$INPUT_MONTH"; YEAR="$INPUT_YEAR"
-          else
-            # Default = next calendar month
-            MONTH=$(date -u -d "$(date -u +%Y-%m-01) +1 month" +%B)
-            YEAR=$(date -u  -d "$(date -u +%Y-%m-01) +1 month" +%Y)
-          fi
-          MONTH_LC=$(echo "$MONTH" | tr '[:upper:]' '[:lower:]')
-          MONTH_TC=$(echo "$MONTH_LC" | sed 's/.*/\u&/')
-          echo "month=$MONTH_TC" >> "$GITHUB_OUTPUT"
-          echo "year=$YEAR"      >> "$GITHUB_OUTPUT"
-          echo "branch=auto/visa-bulletin-${MONTH_LC}-${YEAR}" >> "$GITHUB_OUTPUT"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/visaBulletin.js src/data/news.js
+          git commit -m "chore(data): auto-update visa bulletin & news ($(date -u +%Y-%m-%d))"
+          git push origin HEAD:main
 
-      - name: Open pull request
-        if: steps.diff.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ steps.label.outputs.branch }}
-          base: main
-          commit-message: "chore(data): visa bulletin for ${{ steps.label.outputs.month }} ${{ steps.label.outputs.year }}"
-          title: "Visa Bulletin: ${{ steps.label.outputs.month }} ${{ steps.label.outputs.year }}"
-          body: |
-            Auto-generated update from `scripts/update-visa-bulletin.mjs`.
-
-            **Source:** https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/${{ steps.label.outputs.year }}/visa-bulletin-for-$(echo '${{ steps.label.outputs.month }}' | tr '[:upper:]' '[:lower:]')-${{ steps.label.outputs.year }}.html
-
-            ### Reviewer checklist
-            - [ ] Spot-check at least one row per table against the official bulletin.
-            - [ ] Confirm the `uscisFilingChart` block matches https://www.uscis.gov/visabulletininfo (the script defaults to `datesForFiling`/`finalActionDates` — adjust if USCIS specified differently).
-            - [ ] `npm run build` passes (CI already verified).
-          labels: |
-            data
-            automated
-          delete-branch: true
-
-      - name: Skip — bulletin not yet published
-        if: steps.update.outputs.bulletin_published == 'false'
-        run: echo "No bulletin available yet — exiting cleanly."
-
-      - name: Skip — no changes detected
-        if: steps.update.outputs.bulletin_published == 'true' && steps.diff.outputs.changed == 'false'
-        run: echo "Bulletin already current — no PR needed."
+      - name: Skip — nothing to commit
+        if: steps.diff.outputs.changed != 'true'
+        run: echo "No new bulletin or news content — exiting cleanly."

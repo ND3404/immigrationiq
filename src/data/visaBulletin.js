@@ -2,13 +2,73 @@
 // Source: https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html
 // Dates use the State Department's DDMMMYY format ("01JAN16"); "C" = Current, "U" = Unauthorized.
 
+// The State Dept bulletin officially lists five columns. El Salvador, Guatemala,
+// and Honduras don't have separate columns — they fall under "All Chargeability"
+// unless the bulletin explicitly carves them out (which has happened for F4
+// during retrogression years). The render layer falls back to `all` when a
+// per-row override isn't present.
 export const CHARGEABILITY_AREAS = [
-  { key: 'all', label: 'All Chargeability Areas Except Those Listed' },
-  { key: 'china', label: 'China — mainland born' },
-  { key: 'india', label: 'India' },
-  { key: 'mexico', label: 'Mexico' },
-  { key: 'philippines', label: 'Philippines' },
+  { key: 'all',         label: 'Worldwide',          shortLabel: 'Worldwide',  group: 'official', tooltip: 'All chargeability areas except those listed' },
+  { key: 'china',       label: 'China',              shortLabel: 'China',      group: 'official', tooltip: 'China — mainland born' },
+  { key: 'india',       label: 'India',              shortLabel: 'India',      group: 'official' },
+  { key: 'mexico',      label: 'Mexico',             shortLabel: 'Mexico',     group: 'official' },
+  { key: 'philippines', label: 'Philippines',        shortLabel: 'Philippines', group: 'official' },
+  { key: 'salvador',    label: 'El Salvador',        shortLabel: 'El Salvador', group: 'central-america', fallbackTo: 'all' },
+  { key: 'guatemala',   label: 'Guatemala',          shortLabel: 'Guatemala',   group: 'central-america', fallbackTo: 'all' },
+  { key: 'honduras',    label: 'Honduras',           shortLabel: 'Honduras',    group: 'central-america', fallbackTo: 'all' },
 ];
+
+/** Read a cell with chargeability fallback. */
+export function getCellValue(row, area) {
+  if (!row) return undefined;
+  const direct = row[area.key];
+  if (direct !== undefined) return direct;
+  if (area.fallbackTo) return row[area.fallbackTo];
+  return undefined;
+}
+
+// ── Date / movement helpers ───────────────────────────────────────────────
+const _MONTHS = { JAN: 0, FEB: 1, MAR: 2, APR: 3, MAY: 4, JUN: 5, JUL: 6, AUG: 7, SEP: 8, OCT: 9, NOV: 10, DEC: 11 };
+
+export function parseBulletinDate(value) {
+  if (!value || value === 'C' || value === 'U') return null;
+  const m = /^(\d{2})([A-Z]{3})(\d{2})$/.exec(value);
+  if (!m) return null;
+  const [, day, mon, yr] = m;
+  const year = Number(yr) < 50 ? 2000 + Number(yr) : 1900 + Number(yr);
+  return new Date(Date.UTC(year, _MONTHS[mon] ?? 0, Number(day)));
+}
+
+export function formatBulletinDate(value) {
+  if (value === 'C') return 'Current';
+  if (value === 'U') return 'Unauthorized';
+  const d = parseBulletinDate(value);
+  if (!d) return value || '—';
+  return d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+}
+
+/**
+ * Compares a current-bulletin cell to the previous month's cell.
+ * Returns:
+ *   { direction: 'forward' | 'backward' | 'same' | 'unknown',
+ *     days:      integer | null    (positive = advanced, negative = retrogressed),
+ *     label:     string             ('+28d', '+2mo', 'Now Current', 'Retrogressed', '') }
+ */
+export function compareBulletinCells(current, previous) {
+  if (current === undefined || previous === undefined) return { direction: 'unknown', days: null, label: '' };
+  if (current === previous) return { direction: 'same', days: 0, label: '' };
+  if (current === 'C' && previous !== 'C') return { direction: 'forward', days: null, label: 'Now Current' };
+  if (previous === 'C' && current !== 'C') return { direction: 'backward', days: null, label: 'Retrogressed' };
+  const c = parseBulletinDate(current);
+  const p = parseBulletinDate(previous);
+  if (!c || !p) return { direction: 'unknown', days: null, label: '' };
+  const days = Math.round((c.getTime() - p.getTime()) / (1000 * 60 * 60 * 24));
+  if (days === 0) return { direction: 'same', days: 0, label: '' };
+  const abs = Math.abs(days);
+  const sign = days > 0 ? '+' : '−';
+  const label = abs >= 60 ? `${sign}${Math.round(abs / 30)}mo` : `${sign}${abs}d`;
+  return { direction: days > 0 ? 'forward' : 'backward', days, label };
+}
 
 export const FAMILY_CATEGORIES = [
   { key: 'F1',  label: 'F1',  description: 'Unmarried sons & daughters of U.S. citizens' },

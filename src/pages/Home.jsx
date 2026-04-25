@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Search, ArrowRight, MessageSquare, FileCheck, Clock, Scale, Compass, Shield, Zap,
-  CalendarDays, ExternalLink, Info, Sparkles, Newspaper,
+  Sparkles, Newspaper,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { categories } from '../data/categories';
 import { newsItems } from '../data/news';
-import { currentVisaBulletin } from '../data/visaBulletin';
 import CategoryCard from '../components/immigration/CategoryCard';
 import NewsCard from '../components/shared/NewsCard';
+import VisaBulletinDashboard from '../components/immigration/VisaBulletinDashboard';
 
 const quickAccessItems = [
   { icon: MessageSquare, label: 'AI Chat', to: '/chat', color: 'var(--color-primary-500)' },
@@ -28,7 +28,7 @@ const chatPrompts = [
 const HEADLINE_TERRACOTTA = '#C75B45';
 
 export default function Home() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
   const [chatInput, setChatInput] = useState('');
@@ -47,18 +47,6 @@ export default function Home() {
     const q = chatInput.trim();
     navigate(q ? `/chat?q=${encodeURIComponent(q)}` : '/chat');
   };
-
-  const bulletin = currentVisaBulletin;
-  const eb = bulletin.employment.finalActionDates;
-  const fam = bulletin.family[bulletin.uscisFilingChart.family];
-  const snapshotRows = [
-    { label: 'EB-1 (India)', value: eb.EB1.india },
-    { label: 'EB-2 (India)', value: eb.EB2.india },
-    { label: 'EB-3 (Worldwide)', value: eb.EB3.all },
-    { label: 'EB-5 Unreserved (China)', value: eb.EB5_UNRESERVED.china },
-    { label: 'F2A (Worldwide)', value: fam.F2A.all },
-    { label: 'F4 (Philippines)', value: fam.F4.philippines },
-  ];
 
   return (
     <div>
@@ -231,98 +219,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Visa Bulletin */}
+      {/* Visa Bulletin Dashboard */}
       <section className="page-container">
-        <div className="card p-0 overflow-hidden">
-          <div className="flex flex-col lg:flex-row">
-            {/* Left: header area */}
-            <div className="lg:w-2/5 p-8" style={{ background: 'linear-gradient(135deg, var(--color-primary-800) 0%, var(--color-primary-600) 100%)' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="rounded-lg p-2.5" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}>
-                  <CalendarDays className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>
-                    {t('visaBulletinTitle')}
-                  </h2>
-                  <p className="text-sm text-blue-200">{bulletin.label}</p>
-                </div>
-              </div>
-              <p className="text-sm text-blue-100 leading-relaxed mb-4">
-                {t('visaBulletinDesc')}
-              </p>
-              <p className="text-xs text-blue-200 mb-6">
-                <strong>USCIS filing chart for {bulletin.label}:</strong>{' '}
-                Family — {bulletin.uscisFilingChart.family === 'datesForFiling' ? 'Dates for Filing' : 'Final Action Dates'};{' '}
-                Employment — {bulletin.uscisFilingChart.employment === 'datesForFiling' ? 'Dates for Filing' : 'Final Action Dates'}.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <Link to="/visa-bulletin" className="btn-accent no-underline inline-flex items-center gap-2">
-                  Open Bulletin Dashboard <ArrowRight className="h-4 w-4" />
-                </Link>
-                <a
-                  href={bulletin.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white no-underline inline-flex items-center gap-2 hover:bg-white/10"
-                >
-                  Official Source <ExternalLink className="h-4 w-4" />
-                </a>
-              </div>
-            </div>
-
-            {/* Right: snapshot + priority date explainer */}
-            <div className="lg:w-3/5 p-8">
-              <div className="flex items-center gap-2 mb-3">
-                <Info className="h-5 w-5" style={{ color: 'var(--color-primary-500)' }} />
-                <h3 className="text-lg font-bold" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
-                  Snapshot — {bulletin.label} Final Action Dates
-                </h3>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                      <th className="text-left font-semibold py-2 pr-4" style={{ color: 'var(--color-text-light)' }}>Category</th>
-                      <th className="text-left font-semibold py-2" style={{ color: 'var(--color-text-light)' }}>Cutoff</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {snapshotRows.map((row) => (
-                      <tr key={row.label} style={{ borderBottom: '1px solid var(--color-border)' }}>
-                        <td className="py-2 pr-4" style={{ color: 'var(--color-text)' }}>{row.label}</td>
-                        <td className="py-2 font-mono" style={{ color: row.value === 'C' ? 'var(--color-success-500)' : 'var(--color-text)' }}>
-                          {row.value}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--color-primary-50)' }}>
-                  <p className="text-xs font-semibold mb-1" style={{ color: 'var(--color-primary-600)' }}>Final Action Dates</p>
-                  <p className="text-xs" style={{ color: 'var(--color-text-light)' }}>
-                    {language === 'es' ? 'Fecha límite para emitir visas en un mes dado.' : 'The cutoff for when a visa can actually be issued in a given month.'}
-                  </p>
-                </div>
-                <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--color-accent-50)' }}>
-                  <p className="text-xs font-semibold mb-1" style={{ color: 'var(--color-accent-600)' }}>Dates for Filing</p>
-                  <p className="text-xs" style={{ color: 'var(--color-text-light)' }}>
-                    {language === 'es' ? 'Fecha más temprana para presentar tu solicitud de ajuste de estatus.' : 'The earliest date you can submit your adjustment of status application.'}
-                  </p>
-                </div>
-                <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--color-success-50)' }}>
-                  <p className="text-xs font-semibold mb-1" style={{ color: 'var(--color-success-500)' }}>"C" = Current</p>
-                  <p className="text-xs" style={{ color: 'var(--color-text-light)' }}>
-                    {language === 'es' ? 'No hay espera — puedes proceder con tu solicitud inmediatamente.' : 'No wait — you can proceed with your application immediately.'}
-                  </p>
-                </div>
-              </div>
-            </div>
+        <div className="flex items-end justify-between mb-4 flex-wrap gap-2">
+          <div>
+            <h2 className="section-title m-0">Visa Bulletin Dashboard</h2>
+            <p className="text-sm mt-1" style={{ color: 'var(--color-text-light)' }}>
+              Track Final Action Dates and Dates for Filing for the most popular family- and employment-based categories.
+            </p>
           </div>
+          <Link to="/visa-bulletin" className="btn-outline text-sm no-underline">
+            Full Page View <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
+        <VisaBulletinDashboard />
       </section>
     </div>
   );
