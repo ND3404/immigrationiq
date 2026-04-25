@@ -36,7 +36,7 @@ function apiChatPlugin() {
               'anthropic-version': '2023-06-01',
             },
             body: JSON.stringify({
-              model: 'claude-sonnet-4-20250514',
+              model: 'claude-3-5-sonnet-20241022',
               max_tokens: 1024,
               system: 'You are an expert U.S. immigration assistant with deep knowledge of USCIS, DOS, and immigration law. Provide accurate, up-to-date guidance. Always clarify you are not a lawyer and recommend consulting one for legal advice. Be empathetic, clear, and thorough. When referencing official information, mention the relevant USCIS or DOS website. Format your responses with clear structure using markdown when helpful.',
               messages: messages.map(({ role, content }) => ({ role, content })),
