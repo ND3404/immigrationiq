@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { sendMessage as apiSendMessage } from '../utils/chatApi';
 import { saveChatHistory, loadChatHistory, clearChatHistory as storageClearChat } from '../utils/storage';
+import { DAILY_LIMIT, getRemaining, isLimitReached, incrementUsage } from '../utils/rateLimit';
 import { useLanguage } from './LanguageContext';
 
 const ChatContext = createContext(null);
@@ -10,6 +11,7 @@ export function ChatProvider({ children }) {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [remaining, setRemaining] = useState(() => getRemaining());
 
   // Load chat history from localStorage on mount
   useEffect(() => {
@@ -28,6 +30,12 @@ export function ChatProvider({ children }) {
 
   const sendMessage = useCallback(async (content) => {
     setError(null);
+
+    if (isLimitReached()) {
+      setRemaining(0);
+      setError(t('chatRateLimitReached').replace('{limit}', DAILY_LIMIT));
+      return;
+    }
 
     const userMessage = {
       role: 'user',
@@ -61,6 +69,7 @@ export function ChatProvider({ children }) {
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
+      setRemaining(incrementUsage());
     } catch (err) {
       setError(err.message || t('chatErrorGeneric'));
     } finally {
@@ -85,11 +94,13 @@ export function ChatProvider({ children }) {
       messages,
       isLoading,
       error,
+      remaining,
+      dailyLimit: DAILY_LIMIT,
       sendMessage,
       clearChat,
       loadHistory,
     }),
-    [messages, isLoading, error, sendMessage, clearChat, loadHistory]
+    [messages, isLoading, error, remaining, sendMessage, clearChat, loadHistory]
   );
 
   return (

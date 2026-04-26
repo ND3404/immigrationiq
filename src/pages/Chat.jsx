@@ -10,7 +10,8 @@ import DisclaimerBanner from '../components/shared/DisclaimerBanner';
 
 export default function Chat() {
   const { t, language } = useLanguage();
-  const { messages, isLoading, error, sendMessage, clearChat } = useChatContext();
+  const { messages, isLoading, error, remaining, dailyLimit, sendMessage, clearChat } = useChatContext();
+  const limitReached = remaining <= 0;
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -39,7 +40,7 @@ export default function Chat() {
 
   const handleSubmit = async (e) => {
     e?.preventDefault();
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isLoading || limitReached) return;
     const msg = input;
     setInput('');
     await sendMessage(msg);
@@ -186,7 +187,7 @@ export default function Chat() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={t('chatPlaceholder')}
-              disabled={isLoading}
+              disabled={isLoading || limitReached}
               className="flex-1 resize-none bg-transparent outline-none disabled:opacity-50"
               style={{
                 fontFamily: 'var(--font-body)',
@@ -199,7 +200,7 @@ export default function Chat() {
             />
             <button
               type="submit"
-              disabled={isLoading || !input.trim()}
+              disabled={isLoading || !input.trim() || limitReached}
               className="btn-primary rounded-xl px-5 py-3 disabled:opacity-40 disabled:cursor-not-allowed"
               aria-label={t('chatSendAria')}
               style={{ minHeight: '48px' }}
@@ -208,14 +209,22 @@ export default function Chat() {
               <span className="hidden sm:inline ml-1.5 font-semibold">{t('chatSend')}</span>
             </button>
           </div>
-          <p className="text-[11px] mt-2 text-center" style={{ color: 'var(--color-text-light)' }}>
-            {t('chatHintBefore')}{' '}
-            <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>{t('chatHintEnterKey')}</kbd>{' '}
-            {t('chatHintEnter')} ·{' '}
-            <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>{t('chatHintShift')}</kbd>+
-            <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>{t('chatHintEnterKey')}</kbd>{' '}
-            {t('chatHintNewLine')}
-          </p>
+          <div className="flex items-center justify-between gap-3 mt-2 flex-wrap">
+            <p className="text-[11px]" style={{ color: 'var(--color-text-light)' }}>
+              {t('chatHintBefore')}{' '}
+              <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>{t('chatHintEnterKey')}</kbd>{' '}
+              {t('chatHintEnter')} ·{' '}
+              <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>{t('chatHintShift')}</kbd>+
+              <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>{t('chatHintEnterKey')}</kbd>{' '}
+              {t('chatHintNewLine')}
+            </p>
+            <p
+              className="text-[11px] font-semibold"
+              style={{ color: limitReached ? 'var(--color-secondary-500)' : 'var(--color-text-light)' }}
+            >
+              {t('chatRemaining').replace('{count}', remaining).replace('{limit}', dailyLimit)}
+            </p>
+          </div>
         </div>
       </form>
     </div>
