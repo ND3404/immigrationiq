@@ -24,7 +24,7 @@ const toolsDropdownItems = [
 function LanguageToggle({ language, setLanguage, t, size = 'sm' }) {
   const isLg = size === 'lg';
   const baseBtn = 'inline-flex items-center justify-center font-bold transition-colors';
-  const sizing = isLg ? 'px-3.5 py-1.5 text-sm' : 'px-2.5 py-1 text-xs';
+  const sizing = isLg ? 'px-3.5 py-2 text-sm min-h-[40px]' : 'px-2.5 py-1 text-xs';
   return (
     <div
       role="group"
@@ -32,7 +32,7 @@ function LanguageToggle({ language, setLanguage, t, size = 'sm' }) {
       className="inline-flex items-center rounded-full border bg-white overflow-hidden"
       style={{ borderColor: 'var(--color-border)' }}
     >
-      <span className={`pl-2.5 pr-1 flex items-center ${isLg ? 'py-1.5' : 'py-1'}`} aria-hidden="true">
+      <span className={`pl-2.5 pr-1 flex items-center ${isLg ? 'py-2' : 'py-1'}`} aria-hidden="true">
         <Globe className={isLg ? 'h-4 w-4' : 'h-3.5 w-3.5'} style={{ color: 'var(--color-text-light)' }} />
       </span>
       <button
@@ -162,10 +162,10 @@ export default function Navbar() {
             {/* Mobile menu toggle */}
             <button
               onClick={() => setOpen(!open)}
-              className="lg:hidden rounded-md p-2 hover:bg-gray-100"
+              className="lg:hidden rounded-md p-2.5 hover:bg-gray-100 min-h-[44px] min-w-[44px] inline-flex items-center justify-center"
               aria-label={open ? t('closeMenu') : t('openMenu')}
             >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
@@ -181,7 +181,7 @@ export default function Navbar() {
                 to={to}
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
-                  `block rounded-md px-3 py-2 text-sm font-medium transition ${isActive ? 'bg-[var(--color-primary-50)] text-[var(--color-primary-600)]' : 'text-[var(--color-text)] hover:bg-gray-50'}`
+                  `flex items-center rounded-md px-3 py-3 min-h-[44px] text-base font-medium transition ${isActive ? 'bg-[var(--color-primary-50)] text-[var(--color-primary-600)]' : 'text-[var(--color-text)] hover:bg-gray-50'}`
                 }
                 end={to === '/'}
               >
@@ -192,10 +192,10 @@ export default function Navbar() {
             {/* Mobile Tools section */}
             <button
               onClick={() => setMobileToolsOpen(!mobileToolsOpen)}
-              className="w-full flex items-center justify-between rounded-md px-3 py-2 text-sm font-medium transition text-[var(--color-text)] hover:bg-gray-50"
+              className="w-full flex items-center justify-between rounded-md px-3 py-3 min-h-[44px] text-base font-medium transition text-[var(--color-text)] hover:bg-gray-50"
             >
               {t('tools')}
-              <ChevronDown className={`h-4 w-4 transition-transform ${mobileToolsOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`h-5 w-5 transition-transform ${mobileToolsOpen ? 'rotate-180' : ''}`} />
             </button>
             {mobileToolsOpen && (
               <div className="pl-4 space-y-1">
@@ -205,7 +205,7 @@ export default function Navbar() {
                     to={to}
                     onClick={() => setOpen(false)}
                     className={({ isActive }) =>
-                      `flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition ${isActive ? 'bg-[var(--color-primary-50)] text-[var(--color-primary-600)]' : 'text-[var(--color-text)] hover:bg-gray-50'}`
+                      `flex items-center gap-2 rounded-md px-3 py-3 min-h-[44px] text-base font-medium transition ${isActive ? 'bg-[var(--color-primary-50)] text-[var(--color-primary-600)]' : 'text-[var(--color-text)] hover:bg-gray-50'}`
                     }
                   >
                     <Icon className="h-4 w-4" style={{ color: 'var(--color-primary-400)' }} />

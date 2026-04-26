@@ -97,9 +97,10 @@ export default function Chat() {
             <button
               onClick={handleNewChat}
               disabled={messages.length === 0}
-              className="inline-flex items-center gap-1.5 rounded-full px-3 sm:px-4 py-2 text-sm font-semibold border transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50"
+              className="inline-flex items-center justify-center gap-1.5 rounded-full px-3 sm:px-4 py-2 min-h-[44px] min-w-[44px] text-sm font-semibold border transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50"
               style={{ borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
               title={t('chatNewChatTitle')}
+              aria-label={t('chatNewChat')}
             >
               <Plus className="h-4 w-4" />
               <span className="hidden sm:inline">{t('chatNewChat')}</span>
@@ -107,11 +108,11 @@ export default function Chat() {
             {messages.length > 0 && (
               <button
                 onClick={handleExport}
-                className="p-2 rounded-full hover:bg-gray-100 transition"
+                className="rounded-full hover:bg-gray-100 transition inline-flex items-center justify-center min-h-[44px] min-w-[44px]"
                 title={t('chatExportPdf')}
                 aria-label={t('chatExportPdf')}
               >
-                <Download className="h-4 w-4" style={{ color: 'var(--color-text-light)' }} />
+                <Download className="h-5 w-5" style={{ color: 'var(--color-text-light)' }} />
               </button>
             )}
           </div>
@@ -201,16 +202,16 @@ export default function Chat() {
             <button
               type="submit"
               disabled={isLoading || !input.trim() || limitReached}
-              className="btn-primary rounded-xl px-5 py-3 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="btn-primary rounded-xl px-4 sm:px-5 py-3 disabled:opacity-40 disabled:cursor-not-allowed"
               aria-label={t('chatSendAria')}
-              style={{ minHeight: '48px' }}
+              style={{ minHeight: '48px', minWidth: '48px' }}
             >
               <Send className="h-5 w-5" />
               <span className="hidden sm:inline ml-1.5 font-semibold">{t('chatSend')}</span>
             </button>
           </div>
           <div className="flex items-center justify-between gap-3 mt-2 flex-wrap">
-            <p className="text-[11px]" style={{ color: 'var(--color-text-light)' }}>
+            <p className="hidden sm:block text-[11px]" style={{ color: 'var(--color-text-light)' }}>
               {t('chatHintBefore')}{' '}
               <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>{t('chatHintEnterKey')}</kbd>{' '}
               {t('chatHintEnter')} ·{' '}
@@ -219,7 +220,7 @@ export default function Chat() {
               {t('chatHintNewLine')}
             </p>
             <p
-              className="text-[11px] font-semibold"
+              className="text-[11px] font-semibold ml-auto"
               style={{ color: limitReached ? 'var(--color-secondary-500)' : 'var(--color-text-light)' }}
             >
               {t('chatRemaining').replace('{count}', remaining).replace('{limit}', dailyLimit)}

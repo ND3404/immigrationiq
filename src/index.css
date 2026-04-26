@@ -74,6 +74,7 @@
     @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200;
     background-color: var(--color-primary-500);
     font-family: var(--font-body);
+    min-height: 44px;
   }
   .btn-primary:hover {
     background-color: var(--color-primary-600);
@@ -84,6 +85,7 @@
     background-color: var(--color-secondary-500);
     color: white;
     font-family: var(--font-body);
+    min-height: 44px;
   }
   .btn-secondary:hover {
     background-color: var(--color-secondary-600);
@@ -94,6 +96,7 @@
     border-color: var(--color-primary-500);
     color: var(--color-primary-500);
     font-family: var(--font-body);
+    min-height: 44px;
   }
   .btn-outline:hover {
     background-color: var(--color-primary-500);
@@ -104,6 +107,7 @@
     background-color: var(--color-accent-400);
     color: var(--color-primary-900);
     font-family: var(--font-body);
+    min-height: 44px;
   }
   .btn-accent:hover {
     background-color: var(--color-accent-500);
@@ -129,12 +133,12 @@
     color: var(--color-primary-600);
   }
   .section-title {
-    @apply text-3xl font-bold tracking-tight;
+    @apply text-2xl sm:text-3xl font-bold tracking-tight;
     color: var(--color-text);
     font-family: var(--font-heading);
   }
   .page-container {
-    @apply mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8;
+    @apply mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8;
   }
 }
 

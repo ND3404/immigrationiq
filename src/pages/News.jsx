@@ -41,7 +41,7 @@ export default function News() {
           <button
             key={cat.value}
             onClick={() => setFilter(cat.value)}
-            className="badge px-3 py-1.5 text-sm cursor-pointer transition-colors"
+            className="badge px-3 py-2 text-sm cursor-pointer transition-colors min-h-[36px]"
             style={{
               backgroundColor: filter === cat.value ? 'var(--color-primary-500)' : 'var(--color-surface)',
               color: filter === cat.value ? 'white' : 'var(--color-text)',
@@ -73,12 +73,12 @@ export default function News() {
         <p className="text-sm mb-4" style={{ color: 'var(--color-text-light)' }}>
           {t('newsSubscribeBody')}
         </p>
-        <div className="flex max-w-md mx-auto gap-2">
+        <div className="flex flex-col sm:flex-row max-w-md mx-auto gap-2">
           <input
             type="email"
             placeholder="your@email.com"
-            className="flex-1 rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
-            style={{ borderColor: 'var(--color-border)' }}
+            className="flex-1 rounded-lg border px-3 py-3 text-base sm:text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
+            style={{ borderColor: 'var(--color-border)', minHeight: '44px' }}
           />
           <button className="btn-primary text-sm">{t('newsSubscribe')}</button>
         </div>

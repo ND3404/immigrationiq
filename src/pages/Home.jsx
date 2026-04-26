@@ -62,17 +62,22 @@ export default function Home() {
             </p>
 
             {/* Search bar */}
-            <form onSubmit={handleSearch} className="mt-8 mx-auto max-w-2xl relative">
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
-                placeholder={t('searchPlaceholder')}
-                className="w-full rounded-full bg-white py-4 pl-13 pr-36 text-base shadow-xl outline-none"
-                style={{ fontFamily: 'var(--font-body)', color: 'var(--color-text)' }}
-              />
-              <Link to="/chat" className="btn-secondary absolute right-2 top-1/2 -translate-y-1/2 rounded-full no-underline">
+            <form onSubmit={handleSearch} className="mt-8 mx-auto max-w-2xl">
+              <div className="relative">
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                <input
+                  type="text"
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  placeholder={t('searchPlaceholder')}
+                  className="w-full rounded-full bg-white py-4 pl-13 pr-4 sm:pr-36 text-base shadow-xl outline-none"
+                  style={{ fontFamily: 'var(--font-body)', color: 'var(--color-text)' }}
+                />
+                <Link to="/chat" className="btn-secondary hidden sm:inline-flex absolute right-2 top-1/2 -translate-y-1/2 rounded-full no-underline">
+                  <MessageSquare className="h-4 w-4" /> {t('askAI')}
+                </Link>
+              </div>
+              <Link to="/chat" className="btn-secondary sm:hidden mt-3 w-full no-underline rounded-full">
                 <MessageSquare className="h-4 w-4" /> {t('askAI')}
               </Link>
             </form>
@@ -102,14 +107,14 @@ export default function Home() {
                 {t('homeAskSubtitle')}
               </p>
 
-              <form onSubmit={handleChatStart} className="flex gap-2">
+              <form onSubmit={handleChatStart} className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="text"
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   placeholder={t('homeAskInputPlaceholder')}
-                  className="flex-1 rounded-full border bg-white px-5 py-3 text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
-                  style={{ borderColor: 'var(--color-border)', fontFamily: 'var(--font-body)' }}
+                  className="flex-1 rounded-full border bg-white px-5 py-3 text-base sm:text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
+                  style={{ borderColor: 'var(--color-border)', fontFamily: 'var(--font-body)', minHeight: '44px' }}
                 />
                 <button type="submit" className="btn-primary rounded-full px-5 whitespace-nowrap">
                   <MessageSquare className="h-4 w-4" /> {t('startChat')}

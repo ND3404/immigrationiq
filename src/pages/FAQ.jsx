@@ -38,7 +38,7 @@ export default function FAQ() {
       <div className="flex flex-wrap justify-center gap-2 mb-6">
         <button
           onClick={() => setActiveCategory('all')}
-          className="badge px-3 py-1.5 text-sm cursor-pointer transition-colors"
+          className="badge px-3 py-2 text-sm cursor-pointer transition-colors min-h-[36px]"
           style={{
             backgroundColor: activeCategory === 'all' ? 'var(--color-primary-500)' : 'var(--color-surface)',
             color: activeCategory === 'all' ? 'white' : 'var(--color-text)',
@@ -50,7 +50,7 @@ export default function FAQ() {
           <button
             key={cat.category}
             onClick={() => setActiveCategory(cat.category)}
-            className="badge px-3 py-1.5 text-sm cursor-pointer transition-colors"
+            className="badge px-3 py-2 text-sm cursor-pointer transition-colors min-h-[36px]"
             style={{
               backgroundColor: activeCategory === cat.category ? 'var(--color-primary-500)' : 'var(--color-surface)',
               color: activeCategory === cat.category ? 'white' : 'var(--color-text)',
@@ -77,7 +77,7 @@ export default function FAQ() {
                   <div key={key} className="card p-0 overflow-hidden">
                     <button
                       onClick={() => setExpandedQ(isExpanded ? null : key)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center justify-between gap-3 px-4 py-3 min-h-[48px] text-left hover:bg-gray-50 transition-colors"
                     >
                       <span className="font-semibold text-sm pr-4" style={{ color: 'var(--color-text)' }}>{q.q}</span>
                       {isExpanded ? <ChevronUp className="h-4 w-4 flex-shrink-0" style={{ color: 'var(--color-text-light)' }} /> : <ChevronDown className="h-4 w-4 flex-shrink-0" style={{ color: 'var(--color-text-light)' }} />}

@@ -39,12 +39,12 @@ export default function Lawyers() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-6 border-b" style={{ borderColor: 'var(--color-border)' }}>
+      <div className="flex gap-1 mb-6 border-b overflow-x-auto whitespace-nowrap" style={{ borderColor: 'var(--color-border)' }}>
         {tabs.map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2.5 text-sm font-semibold transition-colors border-b-2 -mb-px ${activeTab === tab.id ? '' : 'border-transparent'}`}
+            className={`px-4 py-3 min-h-[44px] text-sm font-semibold transition-colors border-b-2 -mb-px flex-shrink-0 ${activeTab === tab.id ? '' : 'border-transparent'}`}
             style={{
               borderColor: activeTab === tab.id ? 'var(--color-primary-500)' : 'transparent',
               color: activeTab === tab.id ? 'var(--color-primary-500)' : 'var(--color-text-light)',

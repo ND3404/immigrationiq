@@ -25,10 +25,10 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>{t('footerQuickLinks')}</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               {[['/', t('home')], ['/categories', t('categories')], ['/chat', t('chat')], ['/timeline', t('timeline')], ['/checklist', t('checklist')]].map(([to, label]) => (
                 <li key={to}>
-                  <Link to={to} className="text-sm no-underline transition-colors hover:underline" style={{ color: 'var(--color-text-light)' }}>{label}</Link>
+                  <Link to={to} className="block py-2 text-sm no-underline transition-colors hover:underline" style={{ color: 'var(--color-text-light)' }}>{label}</Link>
                 </li>
               ))}
             </ul>
@@ -37,7 +37,7 @@ export default function Footer() {
           {/* Resources */}
           <div>
             <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>{t('footerOfficialResources')}</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               {[
                 ['https://www.uscis.gov', 'USCIS.gov'],
                 ['https://travel.state.gov', 'State Department'],
@@ -45,7 +45,7 @@ export default function Footer() {
                 ['https://egov.uscis.gov/processing-times', t('processingTimes')],
               ].map(([url, label]) => (
                 <li key={url}>
-                  <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm no-underline transition-colors hover:underline" style={{ color: 'var(--color-text-light)' }}>
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 py-2 text-sm no-underline transition-colors hover:underline" style={{ color: 'var(--color-text-light)' }}>
                     {label} <ExternalLink className="h-3 w-3" />
                   </a>
                 </li>

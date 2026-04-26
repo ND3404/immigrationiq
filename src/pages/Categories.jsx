@@ -30,7 +30,7 @@ export default function Categories() {
         <div className="flex flex-wrap justify-center gap-2">
           <button
             onClick={() => setFilter('all')}
-            className={`badge px-4 py-1.5 text-sm cursor-pointer transition-colors ${filter === 'all' ? '' : 'opacity-60 hover:opacity-100'}`}
+            className={`badge px-4 py-2 text-sm cursor-pointer transition-colors min-h-[36px] ${filter === 'all' ? '' : 'opacity-60 hover:opacity-100'}`}
             style={{ backgroundColor: filter === 'all' ? 'var(--color-primary-500)' : 'var(--color-surface)', color: filter === 'all' ? 'white' : 'var(--color-text)' }}
           >
             {t('all')} ({categories.length})
@@ -42,7 +42,7 @@ export default function Categories() {
               <button
                 key={ct.key}
                 onClick={() => setFilter(ct.key)}
-                className={`badge px-4 py-1.5 text-sm cursor-pointer transition-colors ${active ? '' : 'opacity-60 hover:opacity-100'}`}
+                className={`badge px-4 py-2 text-sm cursor-pointer transition-colors min-h-[36px] ${active ? '' : 'opacity-60 hover:opacity-100'}`}
                 style={{ backgroundColor: active ? 'var(--color-primary-500)' : 'var(--color-surface)', color: active ? 'white' : 'var(--color-text)' }}
               >
                 {language === 'es' ? ct.labelEs : ct.label} ({count})

@@ -43,7 +43,7 @@ export default function Glossary() {
       <div className="flex flex-wrap justify-center gap-1 mb-6">
         <button
           onClick={() => setActiveLetter(null)}
-          className={`w-7 h-7 rounded text-xs font-bold transition-colors ${!activeLetter ? 'text-white' : ''}`}
+          className={`min-w-[40px] h-10 px-2 rounded text-xs font-bold transition-colors ${!activeLetter ? 'text-white' : ''}`}
           style={{ backgroundColor: !activeLetter ? 'var(--color-primary-500)' : 'transparent', color: !activeLetter ? 'white' : 'var(--color-text-light)' }}
         >
           {t('all')}
@@ -53,7 +53,7 @@ export default function Glossary() {
             key={letter}
             onClick={() => active && setActiveLetter(activeLetter === letter ? null : letter)}
             disabled={!active}
-            className={`w-7 h-7 rounded text-xs font-bold transition-colors ${activeLetter === letter ? 'text-white' : ''} ${!active ? 'opacity-30 cursor-default' : 'cursor-pointer hover:bg-gray-100'}`}
+            className={`w-10 h-10 rounded text-sm font-bold transition-colors ${activeLetter === letter ? 'text-white' : ''} ${!active ? 'opacity-30 cursor-default' : 'cursor-pointer hover:bg-gray-100'}`}
             style={{ backgroundColor: activeLetter === letter ? 'var(--color-primary-500)' : 'transparent', color: activeLetter === letter ? 'white' : 'var(--color-text)' }}
           >
             {letter}
@@ -69,7 +69,7 @@ export default function Glossary() {
             <div key={i} className="card p-0 overflow-hidden">
               <button
                 onClick={() => setExpandedTerm(isExpanded ? null : i)}
-                className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between px-4 py-3 min-h-[48px] text-left hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-2">
                   <BookOpen className="h-4 w-4 flex-shrink-0" style={{ color: 'var(--color-primary-500)' }} />

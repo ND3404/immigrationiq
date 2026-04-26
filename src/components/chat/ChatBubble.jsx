@@ -44,14 +44,16 @@ export default function ChatBubble({ message }) {
           : <Bot className="h-5 w-5" style={{ color: 'var(--color-primary-500)' }} />}
       </div>
 
-      <div className={`max-w-[78%] sm:max-w-[72%] relative ${isUser ? 'text-right' : ''}`}>
+      <div className={`max-w-[85%] sm:max-w-[78%] min-w-0 relative ${isUser ? 'text-right' : ''}`}>
         <div
-          className={`rounded-2xl px-5 py-3.5 leading-relaxed shadow-sm ${isUser ? 'rounded-br-md text-left' : 'rounded-bl-md'}`}
+          className={`rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 leading-relaxed shadow-sm ${isUser ? 'rounded-br-md text-left' : 'rounded-bl-md'}`}
           style={{
             backgroundColor: isUser ? USER_BG : AI_BG,
             color: isUser ? '#ffffff' : 'var(--color-text)',
             fontSize: '16px',
             border: isUser ? 'none' : '1px solid var(--color-border)',
+            wordBreak: 'break-word',
+            overflowWrap: 'anywhere',
           }}
         >
           {isUser ? (
@@ -64,12 +66,12 @@ export default function ChatBubble({ message }) {
           <span className="text-[11px]" style={{ color: 'var(--color-text-light)' }}>{time}</span>
           <button
             onClick={handleCopy}
-            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-gray-100"
+            className="opacity-60 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity p-2 rounded hover:bg-gray-100 min-h-[36px] min-w-[36px] inline-flex items-center justify-center"
             aria-label={t('copyMessageAria')}
           >
             {copied
-              ? <Check className="h-3.5 w-3.5" style={{ color: 'var(--color-success-500)' }} />
-              : <Copy className="h-3.5 w-3.5" style={{ color: 'var(--color-text-light)' }} />}
+              ? <Check className="h-4 w-4" style={{ color: 'var(--color-success-500)' }} />
+              : <Copy className="h-4 w-4" style={{ color: 'var(--color-text-light)' }} />}
           </button>
         </div>
       </div>
