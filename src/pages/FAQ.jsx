@@ -28,11 +28,11 @@ export default function FAQ() {
       <div className="text-center mb-8">
         <h1 className="section-title">{t('faq')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>
-          Frequently asked questions about U.S. immigration, organized by topic.
+          {t('faqIntro')}
         </p>
       </div>
 
-      <SearchBar placeholder="Search FAQs..." onSearch={setSearch} className="max-w-lg mx-auto mb-6" />
+      <SearchBar placeholder={t('faqSearchPlaceholder')} onSearch={setSearch} className="max-w-lg mx-auto mb-6" />
 
       {/* Category filters */}
       <div className="flex flex-wrap justify-center gap-2 mb-6">
@@ -44,7 +44,7 @@ export default function FAQ() {
             color: activeCategory === 'all' ? 'white' : 'var(--color-text)',
           }}
         >
-          All
+          {t('all')}
         </button>
         {faqData.map(cat => (
           <button
@@ -90,7 +90,7 @@ export default function FAQ() {
                           className="inline-flex items-center gap-1 text-xs font-semibold mt-3 no-underline"
                           style={{ color: 'var(--color-primary-500)' }}
                         >
-                          <MessageSquare className="h-3 w-3" /> Ask follow-up
+                          <MessageSquare className="h-3 w-3" /> {t('askFollowUp')}
                         </Link>
                       </div>
                     )}
@@ -104,7 +104,7 @@ export default function FAQ() {
 
       {filteredData.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-lg" style={{ color: 'var(--color-text-light)' }}>No FAQs match your search.</p>
+          <p className="text-lg" style={{ color: 'var(--color-text-light)' }}>{t('faqNoResults')}</p>
         </div>
       )}
     </div>

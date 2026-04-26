@@ -49,7 +49,7 @@ export default function ProcessingTimes() {
       <div className="text-center mb-8">
         <h1 className="section-title">{t('processingTimes')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>
-          Estimated processing times by form and service center. Last updated: {lastUpdated}
+          {t('processingTimesIntro')} {lastUpdated}
         </p>
         <a
           href="https://egov.uscis.gov/processing-times/"
@@ -58,7 +58,7 @@ export default function ProcessingTimes() {
           className="inline-flex items-center gap-1 text-sm font-medium mt-2 no-underline"
           style={{ color: 'var(--color-primary-500)' }}
         >
-          Check real-time data at USCIS.gov <ExternalLink className="h-3 w-3" />
+          {t('processingTimesCheckRealtime')} <ExternalLink className="h-3 w-3" />
         </a>
       </div>
 
@@ -68,32 +68,32 @@ export default function ProcessingTimes() {
       <div className="card mb-6">
         <div className="flex items-center gap-2 mb-3">
           <Filter className="h-4 w-4" style={{ color: 'var(--color-primary-500)' }} />
-          <h2 className="font-bold text-sm" style={{ color: 'var(--color-text)' }}>Filters</h2>
+          <h2 className="font-bold text-sm" style={{ color: 'var(--color-text)' }}>{t('processingTimesFilters')}</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--color-text-light)' }}>Form Type</label>
+            <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--color-text-light)' }}>{t('processingTimesFormType')}</label>
             <select
               value={selectedForm}
               onChange={(e) => setSelectedForm(e.target.value)}
               className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
               style={{ borderColor: 'var(--color-border)' }}
             >
-              <option value="">All Forms</option>
+              <option value="">{t('processingTimesAllForms')}</option>
               {processingTimesData.map(f => (
                 <option key={f.form} value={f.form}>{f.form} — {f.formName}</option>
               ))}
             </select>
           </div>
           <div>
-            <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--color-text-light)' }}>Service Center</label>
+            <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--color-text-light)' }}>{t('processingTimesServiceCenter')}</label>
             <select
               value={selectedCenter}
               onChange={(e) => setSelectedCenter(e.target.value)}
               className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
               style={{ borderColor: 'var(--color-border)' }}
             >
-              <option value="all">All Centers</option>
+              <option value="all">{t('processingTimesAllCenters')}</option>
               {allCenters.map(c => (
                 <option key={c} value={c}>{c}</option>
               ))}
@@ -107,14 +107,14 @@ export default function ProcessingTimes() {
         <div className="card mb-6">
           <h3 className="font-bold text-sm mb-4 flex items-center gap-2" style={{ color: 'var(--color-text)' }}>
             <BarChart3 className="h-4 w-4" style={{ color: 'var(--color-primary-500)' }} />
-            {selectedForm} Processing Comparison (minimum months)
+            {selectedForm} — {t('processingTimesComparison')}
           </h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={chartData} layout="vertical" margin={{ left: 10, right: 30 }}>
               <XAxis type="number" tick={{ fontSize: 12 }} unit=" mo" />
               <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={100} />
               <Tooltip
-                formatter={(value, name, props) => [props.payload.fullTime, 'Processing Time']}
+                formatter={(value, name, props) => [props.payload.fullTime, t('processingTimesProcessingTime')]}
                 contentStyle={{ fontSize: 12, borderRadius: 8 }}
               />
               <Bar dataKey="months" radius={[0, 4, 4, 0]}>
@@ -140,8 +140,8 @@ export default function ProcessingTimes() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b" style={{ borderColor: 'var(--color-border)' }}>
-                    <th className="text-left px-4 py-2 font-semibold" style={{ color: 'var(--color-text)' }}>Service Center</th>
-                    <th className="text-right px-4 py-2 font-semibold" style={{ color: 'var(--color-text)' }}>Receipt to Decision</th>
+                    <th className="text-left px-4 py-2 font-semibold" style={{ color: 'var(--color-text)' }}>{t('processingTimesServiceCenter')}</th>
+                    <th className="text-right px-4 py-2 font-semibold" style={{ color: 'var(--color-text)' }}>{t('processingTimesReceiptToDecision')}</th>
                   </tr>
                 </thead>
                 <tbody>

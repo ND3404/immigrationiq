@@ -4,7 +4,14 @@ import { newsItems } from '../data/news';
 import NewsCard from '../components/shared/NewsCard';
 import SearchBar from '../components/shared/SearchBar';
 
-const newsCategories = ['All', 'USCIS Policy', 'Visa Bulletins', 'Executive Orders', 'Court Decisions', 'Fee Changes'];
+const NEWS_CATEGORIES = [
+  { value: 'All', labelKey: 'newsCatAll' },
+  { value: 'USCIS Policy', labelKey: 'newsCatUscis' },
+  { value: 'Visa Bulletins', labelKey: 'newsCatVisaBulletins' },
+  { value: 'Executive Orders', labelKey: 'newsCatExecutive' },
+  { value: 'Court Decisions', labelKey: 'newsCatCourt' },
+  { value: 'Fee Changes', labelKey: 'newsCatFee' },
+];
 
 export default function News() {
   const { t } = useLanguage();
@@ -22,25 +29,25 @@ export default function News() {
       <div className="text-center mb-8">
         <h1 className="section-title">{t('news')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>
-          Latest immigration policy updates, visa bulletins, and court decisions.
+          {t('newsIntro')}
         </p>
       </div>
 
-      <SearchBar placeholder="Search news..." onSearch={setSearch} className="max-w-lg mx-auto mb-6" />
+      <SearchBar placeholder={t('newsSearchPlaceholder')} onSearch={setSearch} className="max-w-lg mx-auto mb-6" />
 
       {/* Category filters */}
       <div className="flex flex-wrap justify-center gap-2 mb-6">
-        {newsCategories.map(cat => (
+        {NEWS_CATEGORIES.map(cat => (
           <button
-            key={cat}
-            onClick={() => setFilter(cat)}
+            key={cat.value}
+            onClick={() => setFilter(cat.value)}
             className="badge px-3 py-1.5 text-sm cursor-pointer transition-colors"
             style={{
-              backgroundColor: filter === cat ? 'var(--color-primary-500)' : 'var(--color-surface)',
-              color: filter === cat ? 'white' : 'var(--color-text)',
+              backgroundColor: filter === cat.value ? 'var(--color-primary-500)' : 'var(--color-surface)',
+              color: filter === cat.value ? 'white' : 'var(--color-text)',
             }}
           >
-            {cat}
+            {t(cat.labelKey)}
           </button>
         ))}
       </div>
@@ -54,17 +61,17 @@ export default function News() {
 
       {filtered.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-lg" style={{ color: 'var(--color-text-light)' }}>No news articles match your criteria.</p>
+          <p className="text-lg" style={{ color: 'var(--color-text-light)' }}>{t('newsNoResults')}</p>
         </div>
       )}
 
       {/* Subscribe CTA (UI only) */}
       <div className="mt-10 card text-center">
         <h3 className="font-bold text-lg mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
-          Stay Updated
+          {t('newsSubscribeTitle')}
         </h3>
         <p className="text-sm mb-4" style={{ color: 'var(--color-text-light)' }}>
-          Get immigration news and policy updates delivered to your inbox.
+          {t('newsSubscribeBody')}
         </p>
         <div className="flex max-w-md mx-auto gap-2">
           <input
@@ -73,10 +80,10 @@ export default function News() {
             className="flex-1 rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
             style={{ borderColor: 'var(--color-border)' }}
           />
-          <button className="btn-primary text-sm">Subscribe</button>
+          <button className="btn-primary text-sm">{t('newsSubscribe')}</button>
         </div>
         <p className="text-[10px] mt-2" style={{ color: 'var(--color-text-light)' }}>
-          Feature coming soon. No data is collected.
+          {t('newsSubscribeNote')}
         </p>
       </div>
     </div>

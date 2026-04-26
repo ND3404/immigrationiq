@@ -14,7 +14,7 @@ export default function Timeline() {
       <div className="text-center mb-8">
         <h1 className="section-title">{t('timeline')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>
-          Select your immigration scenario to see a detailed timeline with milestones and estimated durations.
+          {t('timelineIntro')}
         </p>
       </div>
 
@@ -22,7 +22,7 @@ export default function Timeline() {
 
       {/* Scenario Selection */}
       <div className="mb-8">
-        <h2 className="text-lg font-bold mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>Select Your Scenario</h2>
+        <h2 className="text-lg font-bold mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>{t('timelineSelectScenario')}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {timelineScenarios.map(scenario => (
             <button
@@ -52,7 +52,7 @@ export default function Timeline() {
       {selected && (
         <div className="animate-fade-in-up">
           <div className="flex items-center justify-between mb-4 no-print">
-            <h2 className="text-lg font-bold" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>Your Timeline</h2>
+            <h2 className="text-lg font-bold" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>{t('timelineYourTimeline')}</h2>
             <button onClick={() => window.print()} className="btn-outline text-sm">
               <Printer className="h-4 w-4" /> {t('print')}
             </button>

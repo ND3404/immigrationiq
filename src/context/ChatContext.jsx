@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { sendMessage as apiSendMessage } from '../utils/chatApi';
 import { saveChatHistory, loadChatHistory, clearChatHistory as storageClearChat } from '../utils/storage';
+import { useLanguage } from './LanguageContext';
 
 const ChatContext = createContext(null);
 
 export function ChatProvider({ children }) {
+  const { language, t } = useLanguage();
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -38,11 +40,10 @@ export function ChatProvider({ children }) {
     setIsLoading(true);
 
     try {
-      // We need the latest messages including the new user message for the API call.
       let apiMessages;
       setMessages((prev) => {
         apiMessages = prev.map(({ role, content }) => ({ role, content }));
-        return prev; // no change, just reading
+        return prev;
       });
 
       await new Promise((r) => setTimeout(r, 0));
@@ -51,7 +52,7 @@ export function ChatProvider({ children }) {
         apiMessages = [{ role: 'user', content }];
       }
 
-      const responseText = await apiSendMessage(apiMessages);
+      const responseText = await apiSendMessage(apiMessages, { language, t });
 
       const assistantMessage = {
         role: 'assistant',
@@ -61,11 +62,11 @@ export function ChatProvider({ children }) {
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err) {
-      setError(err.message || 'Failed to get a response. Please try again.');
+      setError(err.message || t('chatErrorGeneric'));
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [language, t]);
 
   const clearChat = useCallback(() => {
     setMessages([]);

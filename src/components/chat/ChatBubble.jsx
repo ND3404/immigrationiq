@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Copy, Check, Bot, User } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 function renderContent(text) {
   let html = text
@@ -19,6 +20,7 @@ const AI_BG = '#F1F3F5';     // light gray
 
 export default function ChatBubble({ message }) {
   const [copied, setCopied] = useState(false);
+  const { t } = useLanguage();
   const isUser = message.role === 'user';
 
   const handleCopy = async () => {
@@ -63,7 +65,7 @@ export default function ChatBubble({ message }) {
           <button
             onClick={handleCopy}
             className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-gray-100"
-            aria-label="Copy message"
+            aria-label={t('copyMessageAria')}
           >
             {copied
               ? <Check className="h-3.5 w-3.5" style={{ color: 'var(--color-success-500)' }} />

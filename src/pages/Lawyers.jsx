@@ -11,9 +11,9 @@ export default function Lawyers() {
   const [activeTab, setActiveTab] = useState('guide');
 
   const tabs = [
-    { id: 'guide', label: 'How to Choose' },
-    { id: 'resources', label: 'Find a Lawyer' },
-    { id: 'legalaid', label: 'Free Legal Aid' },
+    { id: 'guide', label: t('tabHowToChoose') },
+    { id: 'resources', label: t('tabFindLawyer') },
+    { id: 'legalaid', label: t('tabFreeLegalAid') },
   ];
 
   return (
@@ -21,7 +21,7 @@ export default function Lawyers() {
       <div className="text-center mb-8">
         <h1 className="section-title">{t('lawyers')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>
-          Find qualified immigration attorneys and learn how to protect yourself from scams.
+          {t('lawyersIntro')}
         </p>
       </div>
 
@@ -30,9 +30,9 @@ export default function Lawyers() {
         <div className="flex items-start gap-3">
           <AlertTriangle className="h-6 w-6 flex-shrink-0" style={{ color: 'var(--color-secondary-500)' }} />
           <div>
-            <h3 className="font-bold text-base mb-1" style={{ color: 'var(--color-secondary-600)' }}>Important: This is NOT a referral service</h3>
+            <h3 className="font-bold text-base mb-1" style={{ color: 'var(--color-secondary-600)' }}>{t('lawyersWarningTitle')}</h3>
             <p className="text-sm" style={{ color: 'var(--color-text)' }}>
-              Always verify an attorney's credentials independently. Only licensed attorneys and DOJ-accredited representatives can legally provide immigration services.
+              {t('lawyersWarningBody')}
             </p>
           </div>
         </div>
@@ -62,7 +62,7 @@ export default function Lawyers() {
           <div className="card">
             <h2 className="text-lg font-bold mb-3" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
               <CheckCircle className="h-5 w-5 inline mr-2" style={{ color: 'var(--color-success-500)' }} />
-              What to Look For
+              {t('whatToLookFor')}
             </h2>
             <ul className="space-y-2">
               {lawyerTips.whatToLookFor.map((tip, i) => (
@@ -78,7 +78,7 @@ export default function Lawyers() {
           <div className="card">
             <h2 className="text-lg font-bold mb-3" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
               <HelpCircle className="h-5 w-5 inline mr-2" style={{ color: 'var(--color-primary-500)' }} />
-              Questions to Ask in a Consultation
+              {t('questionsToAsk')}
             </h2>
             <ul className="space-y-2">
               {lawyerTips.questionsToAsk.map((q, i) => (
@@ -94,7 +94,7 @@ export default function Lawyers() {
           <div className="card">
             <h2 className="text-lg font-bold mb-3" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-secondary-500)' }}>
               <AlertTriangle className="h-5 w-5 inline mr-2" />
-              Red Flags / Immigration Scams
+              {t('redFlagsTitle')}
             </h2>
             <ul className="space-y-2">
               {lawyerTips.redFlags.map((flag, i) => (
@@ -107,20 +107,20 @@ export default function Lawyers() {
           </div>
 
           {/* Notario Warning */}
-          <LawyerTip title="CRITICAL WARNING: Notario Fraud" variant="warning">
+          <LawyerTip title={t('notarioWarningTitle')} variant="warning">
             <p>{lawyerTips.notarioWarning}</p>
           </LawyerTip>
 
           {/* AI Suggestion */}
           <div className="card text-center">
             <h3 className="font-bold text-base mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
-              Not sure what type of lawyer you need?
+              {t('notSureLawyerTitle')}
             </h3>
             <p className="text-sm mb-4" style={{ color: 'var(--color-text-light)' }}>
-              Describe your situation and our AI will suggest what type of immigration attorney specialty to look for.
+              {t('notSureLawyerBody')}
             </p>
             <Link to="/chat?q=I need help finding the right type of immigration lawyer. Can you ask me about my situation and recommend what specialty I should look for?" className="btn-primary no-underline">
-              <MessageSquare className="h-4 w-4" /> Describe My Situation
+              <MessageSquare className="h-4 w-4" /> {t('describeMySituation')}
             </Link>
           </div>
         </div>

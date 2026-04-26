@@ -2,34 +2,43 @@
  * Send a message to the serverless API proxy.
  * The API key is kept server-side — never exposed to the browser.
  * @param {Array<{role: string, content: string}>} messages - Conversation history
+ * @param {{ language?: string, t?: (key: string) => string }} [opts] - Localization options
  * @returns {Promise<string>} The assistant's response text
  */
-export async function sendMessage(messages) {
+export async function sendMessage(messages, opts = {}) {
+  const { language = 'en', t } = opts;
+  const tr = (key, fallback) => (typeof t === 'function' ? t(key) : fallback);
+
   try {
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         messages: messages.map(({ role, content }) => ({ role, content })),
+        language,
       }),
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      const errorMessage = errorData?.error || `API request failed with status ${response.status}`;
+      const errorMessage =
+        errorData?.error ||
+        tr('chatErrorGeneric', `API request failed with status ${response.status}`);
       throw new Error(errorMessage);
     }
 
     const data = await response.json();
 
     if (!data.text) {
-      throw new Error('No text content in API response');
+      throw new Error(tr('chatErrorNoText', 'No text content in API response'));
     }
 
     return data.text;
   } catch (error) {
     if (error.name === 'TypeError' && error.message.includes('fetch')) {
-      throw new Error('Network error. Please check your internet connection and try again.');
+      throw new Error(
+        tr('chatErrorNetwork', 'Network error. Please check your internet connection and try again.')
+      );
     }
     throw error;
   }
@@ -38,8 +47,12 @@ export async function sendMessage(messages) {
 /**
  * Export chat messages to a PDF file using html2pdf.js.
  * @param {Array<{role: string, content: string, timestamp?: number}>} messages
+ * @param {string} [language='en']
+ * @param {(key: string) => string} [t] - Translation function
  */
-export async function exportChatToPdf(messages) {
+export async function exportChatToPdf(messages, language = 'en', t) {
+  const tr = (key, fallback) => (typeof t === 'function' ? t(key) : fallback);
+  const locale = language === 'es' ? 'es-ES' : 'en-US';
   const { default: html2pdf } = await import('html2pdf.js');
 
   const container = document.createElement('div');
@@ -47,23 +60,23 @@ export async function exportChatToPdf(messages) {
   container.style.fontFamily = 'Arial, sans-serif';
   container.style.maxWidth = '800px';
 
-  // Title
   const title = document.createElement('h1');
-  title.textContent = 'ImmigrationIQ - Chat History';
+  title.textContent = tr('chatExportTitle', 'ImmigrationIQ - Chat History');
   title.style.color = '#1a365d';
   title.style.borderBottom = '2px solid #2b6cb0';
   title.style.paddingBottom = '10px';
   container.appendChild(title);
 
-  // Timestamp
   const exportDate = document.createElement('p');
-  exportDate.textContent = `Exported on ${new Date().toLocaleString()}`;
+  exportDate.textContent = `${tr('chatExportTimestamp', 'Exported on')} ${new Date().toLocaleString(locale)}`;
   exportDate.style.color = '#718096';
   exportDate.style.fontSize = '12px';
   exportDate.style.marginBottom = '20px';
   container.appendChild(exportDate);
 
-  // Messages
+  const youLabel = tr('chatExportYou', 'You');
+  const aiLabel = tr('chatExportAi', 'AI Assistant');
+
   messages.forEach((msg) => {
     const msgDiv = document.createElement('div');
     msgDiv.style.marginBottom = '16px';
@@ -73,7 +86,7 @@ export async function exportChatToPdf(messages) {
     msgDiv.style.borderLeft = `4px solid ${msg.role === 'user' ? '#3182ce' : '#48bb78'}`;
 
     const roleLabel = document.createElement('strong');
-    roleLabel.textContent = msg.role === 'user' ? 'You' : 'AI Assistant';
+    roleLabel.textContent = msg.role === 'user' ? youLabel : aiLabel;
     roleLabel.style.display = 'block';
     roleLabel.style.marginBottom = '4px';
     roleLabel.style.color = msg.role === 'user' ? '#2b6cb0' : '#276749';
@@ -81,7 +94,7 @@ export async function exportChatToPdf(messages) {
 
     if (msg.timestamp) {
       const time = document.createElement('span');
-      time.textContent = new Date(msg.timestamp).toLocaleString();
+      time.textContent = new Date(msg.timestamp).toLocaleString(locale);
       time.style.fontSize = '11px';
       time.style.color = '#a0aec0';
       time.style.display = 'block';
@@ -99,10 +112,11 @@ export async function exportChatToPdf(messages) {
     container.appendChild(msgDiv);
   });
 
-  // Disclaimer
   const disclaimer = document.createElement('p');
-  disclaimer.textContent =
-    'Disclaimer: This chat provides general information only and is not legal advice. Consult a qualified immigration attorney for your specific situation.';
+  disclaimer.textContent = tr(
+    'chatExportDisclaimer',
+    'Disclaimer: This chat provides general information only and is not legal advice. Consult a qualified immigration attorney for your specific situation.'
+  );
   disclaimer.style.marginTop = '30px';
   disclaimer.style.fontSize = '11px';
   disclaimer.style.color = '#a0aec0';

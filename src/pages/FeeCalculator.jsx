@@ -36,26 +36,28 @@ export default function FeeCalculator() {
     const items = [];
     const adultFee = visa.fee;
     const childFee = visa.childFee ?? visa.fee;
+    const adultsLabel = t('feeAdults');
+    const childrenLabel = t('feeChildren');
+    const personLabel = t('perPerson');
 
     if (adults > 0) {
-      items.push({ label: `${visa.form} — ${adults} adult${adults > 1 ? 's' : ''} × $${adultFee.toLocaleString()}`, amount: adults * adultFee });
+      items.push({ label: `${visa.form} — ${adults} ${adultsLabel} × $${adultFee.toLocaleString()}`, amount: adults * adultFee });
     }
     if (children > 0) {
-      const childLabel = visa.childFee != null ? `${visa.form} — ${children} child${children > 1 ? 'ren' : ''} (under 14) × $${childFee.toLocaleString()}` : `${visa.form} — ${children} child${children > 1 ? 'ren' : ''} × $${childFee.toLocaleString()}`;
-      items.push({ label: childLabel, amount: children * childFee });
+      items.push({ label: `${visa.form} — ${children} ${childrenLabel} × $${childFee.toLocaleString()}`, amount: children * childFee });
     }
     const totalPersons = adults + children;
     if (biometrics && totalPersons > 0) {
-      items.push({ label: `Biometrics — ${totalPersons} person${totalPersons > 1 ? 's' : ''} × $${BIOMETRICS_FEE}`, amount: totalPersons * BIOMETRICS_FEE });
+      items.push({ label: `${t('feeBiometrics')} — ${totalPersons} × $${BIOMETRICS_FEE} (${personLabel})`, amount: totalPersons * BIOMETRICS_FEE });
     }
     if (medicalExam && totalPersons > 0) {
-      items.push({ label: `Medical Exam (est.) — ${totalPersons} person${totalPersons > 1 ? 's' : ''} × ~$${MEDICAL_EXAM_FEE}`, amount: totalPersons * MEDICAL_EXAM_FEE });
+      items.push({ label: `${t('feeMedicalExam')} — ${totalPersons} × ~$${MEDICAL_EXAM_FEE} (${personLabel}, ${t('estimate')})`, amount: totalPersons * MEDICAL_EXAM_FEE });
     }
     if (premiumProcessing) {
-      items.push({ label: `Premium Processing`, amount: PREMIUM_PROCESSING_FEE });
+      items.push({ label: t('feePremiumProcessing'), amount: PREMIUM_PROCESSING_FEE });
     }
     return items;
-  }, [visa, adults, children, premiumProcessing, biometrics, medicalExam]);
+  }, [visa, adults, children, premiumProcessing, biometrics, medicalExam, t]);
 
   const total = breakdown.reduce((sum, item) => sum + item.amount, 0);
 
@@ -90,7 +92,7 @@ export default function FeeCalculator() {
           {/* Visa Type Selector */}
           <div className="card">
             <label className="block text-sm font-bold mb-2" style={{ color: 'var(--color-text)' }}>
-              Application Type
+              {t('feeApplicationType')}
             </label>
             <select
               value={selectedVisa}
@@ -98,7 +100,7 @@ export default function FeeCalculator() {
               className="w-full rounded-lg border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
               style={{ borderColor: 'var(--color-border)', fontFamily: 'var(--font-body)', color: selectedVisa ? 'var(--color-text)' : 'var(--color-text-light)' }}
             >
-              <option value="">Select a visa or application type...</option>
+              <option value="">{t('feeSelectVisa')}</option>
               {visaTypes.map(v => (
                 <option key={v.id} value={v.id}>
                   {v.form} — {v.name} (${v.fee.toLocaleString()}{v.childFee != null ? ` / $${v.childFee.toLocaleString()} under 14` : ''})
@@ -110,11 +112,11 @@ export default function FeeCalculator() {
           {/* Number of Applicants */}
           <div className="card">
             <label className="block text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>
-              Number of Applicants
+              {t('feeNumApplicants')}
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-light)' }}>Adults (14+)</label>
+                <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-light)' }}>{t('feeAdults')}</label>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setAdults(Math.max(0, adults - 1))}
@@ -142,7 +144,7 @@ export default function FeeCalculator() {
                 </div>
               </div>
               <div>
-                <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-light)' }}>Children (under 14)</label>
+                <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-light)' }}>{t('feeChildren')}</label>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setChildren(Math.max(0, children - 1))}
@@ -175,7 +177,7 @@ export default function FeeCalculator() {
           {/* Additional Options */}
           <div className="card">
             <label className="block text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>
-              Additional Fees
+              {t('feeAdditionalFees')}
             </label>
             <div className="space-y-3">
               <label className="flex items-start gap-3 cursor-pointer group">
@@ -187,10 +189,10 @@ export default function FeeCalculator() {
                 />
                 <div>
                   <span className="text-sm font-medium group-hover:text-[var(--color-primary-500)] transition-colors" style={{ color: 'var(--color-text)' }}>
-                    Premium Processing — ${PREMIUM_PROCESSING_FEE.toLocaleString()}
+                    {t('feePremiumProcessing')} — ${PREMIUM_PROCESSING_FEE.toLocaleString()}
                   </span>
                   <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-light)' }}>
-                    Expedited processing (15 business days). Available for select applications (H-1B, I-140, etc.)
+                    {t('feePremiumProcessingDesc')}
                   </p>
                 </div>
               </label>
@@ -203,10 +205,10 @@ export default function FeeCalculator() {
                 />
                 <div>
                   <span className="text-sm font-medium group-hover:text-[var(--color-primary-500)] transition-colors" style={{ color: 'var(--color-text)' }}>
-                    Biometrics (Fingerprinting) — ${BIOMETRICS_FEE} per person
+                    {t('feeBiometrics')} — ${BIOMETRICS_FEE} {t('perPerson')}
                   </span>
                   <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-light)' }}>
-                    Required for most applications. Charged per person.
+                    {t('feeBiometricsDesc')}
                   </p>
                 </div>
               </label>
@@ -219,10 +221,10 @@ export default function FeeCalculator() {
                 />
                 <div>
                   <span className="text-sm font-medium group-hover:text-[var(--color-primary-500)] transition-colors" style={{ color: 'var(--color-text)' }}>
-                    Medical Exam (I-693) — ~${MEDICAL_EXAM_FEE} per person (estimate)
+                    {t('feeMedicalExam')} — ~${MEDICAL_EXAM_FEE} {t('perPerson')} ({t('estimate')})
                   </span>
                   <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-light)' }}>
-                    Required for green card applications. Paid directly to USCIS-designated civil surgeon.
+                    {t('feeMedicalExamDesc')}
                   </p>
                 </div>
               </label>
@@ -234,14 +236,14 @@ export default function FeeCalculator() {
         <div className="lg:col-span-2">
           <div className="card sticky top-20">
             <h2 className="text-lg font-bold mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
-              Cost Breakdown
+              {t('feeCostBreakdown')}
             </h2>
 
             {breakdown.length === 0 ? (
               <div className="text-center py-8">
                 <Calculator className="h-10 w-10 mx-auto mb-3" style={{ color: 'var(--color-border)' }} />
                 <p className="text-sm" style={{ color: 'var(--color-text-light)' }}>
-                  Select an application type to see the estimated costs.
+                  {t('feeSelectToSee')}
                 </p>
               </div>
             ) : (
@@ -259,7 +261,7 @@ export default function FeeCalculator() {
 
                 <div className="border-t pt-4" style={{ borderColor: 'var(--color-border)' }}>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold" style={{ color: 'var(--color-text)' }}>Estimated Total</span>
+                    <span className="text-sm font-bold" style={{ color: 'var(--color-text)' }}>{t('feeEstimatedTotal')}</span>
                     <span className="text-3xl font-bold" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary-500)' }}>
                       ${total.toLocaleString()}
                     </span>
@@ -271,10 +273,10 @@ export default function FeeCalculator() {
             {/* Action buttons */}
             <div className="flex gap-2 mt-5 no-print">
               <button onClick={handleReset} className="btn-outline flex-1 text-sm">
-                <RotateCcw className="h-4 w-4" /> Reset
+                <RotateCcw className="h-4 w-4" /> {t('feeReset')}
               </button>
               <button onClick={() => window.print()} className="btn-primary flex-1 text-sm">
-                <Printer className="h-4 w-4" /> Print
+                <Printer className="h-4 w-4" /> {t('print')}
               </button>
             </div>
 
@@ -283,7 +285,7 @@ export default function FeeCalculator() {
               <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--color-accent-700)' }} />
               <div>
                 <p className="text-xs leading-relaxed" style={{ color: 'var(--color-text-light)' }}>
-                  Fees are approximate and based on 2024-2025 USCIS fee schedules. Always verify current fees before filing.
+                  {t('feeDisclaimer')}
                 </p>
                 <a
                   href="https://www.uscis.gov/fees"
@@ -292,7 +294,7 @@ export default function FeeCalculator() {
                   className="inline-flex items-center gap-1 text-xs font-semibold mt-1 no-underline hover:underline"
                   style={{ color: 'var(--color-primary-500)' }}
                 >
-                  Verify at uscis.gov/fees <ExternalLink className="h-3 w-3" />
+                  {t('feeVerifyLink')} <ExternalLink className="h-3 w-3" />
                 </a>
               </div>
             </div>
@@ -303,15 +305,15 @@ export default function FeeCalculator() {
       {/* Fee Reference Table */}
       <div className="mt-8 card">
         <h2 className="text-lg font-bold mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
-          USCIS Fee Reference (2024-2025)
+          {t('feeReferenceTitle')}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr style={{ backgroundColor: 'var(--color-primary-50)' }}>
-                <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'var(--color-primary-700)' }}>Form</th>
-                <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'var(--color-primary-700)' }}>Application</th>
-                <th className="text-right px-4 py-2.5 font-semibold" style={{ color: 'var(--color-primary-700)' }}>Fee</th>
+                <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'var(--color-primary-700)' }}>{t('feeRefForm')}</th>
+                <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'var(--color-primary-700)' }}>{t('feeRefApplication')}</th>
+                <th className="text-right px-4 py-2.5 font-semibold" style={{ color: 'var(--color-primary-700)' }}>{t('feeRefFee')}</th>
               </tr>
             </thead>
             <tbody>
@@ -326,12 +328,12 @@ export default function FeeCalculator() {
               ))}
               <tr className="border-b" style={{ borderColor: 'var(--color-border)' }}>
                 <td className="px-4 py-2.5 font-mono font-semibold" style={{ color: 'var(--color-primary-500)' }}>I-907</td>
-                <td className="px-4 py-2.5" style={{ color: 'var(--color-text)' }}>Premium Processing</td>
+                <td className="px-4 py-2.5" style={{ color: 'var(--color-text)' }}>{t('feePremiumProcessing')}</td>
                 <td className="px-4 py-2.5 text-right font-bold" style={{ color: 'var(--color-text)' }}>${PREMIUM_PROCESSING_FEE.toLocaleString()}</td>
               </tr>
               <tr className="border-b" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
                 <td className="px-4 py-2.5 font-mono font-semibold" style={{ color: 'var(--color-primary-500)' }}>—</td>
-                <td className="px-4 py-2.5" style={{ color: 'var(--color-text)' }}>Biometrics (Fingerprinting)</td>
+                <td className="px-4 py-2.5" style={{ color: 'var(--color-text)' }}>{t('feeRefBiometrics')}</td>
                 <td className="px-4 py-2.5 text-right font-bold" style={{ color: 'var(--color-text)' }}>${BIOMETRICS_FEE}</td>
               </tr>
             </tbody>

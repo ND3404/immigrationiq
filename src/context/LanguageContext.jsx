@@ -14,10 +14,50 @@ const translations = {
     glossary: 'Glossary',
     faq: 'FAQ',
     feeCalculator: 'Fee Calculator',
+    tools: 'Tools',
+    visaBulletin: 'Visa Bulletin',
+    toolsMenu: 'Tools menu',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    languageEnglish: 'English',
+    languageSpanish: 'Español',
+    languageToggleAria: 'Switch language',
+
+    // Tools dropdown descriptions
+    toolFeeCalculatorDesc: 'Estimate filing costs',
+    toolProcessingTimesDesc: 'Check USCIS times',
+    toolChecklistDesc: 'Document checklists',
+    toolGlossaryDesc: 'Immigration terms',
+    toolVisaBulletinDesc: 'Final action & filing dates',
 
     // Fee Calculator
     feeCalculatorTitle: 'Visa Fee Calculator',
     feeCalculatorSubtitle: 'Estimate the total cost of your immigration application. Select a form type and configure options to see an itemized breakdown.',
+    feeApplicationType: 'Application Type',
+    feeSelectVisa: 'Select a visa or application type...',
+    feeNumApplicants: 'Number of Applicants',
+    feeAdults: 'Adults (14+)',
+    feeChildren: 'Children (under 14)',
+    feeAdditionalFees: 'Additional Fees',
+    feePremiumProcessing: 'Premium Processing',
+    feePremiumProcessingDesc: 'Expedited processing (15 business days). Available for select applications (H-1B, I-140, etc.)',
+    feeBiometrics: 'Biometrics (Fingerprinting)',
+    feeBiometricsDesc: 'Required for most applications. Charged per person.',
+    feeMedicalExam: 'Medical Exam (I-693)',
+    feeMedicalExamDesc: 'Required for green card applications. Paid directly to USCIS-designated civil surgeon.',
+    feeCostBreakdown: 'Cost Breakdown',
+    feeSelectToSee: 'Select an application type to see the estimated costs.',
+    feeEstimatedTotal: 'Estimated Total',
+    feeReset: 'Reset',
+    feeDisclaimer: 'Fees are approximate and based on 2024-2025 USCIS fee schedules. Always verify current fees before filing.',
+    feeVerifyLink: 'Verify at uscis.gov/fees',
+    feeReferenceTitle: 'USCIS Fee Reference (2024-2025)',
+    feeRefForm: 'Form',
+    feeRefApplication: 'Application',
+    feeRefFee: 'Fee',
+    feeRefBiometrics: 'Biometrics (Fingerprinting)',
+    perPerson: 'per person',
+    estimate: 'estimate',
 
     // Home page
     heroTitle: 'Navigate U.S. Immigration with Confidence',
@@ -32,7 +72,31 @@ const translations = {
     step3Desc: 'Follow step-by-step checklists, track timelines, and connect with qualified immigration lawyers.',
     recentNews: 'Recent Immigration News',
     quickAccess: 'Quick Access',
-    visaBulletin: 'Visa Bulletin',
+    homeAskBadge: 'AI Assistant',
+    homeAskTitle: 'Ask ImmigrationIQ — Your AI Immigration Assistant',
+    homeAskSubtitle: 'Get instant answers to your U.S. immigration questions.',
+    homeAskInputPlaceholder: 'Ask anything — visas, green cards, citizenship…',
+    homePopularCategories: 'Popular Categories',
+    homeLatestNewsTitle: 'Latest Immigration News',
+    homeLatestNewsIntro: 'The latest U.S. immigration headlines — USCIS policy, visa bulletins, executive orders, and court decisions.',
+    homeVisaBulletinDashTitle: 'Visa Bulletin Dashboard',
+    homeVisaBulletinDashIntro: 'Track Final Action Dates and Dates for Filing for the most popular family- and employment-based categories.',
+    fullPageView: 'Full Page View',
+    homeChatPrompt1: 'How do I apply for a green card through marriage?',
+    homeChatPrompt2: 'What are the H-1B requirements for FY 2027?',
+    homeChatPrompt3: 'How long does naturalization take in 2026?',
+    homeChatPrompt4: 'Can I file Adjustment of Status under the May 2026 visa bulletin?',
+    homeAITrained: 'Trained on USCIS guidance, visa bulletins, and immigration law — available 24/7 in English & Spanish.',
+
+    // Visa Bulletin page
+    visaBulletinPageIntro: "The U.S. Department of State publishes the Visa Bulletin monthly. Use the toggles below to switch between Final Action Dates and Dates for Filing, and between family- and employment-based categories.",
+    visaBulletinMonth: 'Month',
+    visaBulletinLatest: 'latest',
+    visaBulletinHowToRead: 'How to read this bulletin',
+    visaBulletinHowToReadBody: "Find the row for your preference category and the column for your country of chargeability. If your priority date is *earlier* than the date shown, you may proceed with the next step in your case. The dates use the State Department's DDMMMYY format (e.g. 01JAN16 = January 1, 2016). \"C\" means Current — no waiting.",
+    visaBulletinNotSurePD: 'Not sure what your priority date is?',
+    visaBulletinNotSurePDBody: 'Ask the AI assistant — it can walk through your case category and help you read the bulletin.',
+    visaBulletinAskBtn: 'Ask ImmigrationIQ',
     visaBulletinTitle: 'Visa Bulletin',
     visaBulletinDesc: 'The Visa Bulletin is published monthly by the U.S. Department of State. It shows which immigrant visa applicants can move forward with their cases based on their priority date and preference category.',
     visaBulletinPriorityDate: 'What is a Priority Date?',
@@ -54,7 +118,12 @@ const translations = {
     next: 'Next',
     previous: 'Previous',
     getStarted: 'Get Started',
+    all: 'All',
+    readMore: 'Read More',
+    explain: 'Explain',
+    askFollowUp: 'Ask follow-up',
     disclaimer: 'This tool provides general information only and is not legal advice. Consult a qualified immigration attorney for your specific situation.',
+    noResults: 'No results found.',
 
     // Chat
     chatTitle: 'Immigration AI Assistant',
@@ -64,7 +133,31 @@ const translations = {
     chatSuggestion2: 'How do I apply for a green card through marriage?',
     chatSuggestion3: 'What is the difference between B-1 and B-2 visas?',
     typing: 'Typing...',
+    chatThinking: 'Thinking…',
+    chatNewChat: 'New Chat',
+    chatNewChatTitle: 'Start a new chat',
+    chatNewChatConfirm: 'Start a new chat? This will clear the current conversation.',
+    chatSend: 'Send',
+    chatSendAria: 'Send message',
+    chatExportPdf: 'Export PDF',
+    chatHintBefore: 'Press',
+    chatHintEnter: 'to send',
+    chatHintShift: 'Shift',
+    chatHintEnterKey: 'Enter',
+    chatHintNewLine: 'for new line',
+    chatEmptyHelper: 'Ask any question about U.S. immigration — visas, green cards, citizenship, and more.',
+    chatErrorGeneric: 'Failed to get a response. Please try again.',
+    chatErrorNetwork: 'Network error. Please check your internet connection and try again.',
+    chatErrorNoText: 'No text content in API response',
+    copyMessageAria: 'Copy message',
+    floatingChatLabel: 'Ask ImmigrationIQ',
+    floatingChatAria: 'Ask ImmigrationIQ — AI Assistant',
     exportChat: 'Export Chat',
+    chatExportTitle: 'ImmigrationIQ - Chat History',
+    chatExportTimestamp: 'Exported on',
+    chatExportYou: 'You',
+    chatExportAi: 'AI Assistant',
+    chatExportDisclaimer: 'Disclaimer: This chat provides general information only and is not legal advice. Consult a qualified immigration attorney for your specific situation.',
 
     // Category
     overview: 'Overview',
@@ -79,6 +172,78 @@ const translations = {
     difficultyEasy: 'Easy',
     difficultyModerate: 'Moderate',
     difficultyComplex: 'Complex',
+    categoriesIntro: 'Explore all U.S. immigration categories, visas, and processes',
+    categoriesNoResults: 'No categories found matching your search.',
+
+    // FAQ
+    faqIntro: 'Frequently asked questions about U.S. immigration, organized by topic.',
+    faqSearchPlaceholder: 'Search FAQs...',
+    faqNoResults: 'No FAQs match your search.',
+
+    // Lawyers
+    lawyersIntro: 'Find qualified immigration attorneys and learn how to protect yourself from scams.',
+    lawyersWarningTitle: 'Important: This is NOT a referral service',
+    lawyersWarningBody: "Always verify an attorney's credentials independently. Only licensed attorneys and DOJ-accredited representatives can legally provide immigration services.",
+    tabHowToChoose: 'How to Choose',
+    tabFindLawyer: 'Find a Lawyer',
+    tabFreeLegalAid: 'Free Legal Aid',
+    whatToLookFor: 'What to Look For',
+    questionsToAsk: 'Questions to Ask in a Consultation',
+    redFlagsTitle: 'Red Flags / Immigration Scams',
+    notarioWarningTitle: 'CRITICAL WARNING: Notario Fraud',
+    notSureLawyerTitle: 'Not sure what type of lawyer you need?',
+    notSureLawyerBody: 'Describe your situation and our AI will suggest what type of immigration attorney specialty to look for.',
+    describeMySituation: 'Describe My Situation',
+
+    // News
+    newsIntro: 'Latest immigration policy updates, visa bulletins, and court decisions.',
+    newsSearchPlaceholder: 'Search news...',
+    newsNoResults: 'No news articles match your criteria.',
+    newsSubscribeTitle: 'Stay Updated',
+    newsSubscribeBody: 'Get immigration news and policy updates delivered to your inbox.',
+    newsSubscribe: 'Subscribe',
+    newsSubscribeNote: 'Feature coming soon. No data is collected.',
+    newsCatAll: 'All',
+    newsCatUscis: 'USCIS Policy',
+    newsCatVisaBulletins: 'Visa Bulletins',
+    newsCatExecutive: 'Executive Orders',
+    newsCatCourt: 'Court Decisions',
+    newsCatFee: 'Fee Changes',
+
+    // Timeline
+    timelineIntro: 'Select your immigration scenario to see a detailed timeline with milestones and estimated durations.',
+    timelineSelectScenario: 'Select Your Scenario',
+    timelineYourTimeline: 'Your Timeline',
+
+    // Checklist
+    checklistIntro: 'Generate a personalized document checklist based on your visa type and personal situation.',
+    checklistStep1: 'Step 1: Select Visa Type',
+    checklistStep2: 'Step 2: Your Situation',
+    checklistChooseVisa: '-- Choose a visa category --',
+    checklistDocChecklist: 'Document Checklist',
+    situationMarried: 'Married',
+    situationChildren: 'Has Children',
+    situationEmployed: 'Currently Employed',
+
+    // Glossary
+    glossaryIntro: 'A-Z glossary of U.S. immigration terms and definitions.',
+    glossarySearchPlaceholder: 'Search terms...',
+    glossaryNoResults: 'No terms match your search.',
+    glossaryExample: 'Example:',
+    glossaryRelated: 'Related:',
+    glossaryExplainSimply: 'Explain Simply',
+
+    // Processing Times
+    processingTimesIntro: 'Estimated processing times by form and service center. Last updated:',
+    processingTimesCheckRealtime: 'Check real-time data at USCIS.gov',
+    processingTimesFilters: 'Filters',
+    processingTimesFormType: 'Form Type',
+    processingTimesAllForms: 'All Forms',
+    processingTimesServiceCenter: 'Service Center',
+    processingTimesAllCenters: 'All Centers',
+    processingTimesComparison: 'Processing Comparison (minimum months)',
+    processingTimesReceiptToDecision: 'Receipt to Decision',
+    processingTimesProcessingTime: 'Processing Time',
 
     // Footer
     about: 'About',
@@ -86,6 +251,17 @@ const translations = {
     terms: 'Terms of Service',
     contact: 'Contact Us',
     copyright: '© 2026 ImmigrationIQ. All rights reserved.',
+    footerAbout: 'AI-powered guidance for navigating the U.S. immigration system. Get clear answers, step-by-step processes, and document checklists.',
+    footerQuickLinks: 'Quick Links',
+    footerOfficialResources: 'Official Resources',
+    footerLegal: 'Legal',
+    footerLegal1: 'ImmigrationIQ is NOT legal advice.',
+    footerLegal2: 'Laws change frequently — verify at uscis.gov.',
+    footerLegal3: 'Consult a licensed immigration attorney.',
+    footerLegal4: 'BEWARE of notarios and unauthorized practitioners.',
+
+    // Translation status notice (only shown in non-English when content stays English)
+    contentLanguageNotice: '',
   },
 
   es: {
@@ -101,10 +277,50 @@ const translations = {
     glossary: 'Glosario',
     faq: 'Preguntas Frecuentes',
     feeCalculator: 'Calculadora de Tarifas',
+    tools: 'Herramientas',
+    visaBulletin: 'Boletín de Visas',
+    toolsMenu: 'Menú de herramientas',
+    openMenu: 'Abrir menú',
+    closeMenu: 'Cerrar menú',
+    languageEnglish: 'English',
+    languageSpanish: 'Español',
+    languageToggleAria: 'Cambiar idioma',
+
+    // Tools dropdown descriptions
+    toolFeeCalculatorDesc: 'Estima costos de presentación',
+    toolProcessingTimesDesc: 'Consulta tiempos de USCIS',
+    toolChecklistDesc: 'Listas de documentos',
+    toolGlossaryDesc: 'Términos de inmigración',
+    toolVisaBulletinDesc: 'Fechas de acción final y presentación',
 
     // Fee Calculator
     feeCalculatorTitle: 'Calculadora de Tarifas de Visa',
     feeCalculatorSubtitle: 'Estima el costo total de tu solicitud de inmigración. Selecciona un tipo de formulario y configura opciones para ver un desglose detallado.',
+    feeApplicationType: 'Tipo de Solicitud',
+    feeSelectVisa: 'Selecciona una visa o tipo de solicitud...',
+    feeNumApplicants: 'Número de Solicitantes',
+    feeAdults: 'Adultos (14+)',
+    feeChildren: 'Niños (menores de 14)',
+    feeAdditionalFees: 'Tarifas Adicionales',
+    feePremiumProcessing: 'Procesamiento Premium',
+    feePremiumProcessingDesc: 'Procesamiento acelerado (15 días hábiles). Disponible para solicitudes seleccionadas (H-1B, I-140, etc.)',
+    feeBiometrics: 'Biométricos (Huellas Digitales)',
+    feeBiometricsDesc: 'Requerido para la mayoría de solicitudes. Se cobra por persona.',
+    feeMedicalExam: 'Examen Médico (I-693)',
+    feeMedicalExamDesc: 'Requerido para solicitudes de tarjeta de residencia. Pagado directamente al cirujano civil designado por USCIS.',
+    feeCostBreakdown: 'Desglose de Costos',
+    feeSelectToSee: 'Selecciona un tipo de solicitud para ver los costos estimados.',
+    feeEstimatedTotal: 'Total Estimado',
+    feeReset: 'Restablecer',
+    feeDisclaimer: 'Las tarifas son aproximadas y se basan en las tarifas de USCIS 2024-2025. Verifica siempre las tarifas actuales antes de presentar.',
+    feeVerifyLink: 'Verifica en uscis.gov/fees',
+    feeReferenceTitle: 'Referencia de Tarifas USCIS (2024-2025)',
+    feeRefForm: 'Formulario',
+    feeRefApplication: 'Solicitud',
+    feeRefFee: 'Tarifa',
+    feeRefBiometrics: 'Biométricos (Huellas Digitales)',
+    perPerson: 'por persona',
+    estimate: 'estimado',
 
     // Home page
     heroTitle: 'Navega la Inmigración a EE.UU. con Confianza',
@@ -119,7 +335,31 @@ const translations = {
     step3Desc: 'Sigue listas de verificación paso a paso, rastrea cronogramas y conéctate con abogados de inmigración calificados.',
     recentNews: 'Noticias Recientes de Inmigración',
     quickAccess: 'Acceso Rápido',
-    visaBulletin: 'Boletín de Visas',
+    homeAskBadge: 'Asistente IA',
+    homeAskTitle: 'Pregunta a ImmigrationIQ — Tu Asistente de Inmigración con IA',
+    homeAskSubtitle: 'Obtén respuestas instantáneas a tus preguntas sobre inmigración a EE.UU.',
+    homeAskInputPlaceholder: 'Pregunta lo que sea — visas, tarjetas de residencia, ciudadanía…',
+    homePopularCategories: 'Categorías Populares',
+    homeLatestNewsTitle: 'Últimas Noticias de Inmigración',
+    homeLatestNewsIntro: 'Las últimas noticias de inmigración a EE.UU. — política de USCIS, boletines de visas, órdenes ejecutivas y decisiones judiciales.',
+    homeVisaBulletinDashTitle: 'Panel del Boletín de Visas',
+    homeVisaBulletinDashIntro: 'Rastrea las Fechas de Acción Final y Fechas para Presentar de las categorías más populares basadas en familia y empleo.',
+    fullPageView: 'Ver Página Completa',
+    homeChatPrompt1: '¿Cómo solicito una tarjeta de residencia por matrimonio?',
+    homeChatPrompt2: '¿Cuáles son los requisitos H-1B para el año fiscal 2027?',
+    homeChatPrompt3: '¿Cuánto tarda la naturalización en 2026?',
+    homeChatPrompt4: '¿Puedo presentar Ajuste de Estatus bajo el boletín de visas de mayo 2026?',
+    homeAITrained: 'Entrenado con la guía de USCIS, boletines de visas y la ley de inmigración — disponible 24/7 en inglés y español.',
+
+    // Visa Bulletin page
+    visaBulletinPageIntro: 'El Departamento de Estado de EE.UU. publica el Boletín de Visas mensualmente. Usa los interruptores a continuación para alternar entre Fechas de Acción Final y Fechas para Presentar, y entre categorías basadas en familia y empleo.',
+    visaBulletinMonth: 'Mes',
+    visaBulletinLatest: 'más reciente',
+    visaBulletinHowToRead: 'Cómo leer este boletín',
+    visaBulletinHowToReadBody: 'Encuentra la fila para tu categoría de preferencia y la columna para tu país de cargo. Si tu fecha de prioridad es *anterior* a la fecha mostrada, puedes proceder con el siguiente paso de tu caso. Las fechas usan el formato DDMMMYY del Departamento de Estado (p. ej., 01JAN16 = 1 de enero de 2016). "C" significa Corriente — sin espera.',
+    visaBulletinNotSurePD: '¿No estás seguro de cuál es tu fecha de prioridad?',
+    visaBulletinNotSurePDBody: 'Pregúntale al asistente de IA — puede guiarte a través de la categoría de tu caso y ayudarte a leer el boletín.',
+    visaBulletinAskBtn: 'Preguntar a ImmigrationIQ',
     visaBulletinTitle: 'Boletín de Visas',
     visaBulletinDesc: 'El Boletín de Visas es publicado mensualmente por el Departamento de Estado de EE.UU. Muestra qué solicitantes de visa de inmigrante pueden avanzar con sus casos según su fecha de prioridad y categoría de preferencia.',
     visaBulletinPriorityDate: '¿Qué es una Fecha de Prioridad?',
@@ -141,7 +381,12 @@ const translations = {
     next: 'Siguiente',
     previous: 'Anterior',
     getStarted: 'Comenzar',
+    all: 'Todas',
+    readMore: 'Leer Más',
+    explain: 'Explicar',
+    askFollowUp: 'Hacer pregunta de seguimiento',
     disclaimer: 'Esta herramienta proporciona solo información general y no constituye asesoría legal. Consulta a un abogado de inmigración calificado para tu situación específica.',
+    noResults: 'No se encontraron resultados.',
 
     // Chat
     chatTitle: 'Asistente de Inmigración IA',
@@ -151,7 +396,31 @@ const translations = {
     chatSuggestion2: '¿Cómo solicito una tarjeta de residencia por matrimonio?',
     chatSuggestion3: '¿Cuál es la diferencia entre las visas B-1 y B-2?',
     typing: 'Escribiendo...',
+    chatThinking: 'Pensando…',
+    chatNewChat: 'Nuevo Chat',
+    chatNewChatTitle: 'Iniciar un nuevo chat',
+    chatNewChatConfirm: '¿Iniciar un nuevo chat? Esto borrará la conversación actual.',
+    chatSend: 'Enviar',
+    chatSendAria: 'Enviar mensaje',
+    chatExportPdf: 'Exportar PDF',
+    chatHintBefore: 'Presiona',
+    chatHintEnter: 'para enviar',
+    chatHintShift: 'Shift',
+    chatHintEnterKey: 'Enter',
+    chatHintNewLine: 'para nueva línea',
+    chatEmptyHelper: 'Haz cualquier pregunta sobre inmigración a EE.UU. — visas, tarjetas de residencia, ciudadanía y más.',
+    chatErrorGeneric: 'No se pudo obtener una respuesta. Por favor intenta de nuevo.',
+    chatErrorNetwork: 'Error de red. Verifica tu conexión a internet e intenta de nuevo.',
+    chatErrorNoText: 'La respuesta de la API no contiene texto',
+    copyMessageAria: 'Copiar mensaje',
+    floatingChatLabel: 'Pregunta a ImmigrationIQ',
+    floatingChatAria: 'Pregunta a ImmigrationIQ — Asistente IA',
     exportChat: 'Exportar Chat',
+    chatExportTitle: 'ImmigrationIQ - Historial de Chat',
+    chatExportTimestamp: 'Exportado el',
+    chatExportYou: 'Tú',
+    chatExportAi: 'Asistente IA',
+    chatExportDisclaimer: 'Aviso: Este chat proporciona solo información general y no constituye asesoría legal. Consulta a un abogado de inmigración calificado para tu situación específica.',
 
     // Category
     overview: 'Descripción General',
@@ -166,6 +435,78 @@ const translations = {
     difficultyEasy: 'Fácil',
     difficultyModerate: 'Moderado',
     difficultyComplex: 'Complejo',
+    categoriesIntro: 'Explora todas las categorías de inmigración a EE.UU., visas y procesos',
+    categoriesNoResults: 'No se encontraron categorías que coincidan con tu búsqueda.',
+
+    // FAQ
+    faqIntro: 'Preguntas frecuentes sobre inmigración a EE.UU., organizadas por tema.',
+    faqSearchPlaceholder: 'Buscar preguntas frecuentes...',
+    faqNoResults: 'Ninguna pregunta frecuente coincide con tu búsqueda.',
+
+    // Lawyers
+    lawyersIntro: 'Encuentra abogados de inmigración calificados y aprende a protegerte de estafas.',
+    lawyersWarningTitle: 'Importante: Esto NO es un servicio de referencia',
+    lawyersWarningBody: 'Verifica siempre las credenciales de un abogado de forma independiente. Solo abogados con licencia y representantes acreditados por el DOJ pueden brindar legalmente servicios de inmigración.',
+    tabHowToChoose: 'Cómo Elegir',
+    tabFindLawyer: 'Buscar un Abogado',
+    tabFreeLegalAid: 'Asistencia Legal Gratuita',
+    whatToLookFor: 'Qué Buscar',
+    questionsToAsk: 'Preguntas para Hacer en una Consulta',
+    redFlagsTitle: 'Señales de Alerta / Estafas de Inmigración',
+    notarioWarningTitle: 'ADVERTENCIA CRÍTICA: Fraude de Notarios',
+    notSureLawyerTitle: '¿No sabes qué tipo de abogado necesitas?',
+    notSureLawyerBody: 'Describe tu situación y nuestra IA te sugerirá qué especialidad de abogado de inmigración buscar.',
+    describeMySituation: 'Describir Mi Situación',
+
+    // News
+    newsIntro: 'Últimas actualizaciones de política de inmigración, boletines de visas y decisiones judiciales.',
+    newsSearchPlaceholder: 'Buscar noticias...',
+    newsNoResults: 'Ningún artículo de noticias coincide con tus criterios.',
+    newsSubscribeTitle: 'Mantente Actualizado',
+    newsSubscribeBody: 'Recibe noticias y actualizaciones de política de inmigración en tu correo.',
+    newsSubscribe: 'Suscribirse',
+    newsSubscribeNote: 'Función próximamente. No se recopilan datos.',
+    newsCatAll: 'Todas',
+    newsCatUscis: 'Política de USCIS',
+    newsCatVisaBulletins: 'Boletines de Visas',
+    newsCatExecutive: 'Órdenes Ejecutivas',
+    newsCatCourt: 'Decisiones Judiciales',
+    newsCatFee: 'Cambios de Tarifas',
+
+    // Timeline
+    timelineIntro: 'Selecciona tu escenario de inmigración para ver un cronograma detallado con hitos y duraciones estimadas.',
+    timelineSelectScenario: 'Selecciona Tu Escenario',
+    timelineYourTimeline: 'Tu Cronograma',
+
+    // Checklist
+    checklistIntro: 'Genera una lista de documentos personalizada según tu tipo de visa y situación personal.',
+    checklistStep1: 'Paso 1: Selecciona Tipo de Visa',
+    checklistStep2: 'Paso 2: Tu Situación',
+    checklistChooseVisa: '-- Elige una categoría de visa --',
+    checklistDocChecklist: 'Lista de Documentos',
+    situationMarried: 'Casado/a',
+    situationChildren: 'Tiene Hijos',
+    situationEmployed: 'Empleado Actualmente',
+
+    // Glossary
+    glossaryIntro: 'Glosario A-Z de términos y definiciones de inmigración a EE.UU.',
+    glossarySearchPlaceholder: 'Buscar términos...',
+    glossaryNoResults: 'Ningún término coincide con tu búsqueda.',
+    glossaryExample: 'Ejemplo:',
+    glossaryRelated: 'Relacionado:',
+    glossaryExplainSimply: 'Explica de Forma Sencilla',
+
+    // Processing Times
+    processingTimesIntro: 'Tiempos estimados de procesamiento por formulario y centro de servicio. Última actualización:',
+    processingTimesCheckRealtime: 'Consulta datos en tiempo real en USCIS.gov',
+    processingTimesFilters: 'Filtros',
+    processingTimesFormType: 'Tipo de Formulario',
+    processingTimesAllForms: 'Todos los Formularios',
+    processingTimesServiceCenter: 'Centro de Servicio',
+    processingTimesAllCenters: 'Todos los Centros',
+    processingTimesComparison: 'Comparación de Procesamiento (meses mínimos)',
+    processingTimesReceiptToDecision: 'De Recibo a Decisión',
+    processingTimesProcessingTime: 'Tiempo de Procesamiento',
 
     // Footer
     about: 'Acerca de',
@@ -173,6 +514,17 @@ const translations = {
     terms: 'Términos de Servicio',
     contact: 'Contáctanos',
     copyright: '© 2026 ImmigrationIQ. Todos los derechos reservados.',
+    footerAbout: 'Orientación impulsada por IA para navegar el sistema de inmigración de EE.UU. Obtén respuestas claras, procesos paso a paso y listas de documentos.',
+    footerQuickLinks: 'Enlaces Rápidos',
+    footerOfficialResources: 'Recursos Oficiales',
+    footerLegal: 'Legal',
+    footerLegal1: 'ImmigrationIQ NO es asesoría legal.',
+    footerLegal2: 'Las leyes cambian frecuentemente — verifica en uscis.gov.',
+    footerLegal3: 'Consulta a un abogado de inmigración con licencia.',
+    footerLegal4: 'CUIDADO con notarios y profesionales no autorizados.',
+
+    // Translation status notice (shown when content stays English)
+    contentLanguageNotice: 'Algunos artículos de fondo (preguntas frecuentes, biografías de abogados, titulares de noticias) aún se muestran en inglés. Estamos traduciendo el contenido completo.',
   },
 };
 
@@ -196,11 +548,17 @@ export function LanguageProvider({ children }) {
     }
   }, []);
 
+  // Reflect language in <html lang> for accessibility / SEO
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = language === 'es' ? 'es' : 'en';
+    }
+  }, [language]);
+
   const t = useCallback(
     (key) => {
       const value = translations[language]?.[key];
       if (value !== undefined) return value;
-      // Fallback to English
       return translations.en?.[key] ?? key;
     },
     [language]

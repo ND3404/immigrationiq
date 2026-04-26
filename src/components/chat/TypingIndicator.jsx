@@ -1,6 +1,8 @@
 import { Bot } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function TypingIndicator() {
+  const { t } = useLanguage();
   return (
     <div className="flex gap-3 items-end">
       <div className="flex-shrink-0 h-9 w-9 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--color-primary-50)' }}>
@@ -16,7 +18,7 @@ export default function TypingIndicator() {
           <span className="typing-dot" />
         </div>
         <span className="text-sm font-medium" style={{ color: 'var(--color-text-light)' }}>
-          Thinking…
+          {t('chatThinking')}
         </span>
       </div>
     </div>

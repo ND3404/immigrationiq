@@ -18,13 +18,13 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm" style={{ color: 'var(--color-text-light)' }}>
-              AI-powered guidance for navigating the U.S. immigration system. Get clear answers, step-by-step processes, and document checklists.
+              {t('footerAbout')}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>Quick Links</h3>
+            <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>{t('footerQuickLinks')}</h3>
             <ul className="space-y-2">
               {[['/', t('home')], ['/categories', t('categories')], ['/chat', t('chat')], ['/timeline', t('timeline')], ['/checklist', t('checklist')]].map(([to, label]) => (
                 <li key={to}>
@@ -36,13 +36,13 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>Official Resources</h3>
+            <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>{t('footerOfficialResources')}</h3>
             <ul className="space-y-2">
               {[
                 ['https://www.uscis.gov', 'USCIS.gov'],
                 ['https://travel.state.gov', 'State Department'],
                 ['https://www.ailalawyer.com', 'AILA Lawyer Search'],
-                ['https://egov.uscis.gov/processing-times', 'Processing Times'],
+                ['https://egov.uscis.gov/processing-times', t('processingTimes')],
               ].map(([url, label]) => (
                 <li key={url}>
                   <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm no-underline transition-colors hover:underline" style={{ color: 'var(--color-text-light)' }}>
@@ -55,12 +55,12 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>Legal</h3>
+            <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>{t('footerLegal')}</h3>
             <ul className="space-y-2 text-sm" style={{ color: 'var(--color-text-light)' }}>
-              <li>ImmigrationIQ is NOT legal advice.</li>
-              <li>Laws change frequently — verify at uscis.gov.</li>
-              <li>Consult a licensed immigration attorney.</li>
-              <li className="font-semibold" style={{ color: 'var(--color-secondary-500)' }}>BEWARE of notarios and unauthorized practitioners.</li>
+              <li>{t('footerLegal1')}</li>
+              <li>{t('footerLegal2')}</li>
+              <li>{t('footerLegal3')}</li>
+              <li className="font-semibold" style={{ color: 'var(--color-secondary-500)' }}>{t('footerLegal4')}</li>
             </ul>
           </div>
         </div>

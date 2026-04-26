@@ -2,6 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
+const SYSTEM_PROMPT_EN = 'You are an expert U.S. immigration assistant with deep knowledge of USCIS, DOS, and immigration law. Provide accurate, up-to-date guidance. Always clarify you are not a lawyer and recommend consulting one for legal advice. Be empathetic, clear, and thorough. When referencing official information, mention the relevant USCIS or DOS website. Format your responses with clear structure using markdown when helpful.';
+
+const SYSTEM_PROMPT_ES = 'Eres un experto asistente de inmigración de EE.UU. con profundo conocimiento de USCIS, el Departamento de Estado y la ley de inmigración. Proporciona orientación precisa y actualizada. Siempre aclara que no eres abogado y recomienda consultar a uno para asesoría legal. Sé empático, claro y detallado. Cuando menciones información oficial, refiere los sitios web pertinentes de USCIS o del Departamento de Estado. Formatea tus respuestas con estructura clara usando markdown cuando sea útil. **Responde siempre en español**, sin importar el idioma del mensaje del usuario.';
+
 // Dev middleware that mimics the Vercel /api/chat serverless function
 function apiChatPlugin() {
   return {
@@ -14,12 +18,11 @@ function apiChatPlugin() {
           return;
         }
 
-        // Read request body
         let body = '';
         for await (const chunk of req) body += chunk;
 
         try {
-          const { messages } = JSON.parse(body);
+          const { messages, language } = JSON.parse(body);
           const apiKey = process.env.VITE_ANTHROPIC_API_KEY;
 
           if (!apiKey) {
@@ -27,6 +30,8 @@ function apiChatPlugin() {
             res.end(JSON.stringify({ error: 'Missing VITE_ANTHROPIC_API_KEY in .env.local' }));
             return;
           }
+
+          const systemPrompt = language === 'es' ? SYSTEM_PROMPT_ES : SYSTEM_PROMPT_EN;
 
           const response = await fetch('https://api.anthropic.com/v1/messages', {
             method: 'POST',
@@ -38,7 +43,7 @@ function apiChatPlugin() {
             body: JSON.stringify({
               model: 'claude-haiku-4-5-20251001',
               max_tokens: 1024,
-              system: 'You are an expert U.S. immigration assistant with deep knowledge of USCIS, DOS, and immigration law. Provide accurate, up-to-date guidance. Always clarify you are not a lawyer and recommend consulting one for legal advice. Be empathetic, clear, and thorough. When referencing official information, mention the relevant USCIS or DOS website. Format your responses with clear structure using markdown when helpful.',
+              system: systemPrompt,
               messages: messages.map(({ role, content }) => ({ role, content })),
             }),
           });

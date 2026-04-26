@@ -11,19 +11,14 @@ import CategoryCard from '../components/immigration/CategoryCard';
 import NewsCard from '../components/shared/NewsCard';
 import VisaBulletinDashboard from '../components/immigration/VisaBulletinDashboard';
 
-const quickAccessItems = [
-  { icon: MessageSquare, label: 'AI Chat', to: '/chat', color: 'var(--color-primary-500)' },
-  { icon: Compass, label: 'Visa Finder', to: '/categories', color: 'var(--color-secondary-500)' },
-  { icon: Clock, label: 'Processing Times', to: '/processing-times', color: 'var(--color-accent-600)' },
-  { icon: FileCheck, label: 'Checklist', to: '/checklist', color: 'var(--color-success-500)' },
+const QUICK_ACCESS_ITEMS = [
+  { icon: MessageSquare, labelKey: 'chat', to: '/chat', color: 'var(--color-primary-500)' },
+  { icon: Compass, labelKey: 'categories', to: '/categories', color: 'var(--color-secondary-500)' },
+  { icon: Clock, labelKey: 'processingTimes', to: '/processing-times', color: 'var(--color-accent-600)' },
+  { icon: FileCheck, labelKey: 'checklist', to: '/checklist', color: 'var(--color-success-500)' },
 ];
 
-const chatPrompts = [
-  'How do I apply for a green card through marriage?',
-  'What are the H-1B requirements for FY 2027?',
-  'How long does naturalization take in 2026?',
-  'Can I file Adjustment of Status under the May 2026 visa bulletin?',
-];
+const CHAT_PROMPT_KEYS = ['homeChatPrompt1', 'homeChatPrompt2', 'homeChatPrompt3', 'homeChatPrompt4'];
 
 const HEADLINE_TERRACOTTA = '#C75B45';
 
@@ -57,7 +52,7 @@ export default function Home() {
           <div className="animate-fade-in-up">
             <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6" style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: 'white' }}>
               <Scale className="h-4 w-4" />
-              <span className="text-sm font-medium">AI-Powered Immigration Guidance</span>
+              <span className="text-sm font-medium">{t('homeAskBadge')}</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
               {t('heroTitle')}
@@ -98,13 +93,13 @@ export default function Home() {
             <div className="flex-1">
               <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 mb-3" style={{ backgroundColor: 'var(--color-primary-50)', color: 'var(--color-primary-600)' }}>
                 <Sparkles className="h-3.5 w-3.5" />
-                <span className="text-xs font-semibold uppercase tracking-wide">AI Assistant</span>
+                <span className="text-xs font-semibold uppercase tracking-wide">{t('homeAskBadge')}</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
-                Ask ImmigrationIQ — Your AI Immigration Assistant
+                {t('homeAskTitle')}
               </h2>
               <p className="text-base mb-5" style={{ color: 'var(--color-text-light)' }}>
-                Get instant answers to your U.S. immigration questions.
+                {t('homeAskSubtitle')}
               </p>
 
               <form onSubmit={handleChatStart} className="flex gap-2">
@@ -112,26 +107,29 @@ export default function Home() {
                   type="text"
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="Ask anything — visas, green cards, citizenship…"
+                  placeholder={t('homeAskInputPlaceholder')}
                   className="flex-1 rounded-full border bg-white px-5 py-3 text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary-400)]"
                   style={{ borderColor: 'var(--color-border)', fontFamily: 'var(--font-body)' }}
                 />
                 <button type="submit" className="btn-primary rounded-full px-5 whitespace-nowrap">
-                  <MessageSquare className="h-4 w-4" /> Start Chat
+                  <MessageSquare className="h-4 w-4" /> {t('startChat')}
                 </button>
               </form>
 
               <div className="flex flex-wrap gap-2 mt-4">
-                {chatPrompts.map((p) => (
-                  <Link
-                    key={p}
-                    to={`/chat?q=${encodeURIComponent(p)}`}
-                    className="rounded-full border bg-white px-3 py-1.5 text-xs no-underline transition hover:shadow-sm"
-                    style={{ borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
-                  >
-                    {p}
-                  </Link>
-                ))}
+                {CHAT_PROMPT_KEYS.map((key) => {
+                  const p = t(key);
+                  return (
+                    <Link
+                      key={key}
+                      to={`/chat?q=${encodeURIComponent(p)}`}
+                      className="rounded-full border bg-white px-3 py-1.5 text-xs no-underline transition hover:shadow-sm"
+                      style={{ borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
+                    >
+                      {p}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 
@@ -140,7 +138,7 @@ export default function Home() {
             >
               <MessageSquare className="h-10 w-10 text-white mb-3" />
               <p className="text-white text-sm leading-relaxed">
-                Trained on USCIS guidance, visa bulletins, and immigration law — available 24/7 in English &amp; Spanish.
+                {t('homeAITrained')}
               </p>
             </div>
           </div>
@@ -150,12 +148,12 @@ export default function Home() {
       {/* Quick Access Cards */}
       <section className="page-container">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {quickAccessItems.map(({ icon: Icon, label, to, color }) => (
+          {QUICK_ACCESS_ITEMS.map(({ icon: Icon, labelKey, to, color }) => (
             <Link key={to} to={to} className="card flex items-center gap-3 no-underline hover:shadow-lg">
               <div className="rounded-lg p-2" style={{ backgroundColor: `${color}15` }}>
                 <Icon className="h-5 w-5" style={{ color }} />
               </div>
-              <span className="font-semibold text-sm" style={{ color: 'var(--color-text)' }}>{label}</span>
+              <span className="font-semibold text-sm" style={{ color: 'var(--color-text)' }}>{t(labelKey)}</span>
             </Link>
           ))}
         </div>
@@ -167,7 +165,7 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <Newspaper className="h-6 w-6" style={{ color: HEADLINE_TERRACOTTA }} />
             <h2 className="section-title m-0" style={{ color: HEADLINE_TERRACOTTA }}>
-              Latest Immigration News
+              {t('homeLatestNewsTitle')}
             </h2>
           </div>
           <Link to="/news" className="btn-outline text-sm no-underline">
@@ -175,7 +173,7 @@ export default function Home() {
           </Link>
         </div>
         <p className="-mt-3 mb-6 text-sm" style={{ color: 'var(--color-text-light)' }}>
-          The latest U.S. immigration headlines — USCIS policy, visa bulletins, executive orders, and court decisions.
+          {t('homeLatestNewsIntro')}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {newsItems.slice(0, 6).map(item => (
@@ -207,7 +205,7 @@ export default function Home() {
       {/* Popular Categories */}
       <section className="page-container" style={{ backgroundColor: 'var(--color-surface)' }}>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="section-title">Popular Categories</h2>
+          <h2 className="section-title">{t('homePopularCategories')}</h2>
           <Link to="/categories" className="btn-outline text-sm no-underline">
             {t('viewAll')} <ArrowRight className="h-4 w-4" />
           </Link>
@@ -223,13 +221,13 @@ export default function Home() {
       <section className="page-container">
         <div className="flex items-end justify-between mb-4 flex-wrap gap-2">
           <div>
-            <h2 className="section-title m-0">Visa Bulletin Dashboard</h2>
+            <h2 className="section-title m-0">{t('homeVisaBulletinDashTitle')}</h2>
             <p className="text-sm mt-1" style={{ color: 'var(--color-text-light)' }}>
-              Track Final Action Dates and Dates for Filing for the most popular family- and employment-based categories.
+              {t('homeVisaBulletinDashIntro')}
             </p>
           </div>
           <Link to="/visa-bulletin" className="btn-outline text-sm no-underline">
-            Full Page View <ArrowRight className="h-4 w-4" />
+            {t('fullPageView')} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
         <VisaBulletinDashboard />

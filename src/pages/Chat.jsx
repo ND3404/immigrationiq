@@ -9,7 +9,7 @@ import TypingIndicator from '../components/chat/TypingIndicator';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
 
 export default function Chat() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { messages, isLoading, error, sendMessage, clearChat } = useChatContext();
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
@@ -30,7 +30,6 @@ export default function Chat() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
-  // Auto-grow textarea
   useEffect(() => {
     const ta = textareaRef.current;
     if (!ta) return;
@@ -56,13 +55,14 @@ export default function Chat() {
 
   const handleNewChat = () => {
     if (messages.length === 0) return;
-    if (window.confirm('Start a new chat? This will clear the current conversation.')) {
+    if (window.confirm(t('chatNewChatConfirm'))) {
       clearChat();
       inputRef.current?.focus();
     }
   };
 
   const suggestions = [t('chatSuggestion1'), t('chatSuggestion2'), t('chatSuggestion3')];
+  const handleExport = () => exportChatToPdf(messages, language, t);
 
   return (
     <div
@@ -98,16 +98,17 @@ export default function Chat() {
               disabled={messages.length === 0}
               className="inline-flex items-center gap-1.5 rounded-full px-3 sm:px-4 py-2 text-sm font-semibold border transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50"
               style={{ borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
-              title="Start a new chat"
+              title={t('chatNewChatTitle')}
             >
               <Plus className="h-4 w-4" />
-              <span className="hidden sm:inline">New Chat</span>
+              <span className="hidden sm:inline">{t('chatNewChat')}</span>
             </button>
             {messages.length > 0 && (
               <button
-                onClick={() => exportChatToPdf(messages)}
+                onClick={handleExport}
                 className="p-2 rounded-full hover:bg-gray-100 transition"
-                title="Export PDF"
+                title={t('chatExportPdf')}
+                aria-label={t('chatExportPdf')}
               >
                 <Download className="h-4 w-4" style={{ color: 'var(--color-text-light)' }} />
               </button>
@@ -131,7 +132,7 @@ export default function Chat() {
                 {t('chatTitle')}
               </h2>
               <p className="text-base mb-7 max-w-lg" style={{ color: 'var(--color-text-light)' }}>
-                Ask any question about U.S. immigration — visas, green cards, citizenship, and more.
+                {t('chatEmptyHelper')}
               </p>
               <div className="flex flex-wrap justify-center gap-2">
                 {suggestions.map((s, i) => (
@@ -200,15 +201,20 @@ export default function Chat() {
               type="submit"
               disabled={isLoading || !input.trim()}
               className="btn-primary rounded-xl px-5 py-3 disabled:opacity-40 disabled:cursor-not-allowed"
-              aria-label="Send message"
+              aria-label={t('chatSendAria')}
               style={{ minHeight: '48px' }}
             >
               <Send className="h-5 w-5" />
-              <span className="hidden sm:inline ml-1.5 font-semibold">Send</span>
+              <span className="hidden sm:inline ml-1.5 font-semibold">{t('chatSend')}</span>
             </button>
           </div>
           <p className="text-[11px] mt-2 text-center" style={{ color: 'var(--color-text-light)' }}>
-            Press <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>Enter</kbd> to send · <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>Shift</kbd>+<kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>Enter</kbd> for new line
+            {t('chatHintBefore')}{' '}
+            <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>{t('chatHintEnterKey')}</kbd>{' '}
+            {t('chatHintEnter')} ·{' '}
+            <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>{t('chatHintShift')}</kbd>+
+            <kbd className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--color-border)' }}>{t('chatHintEnterKey')}</kbd>{' '}
+            {t('chatHintNewLine')}
           </p>
         </div>
       </form>

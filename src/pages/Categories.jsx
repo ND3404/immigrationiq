@@ -20,7 +20,7 @@ export default function Categories() {
       <div className="text-center mb-8">
         <h1 className="section-title">{t('categories')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>
-          Explore all U.S. immigration categories, visas, and processes
+          {t('categoriesIntro')}
         </p>
       </div>
 
@@ -33,7 +33,7 @@ export default function Categories() {
             className={`badge px-4 py-1.5 text-sm cursor-pointer transition-colors ${filter === 'all' ? '' : 'opacity-60 hover:opacity-100'}`}
             style={{ backgroundColor: filter === 'all' ? 'var(--color-primary-500)' : 'var(--color-surface)', color: filter === 'all' ? 'white' : 'var(--color-text)' }}
           >
-            All ({categories.length})
+            {t('all')} ({categories.length})
           </button>
           {categoryTypes.map(ct => {
             const count = categories.filter(c => c.type === ct.key).length;
@@ -76,7 +76,7 @@ export default function Categories() {
 
       {filtered.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-lg" style={{ color: 'var(--color-text-light)' }}>No categories found matching your search.</p>
+          <p className="text-lg" style={{ color: 'var(--color-text-light)' }}>{t('categoriesNoResults')}</p>
         </div>
       )}
     </div>

@@ -1,5 +1,6 @@
 import { Calendar, MessageSquare, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
 
 const categoryColors = {
   'USCIS Policy': 'var(--color-primary-500)',
@@ -9,13 +10,23 @@ const categoryColors = {
   'Fee Changes': 'var(--color-accent-800)',
 };
 
+const categoryLabelKeys = {
+  'USCIS Policy': 'newsCatUscis',
+  'Visa Bulletins': 'newsCatVisaBulletins',
+  'Executive Orders': 'newsCatExecutive',
+  'Court Decisions': 'newsCatCourt',
+  'Fee Changes': 'newsCatFee',
+};
+
 export default function NewsCard({ item, showExplain = true }) {
+  const { t } = useLanguage();
   const color = categoryColors[item.category] || 'var(--color-primary-500)';
+  const categoryLabel = categoryLabelKeys[item.category] ? t(categoryLabelKeys[item.category]) : item.category;
 
   return (
     <div className="card flex flex-col h-full">
       <div className="flex items-center gap-2 mb-2">
-        <span className="badge" style={{ backgroundColor: `${color}15`, color }}>{item.category}</span>
+        <span className="badge" style={{ backgroundColor: `${color}15`, color }}>{categoryLabel}</span>
         <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--color-text-light)' }}>
           <Calendar className="h-3 w-3" /> {item.date}
         </span>
@@ -38,7 +49,7 @@ export default function NewsCard({ item, showExplain = true }) {
               className="inline-flex items-center gap-1 text-xs font-semibold no-underline transition-colors hover:underline"
               style={{ color: '#C75B45' }}
             >
-              Read More <ExternalLink className="h-3 w-3" />
+              {t('readMore')} <ExternalLink className="h-3 w-3" />
             </a>
           )}
           {showExplain && (
@@ -47,7 +58,7 @@ export default function NewsCard({ item, showExplain = true }) {
               className="inline-flex items-center gap-1 text-xs font-semibold no-underline transition-colors hover:underline"
               style={{ color: 'var(--color-primary-500)' }}
             >
-              <MessageSquare className="h-3 w-3" /> Explain
+              <MessageSquare className="h-3 w-3" /> {t('explain')}
             </Link>
           )}
         </div>

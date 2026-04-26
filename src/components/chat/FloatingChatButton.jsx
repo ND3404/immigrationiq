@@ -1,16 +1,17 @@
 import { Link, useLocation } from 'react-router-dom';
 import { MessageSquare } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function FloatingChatButton() {
   const { pathname } = useLocation();
+  const { t } = useLanguage();
 
-  // Hide on the chat page itself.
   if (pathname.startsWith('/chat')) return null;
 
   return (
     <Link
       to="/chat"
-      aria-label="Ask ImmigrationIQ — AI Assistant"
+      aria-label={t('floatingChatAria')}
       className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white no-underline shadow-xl transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2"
       style={{
         background: 'linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-500) 100%)',
@@ -19,7 +20,7 @@ export default function FloatingChatButton() {
       }}
     >
       <MessageSquare className="h-5 w-5" />
-      <span className="hidden sm:inline">Ask ImmigrationIQ</span>
+      <span className="hidden sm:inline">{t('floatingChatLabel')}</span>
     </Link>
   );
 }
