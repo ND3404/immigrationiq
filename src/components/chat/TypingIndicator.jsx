@@ -1,16 +1,15 @@
-import { Bot } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function TypingIndicator() {
   const { t } = useLanguage();
   return (
-    <div className="flex gap-3 items-end">
-      <div className="flex-shrink-0 h-9 w-9 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--color-primary-50)' }}>
-        <Bot className="h-5 w-5" style={{ color: 'var(--color-primary-500)' }} />
-      </div>
+    <div className="flex flex-col items-start">
+      <span className="text-xs font-semibold mb-1 px-1" style={{ color: 'var(--color-secondary-500)' }}>
+        {t('chatLabelAssistant')}
+      </span>
       <div
-        className="rounded-2xl rounded-tl-md px-4 py-3 flex items-center gap-2.5"
-        style={{ backgroundColor: '#F1F3F5', border: '1px solid var(--color-border)' }}
+        className="rounded-2xl rounded-bl-md flex items-center gap-2.5"
+        style={{ backgroundColor: '#f5f5f5', border: '1px solid var(--color-border)', padding: '14px 16px' }}
       >
         <div className="flex gap-1.5 items-center">
           <span className="typing-dot" />

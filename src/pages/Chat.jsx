@@ -14,6 +14,7 @@ export default function Chat() {
   const limitReached = remaining <= 0;
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   const inputRef = useRef(null);
   const textareaRef = useRef(null);
   const [searchParams] = useSearchParams();
@@ -28,7 +29,9 @@ export default function Chat() {
   }, []);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const c = messagesContainerRef.current;
+    if (!c) return;
+    c.scrollTo({ top: c.scrollHeight, behavior: 'smooth' });
   }, [messages, isLoading]);
 
   useEffect(() => {
@@ -68,7 +71,7 @@ export default function Chat() {
   return (
     <div
       className="flex flex-col"
-      style={{ height: 'calc(100vh - 4rem)', minHeight: '600px', backgroundColor: 'var(--color-surface)' }}
+      style={{ height: 'calc(100dvh - 4rem)', backgroundColor: 'var(--color-surface)' }}
     >
       {/* Header */}
       <div
@@ -120,8 +123,8 @@ export default function Chat() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-5 sm:space-y-6">
+      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-3">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center text-center py-10">
               <div
