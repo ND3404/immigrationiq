@@ -42,6 +42,65 @@ export const lawyerTips = {
   notarioWarning: 'In many Latin American countries, a "notario público" is a powerful legal professional. In the United States, a notary public has NO authority to provide legal advice or represent you in immigration matters. Only licensed attorneys and DOJ-accredited representatives can legally provide immigration services. Many people have lost thousands of dollars and jeopardized their cases by using notarios. This is immigration fraud and should be reported to your state attorney general.',
 };
 
+// Practice area keys — labels translated via t('practiceAreaXxx')
+export const practiceAreaKeys = ['family', 'employment', 'asylum', 'deportation', 'citizenship'];
+
+// Featured listings sort first. Replace with real lawyer data as paid listings come in.
+export const lawyerListings = [
+  {
+    id: 'rodriguez-la',
+    name: 'Maria Rodriguez',
+    firm: 'Rodriguez Immigration Law',
+    city: 'Los Angeles',
+    state: 'CA',
+    languages: ['English', 'Spanish'],
+    practiceAreas: ['family', 'citizenship'],
+    phone: '(213) 555-0142',
+    website: 'https://example.com/rodriguez-immigration',
+    consultationUrl: 'https://example.com/rodriguez-immigration/schedule',
+    featured: true,
+  },
+  {
+    id: 'chen-ny',
+    name: 'David Chen',
+    firm: 'Chen Immigration Partners',
+    city: 'New York',
+    state: 'NY',
+    languages: ['English', 'Mandarin', 'Cantonese'],
+    practiceAreas: ['employment', 'asylum'],
+    phone: '(212) 555-0188',
+    website: 'https://example.com/chen-partners',
+    consultationUrl: 'https://example.com/chen-partners/consult',
+    featured: true,
+  },
+  {
+    id: 'patel-houston',
+    name: 'Sarah Patel',
+    firm: 'Patel Law Group',
+    city: 'Houston',
+    state: 'TX',
+    languages: ['English', 'Hindi', 'Spanish'],
+    practiceAreas: ['family', 'deportation'],
+    phone: '(713) 555-0167',
+    website: 'https://example.com/patel-law',
+    consultationUrl: 'https://example.com/patel-law/book',
+    featured: false,
+  },
+  {
+    id: 'williams-miami',
+    name: 'James Williams',
+    firm: 'Williams Immigration Defense',
+    city: 'Miami',
+    state: 'FL',
+    languages: ['English', 'Spanish', 'Portuguese'],
+    practiceAreas: ['asylum', 'deportation', 'citizenship'],
+    phone: '(305) 555-0123',
+    website: 'https://example.com/williams-defense',
+    consultationUrl: 'https://example.com/williams-defense/schedule',
+    featured: false,
+  },
+];
+
 export const legalAidByState = [
   { state: 'California', organizations: ['Asian Law Caucus (San Francisco)', 'CHIRLA (Los Angeles)', 'Central American Resource Center (Los Angeles)', 'Bay Area Legal Aid'] },
   { state: 'New York', organizations: ['Legal Aid Society', 'Catholic Charities NYC', 'Safe Horizon', 'New York Immigration Coalition', 'The Door'] },
