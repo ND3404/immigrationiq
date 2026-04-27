@@ -16,6 +16,7 @@ const Glossary = lazy(() => import('./pages/Glossary'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const FeeCalculator = lazy(() => import('./pages/FeeCalculator'));
 const VisaBulletin = lazy(() => import('./pages/VisaBulletin'));
+const Contact = lazy(() => import('./pages/Contact'));
 
 function PageLoader() {
   return (
@@ -51,6 +52,7 @@ export default function App() {
       <Route path="/faq" element={<SuspenseLayout><FAQ /></SuspenseLayout>} />
       <Route path="/fee-calculator" element={<SuspenseLayout><FeeCalculator /></SuspenseLayout>} />
       <Route path="/visa-bulletin" element={<SuspenseLayout><VisaBulletin /></SuspenseLayout>} />
+      <Route path="/contact" element={<SuspenseLayout><Contact /></SuspenseLayout>} />
 
       {/* 404 */}
       <Route path="*" element={

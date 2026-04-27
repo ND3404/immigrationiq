@@ -11,6 +11,7 @@ const mainLinks = [
   { to: '/lawyers', key: 'lawyers' },
   { to: '/news', key: 'news' },
   { to: '/faq', key: 'faq' },
+  { to: '/contact', key: 'contact' },
 ];
 
 const toolsDropdownItems = [

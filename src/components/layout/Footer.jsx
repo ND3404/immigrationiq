@@ -26,7 +26,7 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--color-text)' }}>{t('footerQuickLinks')}</h3>
             <ul className="space-y-1">
-              {[['/', t('home')], ['/categories', t('categories')], ['/chat', t('chat')], ['/timeline', t('timeline')], ['/checklist', t('checklist')]].map(([to, label]) => (
+              {[['/', t('home')], ['/categories', t('categories')], ['/chat', t('chat')], ['/timeline', t('timeline')], ['/checklist', t('checklist')], ['/contact', t('contact')]].map(([to, label]) => (
                 <li key={to}>
                   <Link to={to} className="block py-2 text-sm no-underline transition-colors hover:underline" style={{ color: 'var(--color-text-light)' }}>{label}</Link>
                 </li>
