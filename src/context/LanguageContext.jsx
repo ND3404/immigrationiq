@@ -298,6 +298,18 @@ const translations = {
     contactPartnershipCta: 'Reach out using the form on this page — select "Advertising / Partnership" — and our team will follow up within two business days.',
     contactDisclaimer: 'We are not a law firm. For legal advice, consult an immigration attorney.',
 
+    // Newsletter signup
+    newsletterTitle: 'Stay Updated on Immigration News',
+    newsletterSubtitle: 'Get policy changes, USCIS updates, and visa bulletin highlights delivered to your inbox. No spam, unsubscribe anytime.',
+    newsletterFooterTitle: 'Immigration News in Your Inbox',
+    newsletterFooterSubtitle: 'Monthly updates on policy and processing times.',
+    newsletterEmailPlaceholder: 'your@email.com',
+    newsletterSubmit: 'Subscribe',
+    newsletterSubmitting: 'Subscribing...',
+    newsletterSuccess: 'Thanks for subscribing! Check your inbox to confirm.',
+    newsletterError: 'Something went wrong. Please try again.',
+    newsletterPrivacy: 'We respect your privacy. Unsubscribe with one click.',
+
     // Translation status notice (only shown in non-English when content stays English)
     contentLanguageNotice: '',
   },
@@ -598,6 +610,18 @@ const translations = {
     contactPartnershipBullet4: 'Listas de verificación, guías y programas de captación de clientes con marca compartida',
     contactPartnershipCta: 'Escríbenos usando el formulario en esta página — selecciona "Publicidad / Colaboración" — y nuestro equipo te responderá en un plazo de dos días hábiles.',
     contactDisclaimer: 'No somos un bufete de abogados. Para asesoría legal, consulta a un abogado de inmigración.',
+
+    // Newsletter signup
+    newsletterTitle: 'Mantente Informado sobre Noticias de Inmigración',
+    newsletterSubtitle: 'Recibe cambios de políticas, actualizaciones de USCIS y aspectos destacados del boletín de visas en tu correo. Sin spam, cancela cuando quieras.',
+    newsletterFooterTitle: 'Noticias de Inmigración en tu Correo',
+    newsletterFooterSubtitle: 'Actualizaciones mensuales sobre políticas y tiempos de procesamiento.',
+    newsletterEmailPlaceholder: 'tu@email.com',
+    newsletterSubmit: 'Suscribirse',
+    newsletterSubmitting: 'Suscribiendo...',
+    newsletterSuccess: '¡Gracias por suscribirte! Revisa tu correo para confirmar.',
+    newsletterError: 'Algo salió mal. Por favor intenta de nuevo.',
+    newsletterPrivacy: 'Respetamos tu privacidad. Cancela con un clic.',
 
     // Translation status notice (shown when content stays English)
     contentLanguageNotice: 'Algunos artículos de fondo (preguntas frecuentes, biografías de abogados, titulares de noticias) aún se muestran en inglés. Estamos traduciendo el contenido completo.',

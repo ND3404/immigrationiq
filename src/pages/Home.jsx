@@ -10,6 +10,7 @@ import { newsItems } from '../data/news';
 import CategoryCard from '../components/immigration/CategoryCard';
 import NewsCard from '../components/shared/NewsCard';
 import VisaBulletinDashboard from '../components/immigration/VisaBulletinDashboard';
+import NewsletterSignup from '../components/shared/NewsletterSignup';
 
 const QUICK_ACCESS_ITEMS = [
   { icon: MessageSquare, labelKey: 'chat', to: '/chat', color: 'var(--color-primary-500)' },
@@ -237,6 +238,9 @@ export default function Home() {
         </div>
         <VisaBulletinDashboard />
       </section>
+
+      {/* Newsletter signup — above footer */}
+      <NewsletterSignup variant="banner" />
     </div>
   );
 }

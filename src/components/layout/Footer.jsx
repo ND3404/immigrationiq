@@ -1,6 +1,7 @@
 import { Scale, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
+import NewsletterSignup from '../shared/NewsletterSignup';
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -9,7 +10,7 @@ export default function Footer() {
     <footer className="border-t bg-white" style={{ borderColor: 'var(--color-border)' }}>
       <div className="mx-auto max-w-7xl px-4 pt-6 pb-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {/* About */}
+          {/* About + Newsletter */}
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Scale className="h-5 w-5" style={{ color: 'var(--color-primary-500)' }} />
@@ -17,9 +18,10 @@ export default function Footer() {
                 Immigration<span style={{ color: 'var(--color-secondary-500)' }}>IQ</span>
               </span>
             </div>
-            <p className="text-sm" style={{ color: 'var(--color-text-light)' }}>
+            <p className="text-sm mb-4" style={{ color: 'var(--color-text-light)' }}>
               {t('footerAbout')}
             </p>
+            <NewsletterSignup variant="compact" />
           </div>
 
           {/* Quick Links */}
