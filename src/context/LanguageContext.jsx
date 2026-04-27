@@ -333,6 +333,25 @@ const translations = {
     practiceAreaDeportation: 'Deportation Defense',
     practiceAreaCitizenship: 'Citizenship',
 
+    // Premium services / document kits
+    services: 'Premium',
+    servicesTitle: 'Professional Document Preparation Kits',
+    servicesIntro: 'Step-by-step guides, evidence checklists, sample letters, and form walkthroughs to help you prepare your immigration application with confidence. New kits releasing soon.',
+    servicesComingSoon: 'Coming Soon',
+    servicesDisclaimer: 'These kits provide guidance only. They are not legal advice. For complex cases, consult a licensed immigration attorney.',
+    kitMarriageTitle: 'Green Card through Marriage Kit',
+    kitMarriageDesc: 'Step-by-step I-130 + I-485 filing instructions, evidence checklist for proving a bona fide marriage, sample cover letters, and interview preparation questions.',
+    kitNaturalizationTitle: 'Naturalization / Citizenship Checklist',
+    kitNaturalizationDesc: 'N-400 walkthrough, civics test study materials, document checklist, English/civics interview tips, and post-approval next steps.',
+    kitH1bTitle: 'H-1B Visa Application Guide',
+    kitH1bDesc: 'Cap-subject filing instructions, sample employer support letters, RFE response strategies, premium processing guidance, and timeline expectations.',
+    kitDacaTitle: 'DACA Renewal Kit',
+    kitDacaDesc: 'I-821D and I-765 form guide, renewal evidence checklist, fee waiver instructions, deadline tracker, and tips for avoiding common mistakes.',
+    kitI130Title: 'Family Petition (I-130) Complete Guide',
+    kitI130DescUS: 'Petitioning relatives abroad or adjusting status in the U.S., priority date tracking, supporting document checklist, and processing time expectations.',
+    kitAsylumTitle: 'Asylum Application Preparation Kit',
+    kitAsylumDesc: 'I-589 form walkthrough, personal declaration writing guide, country conditions evidence, credible fear interview preparation, and one-year filing deadline tips.',
+
     // Translation status notice (only shown in non-English when content stays English)
     contentLanguageNotice: '',
   },
@@ -668,6 +687,25 @@ const translations = {
     practiceAreaAsylum: 'Asilo',
     practiceAreaDeportation: 'Defensa contra Deportación',
     practiceAreaCitizenship: 'Ciudadanía',
+
+    // Premium services / document kits
+    services: 'Premium',
+    servicesTitle: 'Kits Profesionales de Preparación de Documentos',
+    servicesIntro: 'Guías paso a paso, listas de evidencias, cartas de muestra y recorridos de formularios para ayudarte a preparar tu solicitud de inmigración con confianza. Nuevos kits próximamente.',
+    servicesComingSoon: 'Próximamente',
+    servicesDisclaimer: 'Estos kits brindan orientación únicamente. No constituyen asesoría legal. Para casos complejos, consulta a un abogado de inmigración con licencia.',
+    kitMarriageTitle: 'Kit de Green Card por Matrimonio',
+    kitMarriageDesc: 'Instrucciones paso a paso para presentar I-130 + I-485, lista de evidencias para demostrar un matrimonio de buena fe, cartas de presentación de muestra y preguntas de preparación para la entrevista.',
+    kitNaturalizationTitle: 'Lista de Verificación de Naturalización / Ciudadanía',
+    kitNaturalizationDesc: 'Guía del formulario N-400, materiales de estudio del examen cívico, lista de documentos, consejos para la entrevista de inglés/cívica y próximos pasos tras la aprobación.',
+    kitH1bTitle: 'Guía de Solicitud de Visa H-1B',
+    kitH1bDesc: 'Instrucciones para presentaciones sujetas a cupo, cartas de apoyo del empleador de muestra, estrategias de respuesta a RFE, orientación sobre procesamiento premium y expectativas de tiempo.',
+    kitDacaTitle: 'Kit de Renovación de DACA',
+    kitDacaDesc: 'Guía de los formularios I-821D y I-765, lista de evidencias para renovación, instrucciones de exención de tarifa, rastreador de plazos y consejos para evitar errores comunes.',
+    kitI130Title: 'Guía Completa de Petición Familiar (I-130)',
+    kitI130DescUS: 'Petición para familiares en el extranjero o ajuste de estatus en EE.UU., seguimiento de fechas de prioridad, lista de documentos de respaldo y expectativas de tiempo de procesamiento.',
+    kitAsylumTitle: 'Kit de Preparación de Solicitud de Asilo',
+    kitAsylumDesc: 'Guía del formulario I-589, redacción de la declaración personal, evidencia de condiciones del país, preparación para la entrevista de miedo creíble y consejos sobre el plazo de presentación de un año.',
 
     // Translation status notice (shown when content stays English)
     contentLanguageNotice: 'Algunos artículos de fondo (preguntas frecuentes, biografías de abogados, titulares de noticias) aún se muestran en inglés. Estamos traduciendo el contenido completo.',

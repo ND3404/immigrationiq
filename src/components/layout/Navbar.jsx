@@ -9,6 +9,7 @@ const mainLinks = [
   { to: '/chat', key: 'chat' },
   { to: '/timeline', key: 'timeline' },
   { to: '/lawyers', key: 'lawyers' },
+  { to: '/services', key: 'services' },
   { to: '/news', key: 'news' },
   { to: '/faq', key: 'faq' },
   { to: '/contact', key: 'contact' },
