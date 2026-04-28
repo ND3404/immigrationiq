@@ -7,6 +7,7 @@ import { exportChatToPdf } from '../utils/chatApi';
 import ChatBubble from '../components/chat/ChatBubble';
 import TypingIndicator from '../components/chat/TypingIndicator';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
+import AdBanner from '../components/shared/AdBanner';
 
 export default function Chat() {
   const { t, language } = useLanguage();
@@ -120,6 +121,11 @@ export default function Chat() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Ad slot — below chat header */}
+      <div className="border-b bg-white no-print" style={{ borderColor: 'var(--color-border)' }}>
+        <AdBanner size="leaderboard" className="my-2" />
       </div>
 
       {/* Messages */}

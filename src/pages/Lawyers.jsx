@@ -10,6 +10,7 @@ import {
 } from '../data/lawyers';
 import LawyerTip from '../components/shared/LawyerTip';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
+import AdBanner from '../components/shared/AdBanner';
 
 const PRACTICE_AREA_TKEY = {
   family: 'practiceAreaFamily',
@@ -248,16 +249,23 @@ export default function Lawyers() {
             {t('lawyersResultsCount').replace('{count}', filteredListings.length)}
           </p>
 
-          {/* Listings */}
+          {/* Listings + sidebar ad */}
           {filteredListings.length === 0 ? (
             <div className="card text-center text-sm" style={{ color: 'var(--color-text-light)' }}>
               {t('lawyersNoResults')}
             </div>
           ) : (
-            <div className="space-y-4">
-              {filteredListings.map((lawyer) => (
-                <LawyerListingCard key={lawyer.id} lawyer={lawyer} t={t} />
-              ))}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              <div className="lg:col-span-2 space-y-4">
+                {filteredListings.map((lawyer) => (
+                  <LawyerListingCard key={lawyer.id} lawyer={lawyer} t={t} />
+                ))}
+              </div>
+              <aside className="lg:col-span-1">
+                <div className="lg:sticky lg:top-20">
+                  <AdBanner size="rectangle" className="my-0" />
+                </div>
+              </aside>
             </div>
           )}
 

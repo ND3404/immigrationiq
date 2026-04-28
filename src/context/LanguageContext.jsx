@@ -352,6 +352,22 @@ const translations = {
     kitAsylumTitle: 'Asylum Application Preparation Kit',
     kitAsylumDesc: 'I-589 form walkthrough, personal declaration writing guide, country conditions evidence, credible fear interview preparation, and one-year filing deadline tips.',
 
+    // Ad placeholder
+    adLabel: 'Advertisement',
+
+    // Homepage "Our Services" section
+    homeServicesTitle: 'Our Services',
+    homeServicesIntro: 'Three ways ImmigrationIQ helps you prepare with confidence.',
+    homeServiceChatTitle: 'AI Immigration Assistant',
+    homeServiceChatDesc: 'Get instant, plain-language answers about visas, green cards, and the citizenship process — available 24/7 in English and Spanish.',
+    homeServiceChatCta: 'Start chatting',
+    homeServiceLawyersTitle: 'Lawyer Directory',
+    homeServiceLawyersDesc: 'Browse vetted immigration attorneys by state and practice area, with bilingual support and direct consultation booking.',
+    homeServiceLawyersCta: 'Find an attorney',
+    homeServiceKitsTitle: 'Document Preparation Kits',
+    homeServiceKitsDesc: 'Step-by-step guides, checklists, and sample letters for the most common immigration applications. Coming soon.',
+    homeServiceKitsCta: 'Browse kits',
+
     // Translation status notice (only shown in non-English when content stays English)
     contentLanguageNotice: '',
   },
@@ -706,6 +722,22 @@ const translations = {
     kitI130DescUS: 'Petición para familiares en el extranjero o ajuste de estatus en EE.UU., seguimiento de fechas de prioridad, lista de documentos de respaldo y expectativas de tiempo de procesamiento.',
     kitAsylumTitle: 'Kit de Preparación de Solicitud de Asilo',
     kitAsylumDesc: 'Guía del formulario I-589, redacción de la declaración personal, evidencia de condiciones del país, preparación para la entrevista de miedo creíble y consejos sobre el plazo de presentación de un año.',
+
+    // Ad placeholder
+    adLabel: 'Publicidad',
+
+    // Homepage "Our Services" section
+    homeServicesTitle: 'Nuestros Servicios',
+    homeServicesIntro: 'Tres formas en que ImmigrationIQ te ayuda a prepararte con confianza.',
+    homeServiceChatTitle: 'Asistente de Inmigración con IA',
+    homeServiceChatDesc: 'Obtén respuestas instantáneas y en lenguaje claro sobre visas, green cards y el proceso de ciudadanía — disponible 24/7 en inglés y español.',
+    homeServiceChatCta: 'Iniciar chat',
+    homeServiceLawyersTitle: 'Directorio de Abogados',
+    homeServiceLawyersDesc: 'Explora abogados de inmigración verificados por estado y área de práctica, con soporte bilingüe y reserva directa de consultas.',
+    homeServiceLawyersCta: 'Encontrar abogado',
+    homeServiceKitsTitle: 'Kits de Preparación de Documentos',
+    homeServiceKitsDesc: 'Guías paso a paso, listas de verificación y cartas de muestra para las solicitudes de inmigración más comunes. Próximamente.',
+    homeServiceKitsCta: 'Ver kits',
 
     // Translation status notice (shown when content stays English)
     contentLanguageNotice: 'Algunos artículos de fondo (preguntas frecuentes, biografías de abogados, titulares de noticias) aún se muestran en inglés. Estamos traduciendo el contenido completo.',

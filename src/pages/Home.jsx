@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Search, ArrowRight, MessageSquare, FileCheck, Clock, Scale, Compass, Shield, Zap,
-  Sparkles, Newspaper,
+  Sparkles, Newspaper, Briefcase, FileText,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { categories } from '../data/categories';
@@ -11,6 +11,7 @@ import CategoryCard from '../components/immigration/CategoryCard';
 import NewsCard from '../components/shared/NewsCard';
 import VisaBulletinDashboard from '../components/immigration/VisaBulletinDashboard';
 import NewsletterSignup from '../components/shared/NewsletterSignup';
+import AdBanner from '../components/shared/AdBanner';
 
 const QUICK_ACCESS_ITEMS = [
   { icon: MessageSquare, labelKey: 'chat', to: '/chat', color: 'var(--color-primary-500)' },
@@ -46,6 +47,9 @@ export default function Home() {
 
   return (
     <div>
+      {/* Ad slot — below navbar */}
+      <AdBanner size="leaderboard" />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-600) 50%, var(--color-primary-500) 100%)' }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
@@ -160,6 +164,66 @@ export default function Home() {
                 <Icon className="h-5 w-5" style={{ color }} />
               </div>
               <span className="font-semibold text-sm" style={{ color: 'var(--color-text)' }}>{t(labelKey)}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Our Services — promotes the three monetization features */}
+      <section className="page-container">
+        <div className="text-center mb-8">
+          <h2 className="section-title">{t('homeServicesTitle')}</h2>
+          <p className="mt-2 text-base max-w-2xl mx-auto" style={{ color: 'var(--color-text-light)' }}>
+            {t('homeServicesIntro')}
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {[
+            {
+              to: '/chat',
+              icon: MessageSquare,
+              titleKey: 'homeServiceChatTitle',
+              descKey: 'homeServiceChatDesc',
+              ctaKey: 'homeServiceChatCta',
+              color: 'var(--color-primary-500)',
+              bg: 'var(--color-primary-50)',
+            },
+            {
+              to: '/lawyers',
+              icon: Briefcase,
+              titleKey: 'homeServiceLawyersTitle',
+              descKey: 'homeServiceLawyersDesc',
+              ctaKey: 'homeServiceLawyersCta',
+              color: 'var(--color-secondary-500)',
+              bg: 'var(--color-danger-50)',
+            },
+            {
+              to: '/services',
+              icon: FileText,
+              titleKey: 'homeServiceKitsTitle',
+              descKey: 'homeServiceKitsDesc',
+              ctaKey: 'homeServiceKitsCta',
+              color: 'var(--color-accent-700)',
+              bg: 'var(--color-warning-50)',
+            },
+          ].map(({ to, icon: Icon, titleKey, descKey, ctaKey, color, bg }) => (
+            <Link
+              key={to}
+              to={to}
+              className="card flex flex-col h-full no-underline transition-shadow hover:shadow-lg"
+            >
+              <div className="rounded-xl inline-flex p-3 mb-4 self-start" style={{ backgroundColor: bg }}>
+                <Icon className="h-6 w-6" style={{ color }} />
+              </div>
+              <h3 className="text-lg font-bold mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
+                {t(titleKey)}
+              </h3>
+              <p className="text-sm flex-1 mb-4" style={{ color: 'var(--color-text-light)' }}>
+                {t(descKey)}
+              </p>
+              <span className="inline-flex items-center gap-1 text-sm font-semibold" style={{ color }}>
+                {t(ctaKey)} <ArrowRight className="h-4 w-4" />
+              </span>
             </Link>
           ))}
         </div>
