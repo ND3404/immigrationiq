@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
+import ScrollToTop from './components/layout/ScrollToTop';
 import Home from './pages/Home';
 
 // Lazy-load non-critical pages for code splitting
@@ -39,7 +40,9 @@ function SuspenseLayout({ children }) {
 
 export default function App() {
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       <Route path="/" element={<Layout><Home /></Layout>} />
       <Route path="/categories" element={<SuspenseLayout><Categories /></SuspenseLayout>} />
       <Route path="/category/:slug" element={<SuspenseLayout><CategoryDetail /></SuspenseLayout>} />
@@ -67,6 +70,7 @@ export default function App() {
           </div>
         </Layout>
       } />
-    </Routes>
+      </Routes>
+    </>
   );
 }

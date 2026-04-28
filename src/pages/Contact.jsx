@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Mail, Send, AlertTriangle, CheckCircle, Briefcase, Users, BookOpen, Megaphone } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyzplaceholder';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xjgjyzjo';
 const CONTACT_EMAIL = 'contact@immigrationiq.us';
 
 export default function Contact() {

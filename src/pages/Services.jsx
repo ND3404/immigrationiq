@@ -4,12 +4,12 @@ import {
 import { useLanguage } from '../context/LanguageContext';
 
 const KITS = [
-  { id: 'marriage', price: '9.99', icon: Heart, titleKey: 'kitMarriageTitle', descKey: 'kitMarriageDesc' },
-  { id: 'naturalization', price: '4.99', icon: Award, titleKey: 'kitNaturalizationTitle', descKey: 'kitNaturalizationDesc' },
-  { id: 'h1b', price: '9.99', icon: Briefcase, titleKey: 'kitH1bTitle', descKey: 'kitH1bDesc' },
-  { id: 'daca', price: '4.99', icon: Shield, titleKey: 'kitDacaTitle', descKey: 'kitDacaDesc' },
-  { id: 'i130', price: '7.99', icon: Users, titleKey: 'kitI130Title', descKey: 'kitI130DescUS' },
-  { id: 'asylum', price: '9.99', icon: FileText, titleKey: 'kitAsylumTitle', descKey: 'kitAsylumDesc' },
+  { id: 'marriage', price: '4.99', icon: Heart, titleKey: 'kitMarriageTitle', descKey: 'kitMarriageDesc' },
+  { id: 'naturalization', price: '2.99', icon: Award, titleKey: 'kitNaturalizationTitle', descKey: 'kitNaturalizationDesc' },
+  { id: 'h1b', price: '4.99', icon: Briefcase, titleKey: 'kitH1bTitle', descKey: 'kitH1bDesc' },
+  { id: 'daca', price: '2.99', icon: Shield, titleKey: 'kitDacaTitle', descKey: 'kitDacaDesc' },
+  { id: 'i130', price: '3.99', icon: Users, titleKey: 'kitI130Title', descKey: 'kitI130DescUS' },
+  { id: 'asylum', price: '4.99', icon: FileText, titleKey: 'kitAsylumTitle', descKey: 'kitAsylumDesc' },
 ];
 
 export default function Services() {
