@@ -7,7 +7,6 @@ import { exportChatToPdf } from '../utils/chatApi';
 import ChatBubble from '../components/chat/ChatBubble';
 import TypingIndicator from '../components/chat/TypingIndicator';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
-import AdBanner from '../components/shared/AdBanner';
 
 export default function Chat() {
   const { t, language } = useLanguage();
@@ -81,12 +80,7 @@ export default function Chat() {
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div
-              className="hidden sm:flex h-10 w-10 rounded-full items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: 'var(--color-primary-50)' }}
-            >
-              <MessageSquare className="h-5 w-5" style={{ color: 'var(--color-primary-500)' }} />
-            </div>
+            <img src="/logo-icon.svg" alt="" className="hidden sm:block h-10 w-10 flex-shrink-0" />
             <div className="min-w-0">
               <h1 className="text-lg sm:text-xl font-bold truncate" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
                 {t('chatTitle')}
@@ -121,11 +115,6 @@ export default function Chat() {
             )}
           </div>
         </div>
-      </div>
-
-      {/* Ad slot — below chat header */}
-      <div className="border-b bg-white no-print" style={{ borderColor: 'var(--color-border)' }}>
-        <AdBanner size="leaderboard" className="my-2" />
       </div>
 
       {/* Messages */}

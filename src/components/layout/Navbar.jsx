@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Scale, Menu, X, MessageSquare, Globe, ChevronDown, ExternalLink, Calculator, CalendarDays, Clock, FileCheck, BookOpen } from 'lucide-react';
+import { Menu, X, MessageSquare, Globe, ChevronDown, Calculator, CalendarDays, Clock, FileCheck, BookOpen } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 const mainLinks = [
@@ -95,11 +95,8 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 no-underline flex-shrink-0">
-            <Scale className="h-6 w-6" style={{ color: 'var(--color-primary-500)' }} />
-            <span className="text-lg font-bold" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary-500)' }}>
-              Immigration<span style={{ color: 'var(--color-secondary-500)' }}>IQ</span>
-            </span>
+          <Link to="/" className="flex items-center no-underline flex-shrink-0" aria-label="ImmigrationIQ home">
+            <img src="/logo-full.svg" alt="ImmigrationIQ" className="h-8 sm:h-10 w-auto" />
           </Link>
 
           {/* Desktop nav */}
