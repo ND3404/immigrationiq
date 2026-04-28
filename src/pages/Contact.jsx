@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Mail, Send, AlertTriangle, CheckCircle, Briefcase, Users, BookOpen, Megaphone } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xjgjyzjo';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mwvadbnp';
 const CONTACT_EMAIL = 'contact@immigrationiq.us';
 
 export default function Contact() {
@@ -185,9 +185,21 @@ export default function Contact() {
                 </div>
 
                 {status === 'error' && (
-                  <div className="rounded-lg p-3 flex items-start gap-2" style={{ backgroundColor: 'var(--color-danger-50)' }}>
+                  <div className="rounded-lg p-3 flex items-start gap-2" style={{ backgroundColor: 'var(--color-danger-50)', border: '1px solid var(--color-secondary-500)' }}>
                     <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: 'var(--color-secondary-500)' }} />
-                    <p className="text-sm" style={{ color: 'var(--color-secondary-600)' }}>{t('contactError')}</p>
+                    <div className="text-sm" style={{ color: 'var(--color-secondary-600)' }}>
+                      <p className="font-semibold">{t('contactError')}</p>
+                      <p className="mt-1">
+                        {t('contactErrorFallback')}{' '}
+                        <a
+                          href={`mailto:${CONTACT_EMAIL}`}
+                          className="font-semibold underline"
+                          style={{ color: 'var(--color-secondary-600)' }}
+                        >
+                          {CONTACT_EMAIL}
+                        </a>
+                      </p>
+                    </div>
                   </div>
                 )}
 
