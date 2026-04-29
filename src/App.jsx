@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Layout from './components/layout/Layout';
 import ScrollToTop from './components/layout/ScrollToTop';
 import Home from './pages/Home';
@@ -71,6 +72,7 @@ export default function App() {
         </Layout>
       } />
       </Routes>
+      <Analytics />
     </>
   );
 }
