@@ -7,6 +7,7 @@ import StepTimeline from '../components/immigration/StepTimeline';
 import ProcessingTimeBadge from '../components/immigration/ProcessingTimeBadge';
 import DocumentChecklist from '../components/immigration/DocumentChecklist';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
+import SEO from '../components/shared/SEO';
 
 const difficultyClass = { Easy: 'badge-easy', Moderate: 'badge-moderate', Complex: 'badge-complex' };
 
@@ -130,6 +131,11 @@ export default function CategoryDetail() {
 
   return (
     <div className="page-container max-w-4xl">
+      <SEO
+        title={`${category.name} | U.S. Visa Guide & Requirements | ImmigrationIQ`}
+        description={category.description ? `${category.description.slice(0, 155)}` : `Complete guide to the ${category.name} U.S. visa — eligibility, required documents, processing times, and step-by-step application process.`}
+        path={`/category/${slug}`}
+      />
       {/* Back button */}
       <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-sm font-medium mb-6 transition-colors hover:underline" style={{ color: 'var(--color-primary-500)' }}>
         <ArrowLeft className="h-4 w-4" /> {t('back')}

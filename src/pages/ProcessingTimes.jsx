@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 
 import { useLanguage } from '../context/LanguageContext';
 import { processingTimesData, lastUpdated } from '../data/processingTimes';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
+import SEO from '../components/shared/SEO';
 
 const COLORS = ['#003087', '#B22234', '#F5A623', '#2E7D32', '#7e22ce'];
 
@@ -46,6 +47,11 @@ export default function ProcessingTimes() {
 
   return (
     <div className="page-container max-w-5xl">
+      <SEO
+        title="USCIS Processing Times | Current Wait Times by Form & Service Center | ImmigrationIQ"
+        description="Latest USCIS processing times for I-130, I-485, N-400, I-765, and other immigration forms — broken down by service center, with charts and historical context."
+        path="/processing-times"
+      />
       <div className="text-center mb-8">
         <h1 className="section-title">{t('processingTimes')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>

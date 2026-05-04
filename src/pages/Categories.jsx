@@ -3,6 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { categories, categoryTypes } from '../data/categories';
 import CategoryCard from '../components/immigration/CategoryCard';
 import SearchBar from '../components/shared/SearchBar';
+import SEO from '../components/shared/SEO';
 
 export default function Categories() {
   const { t, language } = useLanguage();
@@ -17,6 +18,11 @@ export default function Categories() {
 
   return (
     <div className="page-container">
+      <SEO
+        title="U.S. Visa Categories | Family, Employment, Student & More | ImmigrationIQ"
+        description="Explore all U.S. visa and immigration categories — family-based, employment, student, humanitarian, and more. Compare requirements, processing times, and next steps."
+        path="/categories"
+      />
       <div className="text-center mb-8">
         <h1 className="section-title">{t('categories')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>

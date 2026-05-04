@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Calculator, RotateCcw, Printer, ExternalLink, AlertTriangle, Plus, Minus } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
+import SEO from '../components/shared/SEO';
 
 const visaTypes = [
   { id: 'i130', form: 'I-130', name: 'Family Petition (Alien Relative)', fee: 675 },
@@ -72,6 +73,11 @@ export default function FeeCalculator() {
 
   return (
     <div className="page-container max-w-4xl">
+      <SEO
+        title="USCIS Fee Calculator | Estimate Your Immigration Filing Costs | ImmigrationIQ"
+        description="Free USCIS fee calculator. Estimate filing fees for I-130, I-485, N-400, H-1B, and other U.S. immigration forms — including biometrics and premium processing."
+        path="/fee-calculator"
+      />
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
           <div className="rounded-lg p-2.5" style={{ backgroundColor: 'var(--color-primary-50)' }}>

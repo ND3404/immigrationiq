@@ -4,6 +4,7 @@ import { ChevronDown, ChevronUp, MessageSquare, HelpCircle } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext';
 import { faqData } from '../data/faq';
 import SearchBar from '../components/shared/SearchBar';
+import SEO from '../components/shared/SEO';
 
 export default function FAQ() {
   const { t } = useLanguage();
@@ -25,6 +26,11 @@ export default function FAQ() {
 
   return (
     <div className="page-container max-w-3xl">
+      <SEO
+        title="Immigration FAQ | Common Questions About Visas, Green Cards & Citizenship | ImmigrationIQ"
+        description="Answers to the most common U.S. immigration questions about visas, green cards, naturalization, asylum, and USCIS forms — searchable and updated regularly."
+        path="/faq"
+      />
       <div className="text-center mb-8">
         <h1 className="section-title">{t('faq')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>

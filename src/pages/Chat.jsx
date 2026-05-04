@@ -7,6 +7,7 @@ import { exportChatToPdf } from '../utils/chatApi';
 import ChatBubble from '../components/chat/ChatBubble';
 import TypingIndicator from '../components/chat/TypingIndicator';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
+import SEO from '../components/shared/SEO';
 
 export default function Chat() {
   const { t, language } = useLanguage();
@@ -73,6 +74,11 @@ export default function Chat() {
       className="flex flex-col"
       style={{ height: 'calc(100dvh - 4rem)', backgroundColor: 'var(--color-surface)' }}
     >
+      <SEO
+        title="AI Immigration Chat | Free Answers to Visa, Green Card & Citizenship Questions | ImmigrationIQ"
+        description="Ask our free AI immigration assistant any question about U.S. visas, green cards, citizenship, and forms. Available 24/7 in English and Spanish."
+        path="/chat"
+      />
       {/* Header */}
       <div
         className="border-b bg-white"
@@ -80,7 +86,14 @@ export default function Chat() {
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <img src="/logo-icon.svg" alt="" className="hidden sm:block h-10 w-10 flex-shrink-0" />
+            <img
+              src="/logo-icon.svg"
+              alt=""
+              width="40"
+              height="40"
+              loading="lazy"
+              className="hidden sm:block h-10 w-10 flex-shrink-0"
+            />
             <div className="min-w-0">
               <h1 className="text-lg sm:text-xl font-bold truncate" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
                 {t('chatTitle')}

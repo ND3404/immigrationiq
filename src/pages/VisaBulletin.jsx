@@ -8,6 +8,7 @@ import {
   previousVisaBulletin,
 } from '../data/visaBulletin';
 import VisaBulletinDashboard from '../components/immigration/VisaBulletinDashboard';
+import SEO from '../components/shared/SEO';
 
 export default function VisaBulletin() {
   const { t } = useLanguage();
@@ -17,6 +18,11 @@ export default function VisaBulletin() {
 
   return (
     <div className="page-container max-w-7xl">
+      <SEO
+        title="Visa Bulletin | Current Priority Dates & Movement | ImmigrationIQ"
+        description="Track the current State Department Visa Bulletin, priority date movement, and final action dates for family and employment-based green cards."
+        path="/visa-bulletin"
+      />
       {/* Page intro */}
       <div className="mb-5">
         <div className="flex flex-wrap items-end justify-between gap-3">

@@ -10,6 +10,7 @@ import {
 } from '../data/lawyers';
 import LawyerTip from '../components/shared/LawyerTip';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
+import SEO from '../components/shared/SEO';
 
 const PRACTICE_AREA_TKEY = {
   family: 'practiceAreaFamily',
@@ -134,6 +135,11 @@ export default function Lawyers() {
 
   return (
     <div className="page-container max-w-4xl">
+      <SEO
+        title="Find Immigration Lawyers | Directory by State & Practice Area | ImmigrationIQ"
+        description="Find U.S. immigration lawyers and free legal aid organizations by state and practice area. Family, employment, asylum, deportation, and citizenship attorneys."
+        path="/lawyers"
+      />
       <div className="text-center mb-8">
         <h1 className="section-title">{t('lawyers')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>

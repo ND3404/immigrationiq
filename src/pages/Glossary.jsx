@@ -4,6 +4,7 @@ import { BookOpen, MessageSquare, ChevronDown, ChevronUp } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { glossaryTerms } from '../data/glossary';
 import SearchBar from '../components/shared/SearchBar';
+import SEO from '../components/shared/SEO';
 
 export default function Glossary() {
   const { t } = useLanguage();
@@ -30,6 +31,11 @@ export default function Glossary() {
 
   return (
     <div className="page-container max-w-3xl">
+      <SEO
+        title="U.S. Immigration Glossary | Terms, Acronyms & Definitions | ImmigrationIQ"
+        description="Plain-English definitions for U.S. immigration terms, acronyms, and USCIS forms. Searchable A-Z glossary covering visas, status, and processes."
+        path="/glossary"
+      />
       <div className="text-center mb-8">
         <h1 className="section-title">{t('glossary')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>

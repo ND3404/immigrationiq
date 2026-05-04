@@ -96,7 +96,14 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
           <Link to="/" className="flex items-center no-underline flex-shrink-0" aria-label="ImmigrationIQ home">
-            <img src="/logo-full.svg" alt="ImmigrationIQ" className="h-8 sm:h-10 w-auto" />
+            <img
+              src="/logo-full.svg"
+              alt="ImmigrationIQ"
+              width="180"
+              height="40"
+              fetchpriority="high"
+              className="h-8 sm:h-10 w-auto"
+            />
           </Link>
 
           {/* Desktop nav */}

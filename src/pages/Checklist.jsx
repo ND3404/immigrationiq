@@ -4,6 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { categories } from '../data/categories';
 import DocumentChecklist from '../components/immigration/DocumentChecklist';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
+import SEO from '../components/shared/SEO';
 
 const SITUATIONS = [
   { id: 'married', labelKey: 'situationMarried', icon: Heart },
@@ -46,6 +47,11 @@ export default function Checklist() {
 
   return (
     <div className="page-container max-w-3xl">
+      <SEO
+        title="Immigration Document Checklist | Required Documents & Forms | ImmigrationIQ"
+        description="Personalized U.S. immigration document checklists by visa category. Find every required form, supporting document, and evidence item for your application."
+        path="/checklist"
+      />
       <div className="text-center mb-8">
         <h1 className="section-title">{t('checklist')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>

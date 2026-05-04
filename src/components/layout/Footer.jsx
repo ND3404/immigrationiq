@@ -17,7 +17,14 @@ export default function Footer() {
           {/* About + Newsletter */}
           <div>
             <Link to="/" className="inline-block mb-3 no-underline" aria-label="ImmigrationIQ home">
-              <img src="/logo-full-white.svg" alt="ImmigrationIQ" className="h-9 w-auto" />
+              <img
+                src="/logo-full-white.svg"
+                alt="ImmigrationIQ"
+                width="180"
+                height="36"
+                loading="lazy"
+                className="h-9 w-auto"
+              />
             </Link>
             <p className="text-sm mb-4" style={{ color: BODY }}>
               {t('footerAbout')}

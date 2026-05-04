@@ -3,6 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { newsItems } from '../data/news';
 import NewsCard from '../components/shared/NewsCard';
 import SearchBar from '../components/shared/SearchBar';
+import SEO from '../components/shared/SEO';
 
 const NEWS_CATEGORIES = [
   { value: 'All', labelKey: 'newsCatAll' },
@@ -26,6 +27,11 @@ export default function News() {
 
   return (
     <div className="page-container max-w-4xl">
+      <SEO
+        title="Immigration News | Latest U.S. Policy Updates & Changes | ImmigrationIQ"
+        description="Stay current on U.S. immigration news — USCIS policy updates, visa bulletin changes, executive orders, court decisions, and fee changes."
+        path="/news"
+      />
       <div className="text-center mb-8">
         <h1 className="section-title">{t('news')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>

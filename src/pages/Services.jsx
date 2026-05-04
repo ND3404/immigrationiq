@@ -2,6 +2,7 @@ import {
   Heart, Award, Briefcase, Shield, Users, FileText, AlertTriangle, Sparkles, Clock,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import SEO from '../components/shared/SEO';
 
 const KITS = [
   { id: 'marriage', price: '4.99', icon: Heart, titleKey: 'kitMarriageTitle', descKey: 'kitMarriageDesc' },
@@ -17,6 +18,11 @@ export default function Services() {
 
   return (
     <div className="page-container max-w-6xl">
+      <SEO
+        title="Immigration Document Preparation Kits | Step-by-Step Guides | ImmigrationIQ"
+        description="Affordable immigration document preparation kits with step-by-step guides for marriage green card, naturalization, H-1B, DACA, I-130, and asylum applications."
+        path="/services"
+      />
       {/* Header */}
       <div className="text-center mb-10">
         <div

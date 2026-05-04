@@ -4,6 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { timelineScenarios } from '../data/timelines';
 import TimelineVisualizer from '../components/immigration/TimelineVisualizer';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
+import SEO from '../components/shared/SEO';
 
 export default function Timeline() {
   const { t } = useLanguage();
@@ -11,6 +12,11 @@ export default function Timeline() {
 
   return (
     <div className="page-container max-w-4xl">
+      <SEO
+        title="U.S. Immigration Process Timeline | Step-by-Step Guide | ImmigrationIQ"
+        description="See the full U.S. immigration process timeline for common scenarios — green cards, citizenship, work visas, and family petitions. Step-by-step expected durations."
+        path="/timeline"
+      />
       <div className="text-center mb-8">
         <h1 className="section-title">{t('timeline')}</h1>
         <p className="mt-2 text-base" style={{ color: 'var(--color-text-light)' }}>

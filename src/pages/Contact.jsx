@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Mail, Send, AlertTriangle, CheckCircle, Briefcase, Users, BookOpen, Megaphone } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import SEO from '../components/shared/SEO';
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mwvadbnp';
 const CONTACT_EMAIL = 'contact@immigrationiq.us';
@@ -64,6 +65,11 @@ export default function Contact() {
 
   return (
     <div className="page-container max-w-5xl">
+      <SEO
+        title="Contact ImmigrationIQ | Partnerships, Advertising & Support"
+        description="Contact ImmigrationIQ for partnerships, advertising opportunities, lawyer directory listings, and general support. We respond within 1-2 business days."
+        path="/contact"
+      />
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="section-title">{t('contactTitle')}</h1>
