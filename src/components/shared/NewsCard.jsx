@@ -18,26 +18,34 @@ const categoryLabelKeys = {
   'Fee Changes': 'newsCatFee',
 };
 
+function pickLocalized(field, language) {
+  if (field && typeof field === 'object') return field[language] || field.en || '';
+  return field || '';
+}
+
 export default function NewsCard({ item, showExplain = true }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const color = categoryColors[item.category] || 'var(--color-primary-500)';
   const categoryLabel = categoryLabelKeys[item.category] ? t(categoryLabelKeys[item.category]) : item.category;
+  const title = pickLocalized(item.title, language);
+  const summary = pickLocalized(item.summary, language);
+  const dateDisplay = language === 'es' && item.dateEs ? item.dateEs : item.date;
 
   return (
     <div className="card flex flex-col h-full">
       <div className="flex items-center gap-2 mb-2">
         <span className="badge" style={{ backgroundColor: `${color}15`, color }}>{categoryLabel}</span>
         <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--color-text-light)' }}>
-          <Calendar className="h-3 w-3" /> {item.date}
+          <Calendar className="h-3 w-3" /> {dateDisplay}
         </span>
       </div>
       <h3
         className="font-bold text-base mb-2"
         style={{ fontFamily: 'var(--font-heading)', color: '#C75B45' }}
       >
-        {item.title}
+        {title}
       </h3>
-      <p className="text-sm mb-3 flex-1" style={{ color: 'var(--color-text-light)' }}>{item.summary}</p>
+      <p className="text-sm mb-3 flex-1" style={{ color: 'var(--color-text-light)' }}>{summary}</p>
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <span className="text-xs" style={{ color: 'var(--color-text-light)' }}>{item.source}</span>
         <div className="flex items-center gap-3">
@@ -54,7 +62,7 @@ export default function NewsCard({ item, showExplain = true }) {
           )}
           {showExplain && (
             <Link
-              to={`/chat?q=Explain this immigration news in simple terms: ${encodeURIComponent(item.title)}`}
+              to={`/chat?q=Explain this immigration news in simple terms: ${encodeURIComponent(title)}`}
               className="inline-flex items-center gap-1 text-xs font-semibold no-underline transition-colors hover:underline"
               style={{ color: 'var(--color-primary-500)' }}
             >

@@ -75,7 +75,7 @@ export default function Services() {
 
             <div className="flex items-end justify-between gap-3 pt-4 border-t" style={{ borderColor: 'var(--color-border)' }}>
               <div>
-                <span className="text-3xl font-bold" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-secondary-500)' }}>
+                <span className="font-semibold" style={{ fontFamily: 'var(--font-heading)', color: '#2c5282', fontSize: '21px' }}>
                   ${price}
                 </span>
               </div>

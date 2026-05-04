@@ -14,14 +14,22 @@ const NEWS_CATEGORIES = [
   { value: 'Fee Changes', labelKey: 'newsCatFee' },
 ];
 
+function localizedText(field, language) {
+  if (field && typeof field === 'object') return field[language] || field.en || '';
+  return field || '';
+}
+
 export default function News() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [filter, setFilter] = useState('All');
   const [search, setSearch] = useState('');
 
   const filtered = newsItems.filter(item => {
     const matchesCat = filter === 'All' || item.category === filter;
-    const matchesSearch = !search || item.title.toLowerCase().includes(search.toLowerCase()) || item.summary.toLowerCase().includes(search.toLowerCase());
+    const title = localizedText(item.title, language).toLowerCase();
+    const summary = localizedText(item.summary, language).toLowerCase();
+    const q = search.toLowerCase();
+    const matchesSearch = !search || title.includes(q) || summary.includes(q);
     return matchesCat && matchesSearch;
   });
 

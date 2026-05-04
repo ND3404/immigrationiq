@@ -256,9 +256,27 @@ export default function Lawyers() {
 
           {/* Listings */}
           {filteredListings.length === 0 ? (
-            <div className="card text-center text-sm" style={{ color: 'var(--color-text-light)' }}>
-              {t('lawyersNoResults')}
-            </div>
+            lawyerListings.length === 0 ? (
+              <div className="card text-center py-10">
+                <Briefcase className="h-10 w-10 mx-auto mb-3" style={{ color: 'var(--color-primary-400)' }} />
+                <h3 className="text-base font-bold mb-1" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
+                  {t('lawyersEmptyTitle')}
+                </h3>
+                <p className="text-sm mb-5" style={{ color: 'var(--color-text-light)' }}>
+                  {t('lawyersEmptyBody')}
+                </p>
+                <Link
+                  to="/contact"
+                  className="btn-primary inline-flex no-underline"
+                >
+                  {t('lawyersEmptyCta')}
+                </Link>
+              </div>
+            ) : (
+              <div className="card text-center text-sm" style={{ color: 'var(--color-text-light)' }}>
+                {t('lawyersNoResults')}
+              </div>
+            )
           ) : (
             <div className="space-y-4">
               {filteredListings.map((lawyer) => (
