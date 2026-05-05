@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import {
-  lawyerResources, lawyerTips, legalAidByState, lawyerListings, practiceAreaKeys,
+  lawyerResources, lawyerTips, legalAidByState, legalAidNationwide, lawyerListings, practiceAreaKeys,
 } from '../data/lawyers';
 import LawyerTip from '../components/shared/LawyerTip';
 import DisclaimerBanner from '../components/shared/DisclaimerBanner';
@@ -107,7 +107,7 @@ function LawyerListingCard({ lawyer, t }) {
 }
 
 export default function Lawyers() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState('directory');
   const [stateFilter, setStateFilter] = useState('');
   const [practiceFilter, setPracticeFilter] = useState('');
@@ -390,20 +390,85 @@ export default function Lawyers() {
 
       {/* Legal Aid Tab */}
       {activeTab === 'legalaid' && (
-        <div className="space-y-4 animate-fade-in">
-          {legalAidByState.map((item, i) => (
-            <div key={i} className="card">
-              <h3 className="font-bold text-sm flex items-center gap-2 mb-2" style={{ color: 'var(--color-text)' }}>
-                <MapPin className="h-4 w-4" style={{ color: 'var(--color-primary-500)' }} />
-                {item.state}
+        <div className="space-y-6 animate-fade-in">
+          {/* Nationwide section — distinct styling */}
+          <div
+            className="rounded-xl p-5 sm:p-6"
+            style={{
+              backgroundColor: 'var(--color-primary-50)',
+              border: '2px solid var(--color-primary-300)',
+            }}
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <Globe className="h-5 w-5" style={{ color: 'var(--color-primary-600)' }} />
+              <h3 className="font-bold text-base" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary-700)' }}>
+                {t('legalAidNationwideTitle')}
               </h3>
-              <ul className="space-y-1">
-                {item.organizations.map((org, j) => (
-                  <li key={j} className="text-sm" style={{ color: 'var(--color-text-light)' }}>• {org}</li>
-                ))}
-              </ul>
             </div>
-          ))}
+            <p className="text-sm mb-4" style={{ color: 'var(--color-text-light)' }}>
+              {t('legalAidNationwideIntro')}
+            </p>
+            <ul className="space-y-3">
+              {legalAidNationwide.map((org, i) => (
+                <li key={i} className="rounded-lg bg-white p-3" style={{ border: '1px solid var(--color-primary-200)' }}>
+                  <a
+                    href={org.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-sm inline-flex items-center gap-1 no-underline hover:underline"
+                    style={{ color: 'var(--color-primary-600)' }}
+                  >
+                    {org.name} <ExternalLink className="h-3 w-3" />
+                  </a>
+                  <p className="text-sm mt-1" style={{ color: 'var(--color-text-light)' }}>
+                    {language === 'es' ? org.descEs : org.descEn}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* States section */}
+          <div>
+            <h3 className="font-bold text-base mb-3 flex items-center gap-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
+              <MapPin className="h-5 w-5" style={{ color: 'var(--color-primary-500)' }} />
+              {t('legalAidStatesTitle')}
+            </h3>
+            <div className="space-y-4">
+              {legalAidByState.map((item, i) => (
+                <div key={i} className="card">
+                  <h4 className="font-bold text-sm flex items-center gap-2 mb-2" style={{ color: 'var(--color-text)' }}>
+                    <MapPin className="h-4 w-4" style={{ color: 'var(--color-primary-500)' }} />
+                    {language === 'es' && item.stateEs ? item.stateEs : item.state}
+                  </h4>
+                  <ul className="space-y-2">
+                    {item.organizations.map((org, j) => (
+                      <li key={j}>
+                        {org.url ? (
+                          <a
+                            href={org.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-semibold inline-flex items-center gap-1 no-underline hover:underline"
+                            style={{ color: 'var(--color-primary-600)' }}
+                          >
+                            {org.name} <ExternalLink className="h-3 w-3" />
+                          </a>
+                        ) : (
+                          <span className="text-sm font-semibold" style={{ color: 'var(--color-text)' }}>
+                            {org.name}
+                          </span>
+                        )}
+                        <p className="text-xs mt-0.5" style={{ color: 'var(--color-text-light)' }}>
+                          {language === 'es' ? org.descEs : org.descEn}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 
