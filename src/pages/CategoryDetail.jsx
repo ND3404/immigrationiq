@@ -120,9 +120,9 @@ export default function CategoryDetail() {
   if (!category) {
     return (
       <div className="page-container text-center py-20">
-        <h1 className="section-title">Category Not Found</h1>
-        <p className="mt-4" style={{ color: 'var(--color-text-light)' }}>The category you're looking for doesn't exist.</p>
-        <Link to="/categories" className="btn-primary mt-6 no-underline">Browse All Categories</Link>
+        <h1 className="section-title">{t('categoryNotFoundTitle')}</h1>
+        <p className="mt-4" style={{ color: 'var(--color-text-light)' }}>{t('categoryNotFoundBody')}</p>
+        <Link to="/categories" className="btn-primary mt-6 no-underline">{t('categoryNotFoundCta')}</Link>
       </div>
     );
   }

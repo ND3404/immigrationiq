@@ -72,29 +72,29 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-600) 50%, var(--color-primary-500) 100%)' }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
-        <div className="relative mx-auto max-w-5xl px-4 py-20 sm:py-28 text-center">
+        <div className="relative mx-auto max-w-5xl px-4 py-16 sm:py-28 text-center">
           <div className="animate-fade-in-up">
             <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6" style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: 'white' }}>
               <Scale className="h-4 w-4" />
               <span className="text-sm font-medium">{t('homeAskBadge')}</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
               {t('heroTitle')}
             </h1>
-            <p className="mt-5 text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-4 sm:mt-5 text-base sm:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
               {t('heroSubtitle')}
             </p>
 
             {/* Search bar */}
-            <form onSubmit={handleSearch} className="mt-8 mx-auto max-w-2xl">
+            <form onSubmit={handleSearch} className="mt-6 sm:mt-8 mx-auto max-w-2xl">
               <div className="relative">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                <Search className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
                 <input
                   type="text"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   placeholder={t('searchPlaceholder')}
-                  className="w-full rounded-full bg-white py-4 pl-13 pr-4 sm:pr-36 text-base shadow-xl outline-none"
+                  className="w-full rounded-full bg-white py-4 pl-12 pr-4 sm:pr-36 text-base shadow-xl outline-none"
                   style={{ fontFamily: 'var(--font-body)', color: 'var(--color-text)' }}
                 />
                 <Link to="/chat" className="btn-secondary hidden sm:inline-flex absolute right-2 top-1/2 -translate-y-1/2 rounded-full no-underline">

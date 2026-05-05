@@ -15,7 +15,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 pt-8 pb-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* About + Newsletter */}
-          <div>
+          <div className="text-center sm:text-left">
             <Link to="/" className="inline-block mb-3 no-underline" aria-label="ImmigrationIQ home">
               <img
                 src="/logo-full-white.svg"
@@ -23,7 +23,7 @@ export default function Footer() {
                 width="180"
                 height="36"
                 loading="lazy"
-                className="h-9 w-auto"
+                className="h-9 w-auto mx-auto sm:mx-0"
               />
             </Link>
             <p className="text-sm mb-4" style={{ color: BODY }}>

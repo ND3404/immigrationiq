@@ -62,10 +62,24 @@
     font-family: var(--font-body);
     background-color: var(--color-surface);
     color: var(--color-text);
+    overflow-x: hidden;
     @apply antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+  }
+  /* Prevent images and media from breaking layouts on mobile */
+  img, svg, video, canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  /* Allow images with explicit width/height attributes (e.g., logos) to keep them */
+  img[width][height] {
+    height: auto;
+  }
+  /* iOS: prevent text auto-zoom on input focus when font-size < 16px */
+  input, select, textarea {
+    font-size: max(16px, 1em);
   }
 }
 

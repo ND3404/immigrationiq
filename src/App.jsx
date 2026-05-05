@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import Layout from './components/layout/Layout';
 import ScrollToTop from './components/layout/ScrollToTop';
 import Home from './pages/Home';
+import { useLanguage } from './context/LanguageContext';
 
 // Lazy-load non-critical pages for code splitting
 const Categories = lazy(() => import('./pages/Categories'));
@@ -20,6 +21,17 @@ const FeeCalculator = lazy(() => import('./pages/FeeCalculator'));
 const VisaBulletin = lazy(() => import('./pages/VisaBulletin'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Services = lazy(() => import('./pages/Services'));
+
+function NotFound() {
+  const { t } = useLanguage();
+  return (
+    <div className="page-container text-center py-20">
+      <h1 className="section-title">{t('notFoundTitle')}</h1>
+      <p className="mt-4" style={{ color: 'var(--color-text-light)' }}>{t('notFoundBody')}</p>
+      <a href="/" className="btn-primary mt-6 inline-block no-underline">{t('notFoundCta')}</a>
+    </div>
+  );
+}
 
 function PageLoader() {
   return (
@@ -64,11 +76,7 @@ export default function App() {
       {/* 404 */}
       <Route path="*" element={
         <Layout>
-          <div className="page-container text-center py-20">
-            <h1 className="section-title">Page Not Found</h1>
-            <p className="mt-4" style={{ color: 'var(--color-text-light)' }}>The page you're looking for doesn't exist.</p>
-            <a href="/" className="btn-primary mt-6 inline-block no-underline">Go Home</a>
-          </div>
+          <NotFound />
         </Layout>
       } />
       </Routes>

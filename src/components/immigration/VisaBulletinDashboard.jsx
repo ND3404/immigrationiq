@@ -13,20 +13,17 @@ import {
   formatBulletinDate,
   compareBulletinCells,
 } from '../../data/visaBulletin';
+import { useLanguage } from '../../context/LanguageContext';
 
-const SECTION_TABS = [
-  { key: 'family',     label: 'Family-Based',     icon: Users,     categories: FAMILY_CATEGORIES },
-  { key: 'employment', label: 'Employment-Based', icon: Briefcase, categories: EMPLOYMENT_CATEGORIES },
+const SECTION_KEYS = [
+  { key: 'family',     tKey: 'vbFamilyBased',     icon: Users,     categories: FAMILY_CATEGORIES },
+  { key: 'employment', tKey: 'vbEmploymentBased', icon: Briefcase, categories: EMPLOYMENT_CATEGORIES },
 ];
 
-const CHART_TABS = [
-  { key: 'finalActionDates', label: 'Final Action Dates' },
-  { key: 'datesForFiling',   label: 'Dates for Filing' },
+const CHART_KEYS = [
+  { key: 'finalActionDates', tKey: 'vbFinalActionDates' },
+  { key: 'datesForFiling',   tKey: 'vbDatesForFiling' },
 ];
-
-function chartLabel(key) {
-  return key === 'datesForFiling' ? 'Dates for Filing' : 'Final Action Dates';
-}
 
 function valueColor(value) {
   if (value === 'C') return 'var(--color-success-500)';
@@ -88,10 +85,12 @@ export default function VisaBulletinDashboard({
   defaultChart = 'finalActionDates',
   className = '',
 }) {
+  const { t } = useLanguage();
   const [section, setSection] = useState(defaultSection);
   const [chart, setChart] = useState(defaultChart);
 
-  const sectionDef = SECTION_TABS.find(s => s.key === section) ?? SECTION_TABS[0];
+  const chartLabel = (key) => t(key === 'datesForFiling' ? 'vbDatesForFiling' : 'vbFinalActionDates');
+  const sectionDef = SECTION_KEYS.find(s => s.key === section) ?? SECTION_KEYS[0];
   const data = bulletin[section]?.[chart];
   const priorData = prior?.[section]?.[chart];
   const recommendedChart = bulletin.uscisFilingChart?.[section];
@@ -125,16 +124,16 @@ export default function VisaBulletinDashboard({
         </div>
         <div className="flex-1 min-w-0">
           <h2 className="text-lg sm:text-xl font-bold leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
-            Visa Bulletin Dashboard
+            {t('vbDashboardTitle')}
           </h2>
-          <p className="text-xs sm:text-sm text-blue-200">U.S. Department of State — updated monthly</p>
+          <p className="text-xs sm:text-sm text-blue-200">{t('vbDashboardSubtitle')}</p>
         </div>
         <span
           className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide"
           style={{ backgroundColor: 'var(--color-accent-400)', color: 'var(--color-primary-900)' }}
           title={`Bulletin published ${formatBulletinDate(bulletin.publishedDate?.replace(/-/g, '').replace(/^(\d{4})(\d{2})(\d{2})$/, ''))}`}
         >
-          Last Updated: {bulletin.label}
+          {t('vbLastUpdated')}: {bulletin.label}
         </span>
         <a
           href={bulletin.sourceUrl}
@@ -143,7 +142,7 @@ export default function VisaBulletinDashboard({
           className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-semibold no-underline hover:bg-blue-50"
           style={{ color: 'var(--color-primary-700)' }}
         >
-          Official Source <ExternalLink className="h-3.5 w-3.5" />
+          {t('vbOfficialSource')} <ExternalLink className="h-3.5 w-3.5" />
         </a>
       </div>
 
@@ -151,17 +150,17 @@ export default function VisaBulletinDashboard({
       <div className="px-5 sm:px-6 py-3 flex items-start gap-2" style={{ backgroundColor: 'var(--color-accent-50)', borderBottom: '1px solid var(--color-border)' }}>
         <Info className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ color: 'var(--color-accent-700)' }} />
         <p className="text-xs sm:text-sm leading-snug" style={{ color: 'var(--color-text)' }}>
-          <strong>For {bulletin.label}:</strong>{' '}
-          Family — <strong>{chartLabel(bulletin.uscisFilingChart.family)}</strong>{' | '}
-          Employment — <strong>{chartLabel(bulletin.uscisFilingChart.employment)}</strong>{' '}
-          <span style={{ color: 'var(--color-text-light)' }}>(USCIS adjustment-of-status filing chart)</span>
+          <strong>{t('vbForBulletin')} {bulletin.label}:</strong>{' '}
+          {t('vbFamily')} — <strong>{chartLabel(bulletin.uscisFilingChart.family)}</strong>{' | '}
+          {t('vbEmployment')} — <strong>{chartLabel(bulletin.uscisFilingChart.employment)}</strong>{' '}
+          <span style={{ color: 'var(--color-text-light)' }}>{t('vbFilingChartNote')}</span>
         </p>
       </div>
 
       {/* Toggles */}
       <div className="px-5 sm:px-6 pt-4 flex flex-wrap items-center gap-2">
         <div className="inline-flex rounded-full border p-1 bg-white" style={{ borderColor: 'var(--color-border)' }}>
-          {SECTION_TABS.map((s) => (
+          {SECTION_KEYS.map((s) => (
             <button
               key={s.key}
               type="button"
@@ -173,13 +172,13 @@ export default function VisaBulletinDashboard({
                   : { color: 'var(--color-text)' }
               }
             >
-              <s.icon className="h-4 w-4" /> {s.label}
+              <s.icon className="h-4 w-4" /> {t(s.tKey)}
             </button>
           ))}
         </div>
 
         <div className="inline-flex rounded-full border p-1 bg-white" style={{ borderColor: 'var(--color-border)' }}>
-          {CHART_TABS.map((c) => {
+          {CHART_KEYS.map((c) => {
             const active = chart === c.key;
             const isRecommended = recommendedChart === c.key;
             return (
@@ -190,7 +189,7 @@ export default function VisaBulletinDashboard({
                 className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs sm:text-sm font-semibold transition whitespace-nowrap"
                 style={active ? { backgroundColor: 'var(--color-primary-500)', color: 'white' } : { color: 'var(--color-text)' }}
               >
-                {c.label}
+                {t(c.tKey)}
                 {isRecommended && (
                   <span
                     className="rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide"
@@ -213,18 +212,18 @@ export default function VisaBulletinDashboard({
       <div className="px-5 sm:px-6 pt-3 flex flex-wrap items-center gap-3 text-xs" style={{ color: 'var(--color-text-light)' }}>
         <span className="inline-flex items-center gap-1">
           <ArrowUp className="h-3.5 w-3.5" style={{ color: 'var(--color-success-500)' }} />
-          <strong style={{ color: 'var(--color-success-500)' }}>{movementSummary.forward}</strong> advanced
+          <strong style={{ color: 'var(--color-success-500)' }}>{movementSummary.forward}</strong> {t('vbAdvanced')}
         </span>
         <span className="inline-flex items-center gap-1">
           <Minus className="h-3.5 w-3.5" style={{ color: 'var(--color-text-light)' }} />
-          <strong>{movementSummary.same}</strong> unchanged
+          <strong>{movementSummary.same}</strong> {t('vbUnchanged')}
         </span>
         <span className="inline-flex items-center gap-1">
           <ArrowDown className="h-3.5 w-3.5" style={{ color: 'var(--color-secondary-500)' }} />
-          <strong style={{ color: 'var(--color-secondary-500)' }}>{movementSummary.backward}</strong> retrogressed
+          <strong style={{ color: 'var(--color-secondary-500)' }}>{movementSummary.backward}</strong> {t('vbRetrogressed')}
         </span>
         <span className="ml-auto" style={{ color: 'var(--color-text-light)' }}>
-          vs <strong>{prior?.label || 'prior month'}</strong>
+          vs <strong>{prior?.label || t('vbVsPriorMonth')}</strong>
         </span>
       </div>
 
@@ -233,7 +232,7 @@ export default function VisaBulletinDashboard({
         <div className="overflow-x-auto -mx-1 rounded-lg" style={{ border: '1px solid var(--color-border)' }}>
           <table className="w-full text-sm">
             <caption className="sr-only">
-              {sectionDef.label} — {chartLabel(chart)} for {bulletin.label}
+              {t(sectionDef.tKey)} — {chartLabel(chart)} — {bulletin.label}
             </caption>
             <thead style={{ backgroundColor: 'var(--color-surface)' }}>
               <tr>
@@ -242,7 +241,7 @@ export default function VisaBulletinDashboard({
                   className="text-left font-semibold px-3 py-2.5 text-xs uppercase tracking-wide sticky left-0 z-10"
                   style={{ color: 'var(--color-primary-700)', backgroundColor: 'var(--color-surface)' }}
                 >
-                  Category
+                  {t('vbCategoryColumn')}
                 </th>
                 {CHARGEABILITY_AREAS.map(chargeabilityHeader)}
               </tr>
