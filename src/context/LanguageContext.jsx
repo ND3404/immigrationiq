@@ -29,6 +29,8 @@ const translations = {
     toolChecklistDesc: 'Document checklists',
     toolGlossaryDesc: 'Immigration terms',
     toolVisaBulletinDesc: 'Final action & filing dates',
+    toolChatDesc: 'Ask the AI assistant',
+    toolCaseTrackerDesc: 'Check USCIS case status',
 
     // Fee Calculator
     feeCalculatorTitle: 'Visa Fee Calculator',
@@ -336,6 +338,59 @@ const translations = {
     legalAidStatesTitle: 'By State',
     legalAidVisitWebsite: 'Visit website',
 
+    // Case Tracker
+    caseTracker: 'Case Tracker',
+    caseTrackerTitle: 'USCIS Case Status Tracker',
+    caseTrackerSubtitle: 'Enter your USCIS receipt number to check your case status on the official USCIS website.',
+    caseTrackerInputLabel: 'Receipt number',
+    caseTrackerInputPlaceholder: 'Enter your receipt number (e.g., EAC1234567890)',
+    caseTrackerCheckBtn: 'Check Status',
+    caseTrackerInvalid: 'Please enter a valid 13-character USCIS receipt number (3 letters + 10 digits).',
+    caseTrackerWhereTitle: 'Where to find your receipt number',
+    caseTrackerWhereBody: 'Your 13-character receipt number starts with 3 letters (like EAC, WAC, LIN, SRC, MSC, IOE, NBC) followed by 10 digits. Find it on your I-797 Notice of Action.',
+    caseTrackerExampleCaption: 'Example: receipt number on the I-797 Notice of Action — top right of the form.',
+    caseTrackerOtherToolsTitle: 'Other useful tracking tools',
+    caseTrackerOtherProcessing: 'USCIS Processing Times',
+    caseTrackerOtherProcessingDesc: 'Estimated processing times for every USCIS form and service center.',
+    caseTrackerOtherCaseLanding: 'USCIS Case Status Online',
+    caseTrackerOtherCaseLandingDesc: 'Official USCIS case status portal — search and create a free account.',
+    caseTrackerOtherCEAC: 'CEAC Visa Status Check',
+    caseTrackerOtherCEACDesc: 'State Department portal for nonimmigrant and immigrant visa application status.',
+    caseTrackerDisclaimer: 'This tool redirects you to the official USCIS website. ImmigrationIQ does not store or process your case information.',
+    caseTrackerOpenUscis: 'Open on USCIS',
+
+    // Tools dashboard (home)
+    homeToolsHeading: 'Immigration Tools',
+    homeToolsSubheading: 'Everything you need to navigate the U.S. immigration system.',
+    homeToolAIChatTitle: 'AI Chat Assistant',
+    homeToolAIChatDesc: 'Ask any immigration question and get instant answers',
+    homeToolAIChatCta: 'Start Chatting',
+    homeToolVBTitle: 'Visa Bulletin Dashboard',
+    homeToolVBDesc: 'Check current visa bulletin dates for family and employment categories',
+    homeToolVBCta: 'View Bulletin',
+    homeToolCaseTitle: 'Case Status Tracker',
+    homeToolCaseDesc: 'Track your USCIS case status with your receipt number',
+    homeToolCaseCta: 'Track Case',
+    homeToolFeeTitle: 'USCIS Fee Calculator',
+    homeToolFeeDesc: 'Calculate filing fees for any immigration form',
+    homeToolFeeCta: 'Calculate Fees',
+
+    // Trust indicators / hero
+    homeTrustFree: 'Free',
+    homeTrustBilingual: 'Bilingual',
+    homeTrustUpdatedDaily: 'Updated Daily',
+    heroSubtitleNew: 'AI-powered guidance for visas, green cards, citizenship & more — free in English & Spanish',
+
+    // How it works (new copy)
+    homeStepsHeading: 'How It Works',
+    homeStepChooseTitle: 'Choose a Tool',
+    homeStepChooseDesc: 'Pick from our AI assistant, visa bulletin, case tracker, or fee calculator.',
+    homeStepAskTitle: 'Ask or Search',
+    homeStepAskDesc: 'Type your question or enter your receipt number — no account needed.',
+    homeStepGetTitle: 'Get Answers',
+    homeStepGetDesc: 'Receive clear, accurate guidance in seconds, in English or Spanish.',
+    homeViewAllNews: 'View All News',
+
     // 404 / not found
     notFoundTitle: 'Page Not Found',
     notFoundBody: "The page you're looking for doesn't exist.",
@@ -435,6 +490,8 @@ const translations = {
     toolChecklistDesc: 'Listas de documentos',
     toolGlossaryDesc: 'Términos de inmigración',
     toolVisaBulletinDesc: 'Fechas de acción final y presentación',
+    toolChatDesc: 'Pregúntale al asistente IA',
+    toolCaseTrackerDesc: 'Verifica el estatus de tu caso USCIS',
 
     // Fee Calculator
     feeCalculatorTitle: 'Calculadora de Tarifas de Visa',
@@ -741,6 +798,59 @@ const translations = {
     legalAidNationwideIntro: 'Estos directorios y organizaciones nacionales te ayudan a encontrar ayuda legal de inmigración gratuita o de bajo costo en cualquier parte de EE. UU.',
     legalAidStatesTitle: 'Por estado',
     legalAidVisitWebsite: 'Visitar sitio web',
+
+    // Rastreador de casos
+    caseTracker: 'Rastreador de Casos',
+    caseTrackerTitle: 'Rastreador de Estatus de Caso USCIS',
+    caseTrackerSubtitle: 'Ingresa tu número de recibo de USCIS para verificar el estatus de tu caso en el sitio oficial de USCIS.',
+    caseTrackerInputLabel: 'Número de recibo',
+    caseTrackerInputPlaceholder: 'Ingresa tu número de recibo (ej., EAC1234567890)',
+    caseTrackerCheckBtn: 'Verificar Estatus',
+    caseTrackerInvalid: 'Por favor ingresa un número de recibo válido de 13 caracteres (3 letras + 10 dígitos).',
+    caseTrackerWhereTitle: 'Dónde encontrar tu número de recibo',
+    caseTrackerWhereBody: 'Tu número de recibo de 13 caracteres comienza con 3 letras (como EAC, WAC, LIN, SRC, MSC, IOE, NBC) seguidas de 10 dígitos. Lo encontrarás en tu I-797 Aviso de Acción.',
+    caseTrackerExampleCaption: 'Ejemplo: número de recibo en el I-797 Aviso de Acción — esquina superior derecha del formulario.',
+    caseTrackerOtherToolsTitle: 'Otras herramientas útiles de seguimiento',
+    caseTrackerOtherProcessing: 'Tiempos de Procesamiento de USCIS',
+    caseTrackerOtherProcessingDesc: 'Tiempos estimados de procesamiento para cada formulario de USCIS y centro de servicio.',
+    caseTrackerOtherCaseLanding: 'Estatus de Caso de USCIS en Línea',
+    caseTrackerOtherCaseLandingDesc: 'Portal oficial de estatus de casos de USCIS — busca y crea una cuenta gratuita.',
+    caseTrackerOtherCEAC: 'Verificación de Estatus de Visa CEAC',
+    caseTrackerOtherCEACDesc: 'Portal del Departamento de Estado para el estatus de solicitudes de visa de inmigrante y no inmigrante.',
+    caseTrackerDisclaimer: 'Esta herramienta te redirige al sitio web oficial de USCIS. ImmigrationIQ no almacena ni procesa la información de tu caso.',
+    caseTrackerOpenUscis: 'Abrir en USCIS',
+
+    // Panel de herramientas (inicio)
+    homeToolsHeading: 'Herramientas de Inmigración',
+    homeToolsSubheading: 'Todo lo que necesitas para navegar el sistema de inmigración de EE. UU.',
+    homeToolAIChatTitle: 'Asistente de Chat IA',
+    homeToolAIChatDesc: 'Haz cualquier pregunta de inmigración y obtén respuestas al instante',
+    homeToolAIChatCta: 'Comenzar a Chatear',
+    homeToolVBTitle: 'Panel del Boletín de Visas',
+    homeToolVBDesc: 'Consulta las fechas actuales del boletín de visas',
+    homeToolVBCta: 'Ver Boletín',
+    homeToolCaseTitle: 'Rastreador de Estatus de Caso',
+    homeToolCaseDesc: 'Rastrea el estatus de tu caso USCIS con tu número de recibo',
+    homeToolCaseCta: 'Rastrear Caso',
+    homeToolFeeTitle: 'Calculadora de Tarifas USCIS',
+    homeToolFeeDesc: 'Calcula las tarifas de cualquier formulario de inmigración',
+    homeToolFeeCta: 'Calcular Tarifas',
+
+    // Indicadores de confianza / hero
+    homeTrustFree: 'Gratis',
+    homeTrustBilingual: 'Bilingüe',
+    homeTrustUpdatedDaily: 'Actualizado Diariamente',
+    heroSubtitleNew: 'Guía con inteligencia artificial para visas, residencia, ciudadanía y más — gratis en inglés y español',
+
+    // Cómo funciona (copia nueva)
+    homeStepsHeading: 'Cómo Funciona',
+    homeStepChooseTitle: 'Elige una Herramienta',
+    homeStepChooseDesc: 'Elige entre nuestro asistente IA, boletín de visas, rastreador de casos o calculadora de tarifas.',
+    homeStepAskTitle: 'Pregunta o Busca',
+    homeStepAskDesc: 'Escribe tu pregunta o ingresa tu número de recibo — sin necesidad de cuenta.',
+    homeStepGetTitle: 'Obtén Respuestas',
+    homeStepGetDesc: 'Recibe orientación clara y precisa en segundos, en inglés o español.',
+    homeViewAllNews: 'Ver Todas las Noticias',
 
     // 404 / no encontrado
     notFoundTitle: 'Página no encontrada',

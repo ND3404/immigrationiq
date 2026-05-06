@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X, MessageSquare, Globe, ChevronDown, Calculator, CalendarDays, Clock, FileCheck, BookOpen } from 'lucide-react';
+import { Menu, X, MessageSquare, Globe, ChevronDown, Calculator, CalendarDays, Clock, FileCheck, BookOpen, Search } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 const mainLinks = [
@@ -16,11 +16,13 @@ const mainLinks = [
 ];
 
 const toolsDropdownItems = [
+  { to: '/chat', key: 'chat', icon: MessageSquare, descKey: 'toolChatDesc' },
+  { to: '/visa-bulletin', key: 'visaBulletin', icon: CalendarDays, descKey: 'toolVisaBulletinDesc' },
+  { to: '/case-tracker', key: 'caseTracker', icon: Search, descKey: 'toolCaseTrackerDesc' },
   { to: '/fee-calculator', key: 'feeCalculator', icon: Calculator, descKey: 'toolFeeCalculatorDesc' },
   { to: '/processing-times', key: 'processingTimes', icon: Clock, descKey: 'toolProcessingTimesDesc' },
   { to: '/checklist', key: 'checklist', icon: FileCheck, descKey: 'toolChecklistDesc' },
   { to: '/glossary', key: 'glossary', icon: BookOpen, descKey: 'toolGlossaryDesc' },
-  { to: '/visa-bulletin', key: 'visaBulletin', icon: CalendarDays, descKey: 'toolVisaBulletinDesc' },
 ];
 
 function LanguageToggle({ language, setLanguage, t, size = 'sm' }) {

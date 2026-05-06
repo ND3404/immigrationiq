@@ -21,6 +21,7 @@ const FeeCalculator = lazy(() => import('./pages/FeeCalculator'));
 const VisaBulletin = lazy(() => import('./pages/VisaBulletin'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Services = lazy(() => import('./pages/Services'));
+const CaseTracker = lazy(() => import('./pages/CaseTracker'));
 
 function NotFound() {
   const { t } = useLanguage();
@@ -72,6 +73,7 @@ export default function App() {
       <Route path="/contact" element={<SuspenseLayout><Contact /></SuspenseLayout>} />
       <Route path="/services" element={<SuspenseLayout><Services /></SuspenseLayout>} />
       <Route path="/premium" element={<SuspenseLayout><Services /></SuspenseLayout>} />
+      <Route path="/case-tracker" element={<SuspenseLayout><CaseTracker /></SuspenseLayout>} />
 
       {/* 404 */}
       <Route path="*" element={
