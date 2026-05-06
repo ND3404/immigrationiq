@@ -358,6 +358,9 @@ const translations = {
     caseTrackerOtherCEACDesc: 'State Department portal for nonimmigrant and immigrant visa application status.',
     caseTrackerDisclaimer: 'This tool redirects you to the official USCIS website. ImmigrationIQ does not store or process your case information.',
     caseTrackerOpenUscis: 'Open on USCIS',
+    caseTrackerNote: 'Your receipt number will be copied to your clipboard. Paste it on the USCIS page.',
+    caseTrackerToastSuccess: 'Receipt number copied! Paste it on the USCIS page that just opened.',
+    caseTrackerToastFallback: "We couldn't copy automatically. Please copy your receipt number manually and paste it on the USCIS page.",
 
     // Tools dashboard (home)
     homeToolsHeading: 'Immigration Tools',
@@ -819,6 +822,9 @@ const translations = {
     caseTrackerOtherCEACDesc: 'Portal del Departamento de Estado para el estatus de solicitudes de visa de inmigrante y no inmigrante.',
     caseTrackerDisclaimer: 'Esta herramienta te redirige al sitio web oficial de USCIS. ImmigrationIQ no almacena ni procesa la información de tu caso.',
     caseTrackerOpenUscis: 'Abrir en USCIS',
+    caseTrackerNote: 'Tu número de recibo se copiará al portapapeles. Pégalo en la página de USCIS.',
+    caseTrackerToastSuccess: '¡Número de recibo copiado! Pégalo en la página de USCIS que se acaba de abrir.',
+    caseTrackerToastFallback: 'No pudimos copiar automáticamente. Copia tu número de recibo manualmente y pégalo en la página de USCIS.',
 
     // Panel de herramientas (inicio)
     homeToolsHeading: 'Herramientas de Inmigración',

@@ -1,9 +1,36 @@
-import { useState } from 'react';
-import { Search, ExternalLink, Info, AlertTriangle, FileText, Clock, Globe } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Search, ExternalLink, Info, AlertTriangle, FileText, Clock, Globe, ClipboardCheck } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/shared/SEO';
 
 const RECEIPT_REGEX = /^[A-Za-z]{3}\d{10}$/;
+const USCIS_LANDING_URL = 'https://egov.uscis.gov/casestatus/landing.do';
+
+async function copyToClipboard(text) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      // fall through to legacy path
+    }
+  }
+  // Legacy fallback for older browsers / non-secure contexts
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch {
+    return false;
+  }
+}
 
 const OTHER_TOOLS = [
   {
@@ -30,8 +57,15 @@ export default function CaseTracker() {
   const { t } = useLanguage();
   const [receipt, setReceipt] = useState('');
   const [error, setError] = useState('');
+  const [toast, setToast] = useState(null); // { kind: 'success' | 'fallback', message }
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (!toast) return;
+    const id = setTimeout(() => setToast(null), 4000);
+    return () => clearTimeout(id);
+  }, [toast]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const value = receipt.trim().toUpperCase();
     if (!RECEIPT_REGEX.test(value)) {
@@ -39,8 +73,16 @@ export default function CaseTracker() {
       return;
     }
     setError('');
-    const url = `https://egov.uscis.gov/casestatus/mycasestatus.do?appReceiptNum=${encodeURIComponent(value)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+
+    // Open USCIS first — must happen synchronously inside the click handler
+    // to avoid popup blockers.
+    window.open(USCIS_LANDING_URL, '_blank', 'noopener,noreferrer');
+
+    const copied = await copyToClipboard(value);
+    setToast({
+      kind: copied ? 'success' : 'fallback',
+      message: copied ? t('caseTrackerToastSuccess') : t('caseTrackerToastFallback'),
+    });
   };
 
   return (
@@ -99,8 +141,30 @@ export default function CaseTracker() {
             {t('caseTrackerCheckBtn')}
             <ExternalLink className="h-3.5 w-3.5 opacity-80" />
           </button>
+          <p className="text-xs flex items-start gap-1.5" style={{ color: 'var(--color-text-light)' }}>
+            <ClipboardCheck className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" style={{ color: 'var(--color-primary-500)' }} />
+            {t('caseTrackerNote')}
+          </p>
         </form>
       </div>
+
+      {/* Toast */}
+      {toast && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 max-w-sm w-[calc(100%-2rem)] rounded-xl shadow-2xl px-4 py-3 flex items-start gap-3 animate-fade-in-up"
+          style={{
+            backgroundColor: toast.kind === 'success' ? 'var(--color-primary-700)' : 'var(--color-secondary-600)',
+            color: 'white',
+          }}
+        >
+          {toast.kind === 'success'
+            ? <ClipboardCheck className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: 'var(--color-accent-300)' }} />
+            : <AlertTriangle className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: 'var(--color-accent-300)' }} />}
+          <p className="text-sm leading-snug">{toast.message}</p>
+        </div>
+      )}
 
       {/* Where to find your receipt number */}
       <div
