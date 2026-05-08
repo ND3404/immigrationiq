@@ -1,5 +1,6 @@
 import {
   Heart, Award, Briefcase, Shield, Users, FileText, AlertTriangle, Sparkles, Clock,
+  GraduationCap,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/shared/SEO';
@@ -7,6 +8,7 @@ import SEO from '../components/shared/SEO';
 const KITS = [
   { id: 'marriage', price: '4.99', icon: Heart, titleKey: 'kitMarriageTitle', descKey: 'kitMarriageDesc' },
   { id: 'naturalization', price: '2.99', icon: Award, titleKey: 'kitNaturalizationTitle', descKey: 'kitNaturalizationDesc' },
+  { id: 'naturalization-exam', price: '3.99', icon: GraduationCap, titleKey: 'kitNaturalizationExamTitle', descKey: 'kitNaturalizationExamDesc' },
   { id: 'h1b', price: '4.99', icon: Briefcase, titleKey: 'kitH1bTitle', descKey: 'kitH1bDesc' },
   { id: 'daca', price: '2.99', icon: Shield, titleKey: 'kitDacaTitle', descKey: 'kitDacaDesc' },
   { id: 'i130', price: '3.99', icon: Users, titleKey: 'kitI130Title', descKey: 'kitI130DescUS' },

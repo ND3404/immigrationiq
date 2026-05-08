@@ -2,11 +2,22 @@ import { useState } from 'react';
 import { Mail, Send, CheckCircle, AlertTriangle } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
-const NEWSLETTER_FORMSPREE_ENDPOINT = 'https://formspree.io/f/newsletterplaceholder';
+const NEWSLETTER_FORMSPREE_ENDPOINT = 'https://formspree.io/f/xwvynwog';
+
+const CATEGORY_OPTIONS = [
+  { value: 'all', labelKey: 'newsletterCatAll' },
+  { value: 'family', labelKey: 'newsletterCatFamily' },
+  { value: 'employment', labelKey: 'newsletterCatEmployment' },
+  { value: 'dv', labelKey: 'newsletterCatDV' },
+  { value: 'daca', labelKey: 'newsletterCatDACA' },
+  { value: 'naturalization', labelKey: 'newsletterCatNaturalization' },
+  { value: 'asylum', labelKey: 'newsletterCatAsylum' },
+];
 
 export default function NewsletterSignup({ variant = 'banner' }) {
   const { t } = useLanguage();
   const [email, setEmail] = useState('');
+  const [category, setCategory] = useState('');
   const [status, setStatus] = useState('idle');
 
   const handleSubmit = async (e) => {
@@ -17,11 +28,17 @@ export default function NewsletterSignup({ variant = 'banner' }) {
       const res = await fetch(NEWSLETTER_FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ email, source: variant }),
+        body: JSON.stringify({
+          email,
+          category: category || 'unspecified',
+          source: 'newsletter',
+          variant,
+        }),
       });
       if (res.ok) {
         setStatus('success');
         setEmail('');
+        setCategory('');
       } else {
         setStatus('error');
       }
@@ -54,7 +71,14 @@ export default function NewsletterSignup({ variant = 'banner' }) {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-2">
             <input
+              type="hidden"
+              name="source"
+              value="newsletter"
+              readOnly
+            />
+            <input
               type="email"
+              name="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -63,6 +87,21 @@ export default function NewsletterSignup({ variant = 'banner' }) {
               className="w-full rounded-md px-3 py-2 text-sm bg-white outline-none focus:ring-2 focus:ring-white/60"
               style={{ color: 'var(--color-text)', minHeight: '40px' }}
             />
+            <select
+              name="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              aria-label={t('newsletterCategoryLabel')}
+              className="w-full rounded-md px-3 py-2 text-sm bg-white outline-none focus:ring-2 focus:ring-white/60"
+              style={{ color: category ? 'var(--color-text)' : 'var(--color-text-light)', minHeight: '40px' }}
+            >
+              <option value="">{t('newsletterCategoryPlaceholder')}</option>
+              {CATEGORY_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value} style={{ color: 'var(--color-text)' }}>
+                  {t(opt.labelKey)}
+                </option>
+              ))}
+            </select>
             <button
               type="submit"
               disabled={status === 'submitting'}
@@ -118,9 +157,11 @@ export default function NewsletterSignup({ variant = 'banner' }) {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-2">
+                <input type="hidden" name="source" value="newsletter" readOnly />
                 <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="email"
+                    name="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -139,6 +180,21 @@ export default function NewsletterSignup({ variant = 'banner' }) {
                     {status === 'submitting' ? t('newsletterSubmitting') : t('newsletterSubmit')}
                   </button>
                 </div>
+                <select
+                  name="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  aria-label={t('newsletterCategoryLabel')}
+                  className="w-full rounded-full px-5 py-3 text-sm bg-white outline-none focus:ring-2 focus:ring-white/60"
+                  style={{ color: category ? 'var(--color-text)' : 'var(--color-text-light)', minHeight: '44px' }}
+                >
+                  <option value="">{t('newsletterCategoryPlaceholder')}</option>
+                  {CATEGORY_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value} style={{ color: 'var(--color-text)' }}>
+                      {t(opt.labelKey)}
+                    </option>
+                  ))}
+                </select>
                 {status === 'error' ? (
                   <p className="text-xs flex items-start gap-1.5" style={{ color: '#ffd6d6' }}>
                     <AlertTriangle className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
