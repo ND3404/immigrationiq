@@ -408,6 +408,22 @@ const translations = {
     servicesBadgeMostPopular: 'Most Popular',
     servicesBadgeBestValue: 'Best Value',
 
+    // Kit preview modal
+    servicesPreview: 'Preview',
+    servicesPreviewHeading: "What's Inside:",
+    servicesPreviewPagesLabel: 'pages',
+    servicesPreviewLanguageLabel: 'Available in English & Spanish',
+    servicesPreviewClose: 'Close',
+    servicesCardLanguageNote: 'Available in English & Spanish',
+
+    // EB visa kit titles & short descriptions
+    kitEB1Title: 'EB-1 Visa Guide',
+    kitEB1Desc: 'Compare EB-1A, EB-1B, and EB-1C — the 10 extraordinary-ability criteria, evidence strategy, and premium processing.',
+    kitEB2Title: 'EB-2 Visa Guide',
+    kitEB2Desc: 'EB-2 NIW strategy, the Dhanasar 3-prong framework, PERM walkthrough, and EB-2/EB-3 downgrade options.',
+    kitEB3Title: 'EB-3 Visa Guide',
+    kitEB3Desc: 'EB-3 for professionals, skilled, and other workers — full PERM process, employer requirements, and country-by-country timelines.',
+
     // How it works (new copy)
     homeStepsHeading: 'How It Works',
     homeStepChooseTitle: 'Choose a Tool',
@@ -901,6 +917,22 @@ const translations = {
     // Insignias de Premium
     servicesBadgeMostPopular: 'Más Popular',
     servicesBadgeBestValue: 'Mejor Valor',
+
+    // Modal de vista previa
+    servicesPreview: 'Vista Previa',
+    servicesPreviewHeading: 'Qué Incluye:',
+    servicesPreviewPagesLabel: 'páginas',
+    servicesPreviewLanguageLabel: 'Disponible en Inglés y Español',
+    servicesPreviewClose: 'Cerrar',
+    servicesCardLanguageNote: 'Disponible en Inglés y Español',
+
+    // Títulos y descripciones de kits EB
+    kitEB1Title: 'Guía de Visa EB-1',
+    kitEB1Desc: 'Compara EB-1A, EB-1B y EB-1C — los 10 criterios de habilidad extraordinaria, estrategia de evidencia y procesamiento premium.',
+    kitEB2Title: 'Guía de Visa EB-2',
+    kitEB2Desc: 'Estrategia EB-2 NIW, el marco Dhanasar de 3 partes, proceso PERM y opciones de downgrade EB-2/EB-3.',
+    kitEB3Title: 'Guía de Visa EB-3',
+    kitEB3Desc: 'EB-3 para profesionales, trabajadores calificados y no calificados — proceso PERM completo, requisitos del empleador y plazos por país.',
 
     // Cómo funciona (copia nueva)
     homeStepsHeading: 'Cómo Funciona',
