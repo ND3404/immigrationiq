@@ -393,6 +393,21 @@ const translations = {
     homeTrustUpdatedDaily: 'Updated Daily',
     heroSubtitleNew: 'AI-powered guidance for visas, green cards, citizenship & more — free in English & Spanish',
 
+    // Hero trust strip
+    homeTrustStripSecure: 'Secure & Private',
+    homeTrustStripBilingual: 'English & Español',
+    homeTrustStripInstant: 'Instant Answers',
+    homeTrustStripDevices: 'Works on Any Device',
+
+    // Floating chat button + Back to top
+    floatingChatShort: 'Ask AI',
+    floatingChatFree: 'Free',
+    backToTop: 'Back to top',
+
+    // Premium badges
+    servicesBadgeMostPopular: 'Most Popular',
+    servicesBadgeBestValue: 'Best Value',
+
     // How it works (new copy)
     homeStepsHeading: 'How It Works',
     homeStepChooseTitle: 'Choose a Tool',
@@ -871,6 +886,21 @@ const translations = {
     homeTrustBilingual: 'Bilingüe',
     homeTrustUpdatedDaily: 'Actualizado Diariamente',
     heroSubtitleNew: 'Guía con inteligencia artificial para visas, residencia, ciudadanía y más — gratis en inglés y español',
+
+    // Tira de confianza del hero
+    homeTrustStripSecure: 'Seguro y Privado',
+    homeTrustStripBilingual: 'Inglés y Español',
+    homeTrustStripInstant: 'Respuestas Instantáneas',
+    homeTrustStripDevices: 'Funciona en Cualquier Dispositivo',
+
+    // Botón flotante + Volver arriba
+    floatingChatShort: 'Pregunta IA',
+    floatingChatFree: 'Gratis',
+    backToTop: 'Volver arriba',
+
+    // Insignias de Premium
+    servicesBadgeMostPopular: 'Más Popular',
+    servicesBadgeBestValue: 'Mejor Valor',
 
     // Cómo funciona (copia nueva)
     homeStepsHeading: 'Cómo Funciona',

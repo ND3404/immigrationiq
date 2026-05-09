@@ -32,10 +32,16 @@ export default function NewsCard({ item, showExplain = true }) {
   const dateDisplay = language === 'es' && item.dateEs ? item.dateEs : item.date;
 
   return (
-    <div className="card flex flex-col h-full">
-      <div className="flex items-center gap-2 mb-2">
+    <div
+      className="card flex flex-col h-full"
+      style={{ borderLeft: '3px solid #B22234' }}
+    >
+      <div className="flex items-center gap-2 mb-2 flex-wrap">
         <span className="badge" style={{ backgroundColor: `${color}15`, color }}>{categoryLabel}</span>
-        <span className="flex items-center gap-1 text-xs" style={{ color: 'var(--color-text-light)' }}>
+        <span
+          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold"
+          style={{ backgroundColor: 'var(--color-primary-50)', color: 'var(--color-primary-700)' }}
+        >
           <Calendar className="h-3 w-3" /> {dateDisplay}
         </span>
       </div>

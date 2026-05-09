@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import FloatingChatButton from '../chat/FloatingChatButton';
+import BackToTop from '../shared/BackToTop';
 
 export default function Layout({ children }) {
   const { pathname } = useLocation();
@@ -13,6 +14,7 @@ export default function Layout({ children }) {
       <main className="flex-1">{children}</main>
       {!isChat && <Footer />}
       {!isChat && <FloatingChatButton />}
+      {!isChat && <BackToTop />}
     </div>
   );
 }

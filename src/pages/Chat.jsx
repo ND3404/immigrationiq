@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Send, Plus, Download, AlertCircle, MessageSquare } from 'lucide-react';
+import { Send, Plus, Download, AlertCircle, MessageSquare, Sparkles } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useChatContext } from '../context/ChatContext';
 import { exportChatToPdf } from '../utils/chatApi';
@@ -86,16 +86,16 @@ export default function Chat() {
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <img
-              src="/logo-icon.svg"
-              alt=""
-              width="40"
-              height="40"
-              loading="lazy"
-              className="hidden sm:block h-10 w-10 flex-shrink-0"
-            />
+            <span
+              className="hidden sm:inline-flex h-10 w-10 rounded-full items-center justify-center flex-shrink-0"
+              style={{ background: 'linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-primary-500) 100%)' }}
+              aria-hidden="true"
+            >
+              <Sparkles className="h-5 w-5 text-white" />
+            </span>
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-bold truncate" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
+              <h1 className="text-lg sm:text-xl font-bold truncate inline-flex items-center gap-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
+                <Sparkles className="h-4 w-4 sm:hidden" style={{ color: 'var(--color-primary-500)' }} aria-hidden="true" />
                 {t('chatTitle')}
               </h1>
               <p className="text-xs sm:text-sm" style={{ color: 'var(--color-text-light)' }}>
@@ -108,8 +108,8 @@ export default function Chat() {
             <button
               onClick={handleNewChat}
               disabled={messages.length === 0}
-              className="inline-flex items-center justify-center gap-1.5 rounded-full px-3 sm:px-4 py-2 min-h-[44px] min-w-[44px] text-sm font-semibold border transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50"
-              style={{ borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
+              className="inline-flex items-center justify-center gap-1.5 rounded-full px-3 sm:px-4 py-2 min-h-[44px] min-w-[44px] text-sm font-semibold border-2 transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--color-primary-50)]"
+              style={{ borderColor: 'var(--color-primary-300)', color: 'var(--color-primary-600)' }}
               title={t('chatNewChatTitle')}
               aria-label={t('chatNewChat')}
             >

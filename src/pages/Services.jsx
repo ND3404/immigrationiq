@@ -13,6 +13,8 @@ const KITS = [
     titleKey: 'kitMarriageTitle',
     descKey: 'kitMarriageDesc',
     stripeUrl: 'https://buy.stripe.com/cNiaEPbCqbsU5Uj3SO7g403',
+    badgeKey: 'servicesBadgeMostPopular',
+    badgeKind: 'popular',
   },
   {
     id: 'naturalization',
@@ -29,6 +31,8 @@ const KITS = [
     titleKey: 'kitNaturalizationExamTitle',
     descKey: 'kitNaturalizationExamDesc',
     stripeUrl: 'https://buy.stripe.com/14A28j35U40s5Uj9d87g402',
+    badgeKey: 'servicesBadgeBestValue',
+    badgeKind: 'value',
   },
   {
     id: 'h1b',
@@ -92,16 +96,38 @@ export default function Services() {
         </p>
       </div>
 
-      {/* Kit grid */}
+      {/* Kit grid — soft gradient backdrop */}
+      <div
+        className="rounded-2xl p-5 sm:p-6"
+        style={{
+          background: 'linear-gradient(180deg, var(--color-primary-50) 0%, #ffffff 70%)',
+        }}
+      >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {KITS.map(({ id, price, icon: Icon, titleKey, descKey, stripeUrl }) => {
+        {KITS.map(({ id, price, icon: Icon, titleKey, descKey, stripeUrl, badgeKey, badgeKind }) => {
           const isAvailable = !!stripeUrl;
           return (
             <div
               key={id}
               className="card relative flex flex-col"
-              style={{ borderColor: 'var(--color-border)' }}
+              style={{
+                borderColor: badgeKind === 'popular' ? 'var(--color-secondary-500)' : badgeKind === 'value' ? 'var(--color-success-500)' : 'var(--color-border)',
+                borderWidth: badgeKey ? '2px' : '1px',
+              }}
             >
+              {/* Featured badge (Most Popular / Best Value) */}
+              {badgeKey && (
+                <span
+                  className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide shadow-sm"
+                  style={{
+                    backgroundColor: badgeKind === 'popular' ? 'var(--color-secondary-500)' : 'var(--color-success-500)',
+                    color: '#ffffff',
+                  }}
+                >
+                  {t(badgeKey)}
+                </span>
+              )}
+
               {/* Coming Soon ribbon — only when no Stripe link */}
               {!isAvailable && (
                 <span
@@ -173,6 +199,7 @@ export default function Services() {
             </div>
           );
         })}
+      </div>
       </div>
 
       {/* Trust bar */}

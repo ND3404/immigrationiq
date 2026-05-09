@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Search, ArrowRight, MessageSquare, Calculator, CalendarDays,
-  CheckCircle, LayoutGrid, Newspaper,
+  CheckCircle, LayoutGrid, Newspaper, Lock, Globe, Zap, Smartphone,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { newsItems } from '../data/news';
 import NewsCard from '../components/shared/NewsCard';
 import NewsletterSignup from '../components/shared/NewsletterSignup';
 import SEO from '../components/shared/SEO';
+import Reveal from '../components/shared/Reveal';
 
 const HOME_JSON_LD = {
   '@context': 'https://schema.org',
@@ -27,6 +28,13 @@ const HOME_JSON_LD = {
 };
 
 const HEADLINE_TERRACOTTA = '#C75B45';
+
+const TRUST_STRIP = [
+  { icon: Lock, key: 'homeTrustStripSecure' },
+  { icon: Globe, key: 'homeTrustStripBilingual' },
+  { icon: Zap, key: 'homeTrustStripInstant' },
+  { icon: Smartphone, key: 'homeTrustStripDevices' },
+];
 
 const SECONDARY_TOOLS = [
   {
@@ -141,6 +149,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Trust strip — below hero */}
+      <section
+        className="border-y"
+        style={{ backgroundColor: 'var(--color-primary-50)', borderColor: 'var(--color-primary-100)' }}
+      >
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm font-medium" style={{ color: 'var(--color-primary-700)' }}>
+            {TRUST_STRIP.map(({ icon: Icon, key }) => (
+              <li key={key} className="inline-flex items-center gap-1.5">
+                <Icon className="h-4 w-4" style={{ color: 'var(--color-primary-500)' }} />
+                {t(key)}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Section B — Tools Dashboard */}
       <section className="page-container">
         <div className="text-center mb-8">
@@ -151,9 +176,10 @@ export default function Home() {
         </div>
 
         {/* Featured AI Chat tool — full width, navy background */}
-        <Link
+        <Reveal
+          as={Link}
           to="/chat"
-          className="block rounded-2xl no-underline transition-all duration-200 hover:shadow-2xl hover:-translate-y-1"
+          className="tool-card block rounded-2xl no-underline transition-all duration-200 hover:shadow-2xl hover:-translate-y-1"
           style={{
             background: 'linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-primary-500) 100%)',
             boxShadow: '0 10px 30px rgba(0, 48, 135, 0.25)',
@@ -161,7 +187,7 @@ export default function Home() {
         >
           <div className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5">
             <div
-              className="rounded-2xl p-4 self-start flex-shrink-0"
+              className="tool-icon rounded-2xl p-4 self-start flex-shrink-0"
               style={{ backgroundColor: 'rgba(255,255,255,0.18)' }}
             >
               <MessageSquare className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
@@ -184,19 +210,21 @@ export default function Home() {
               {t('homeToolAIChatCta')} <ArrowRight className="h-4 w-4" />
             </span>
           </div>
-        </Link>
+        </Reveal>
 
         {/* Secondary tools — 3 cards, navy-bordered */}
         <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-5">
-          {SECONDARY_TOOLS.map(({ to, icon: Icon, titleKey, descKey, ctaKey }) => (
-            <Link
+          {SECONDARY_TOOLS.map(({ to, icon: Icon, titleKey, descKey, ctaKey }, idx) => (
+            <Reveal
               key={to}
+              as={Link}
               to={to}
-              className="rounded-2xl bg-white p-6 no-underline flex flex-col h-full transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
+              delay={idx * 100}
+              className="tool-card rounded-2xl bg-white p-6 no-underline flex flex-col h-full transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
               style={{ border: '2px solid var(--color-primary-500)' }}
             >
               <div
-                className="rounded-xl inline-flex p-3 mb-4 self-start"
+                className="tool-icon rounded-xl inline-flex p-3 mb-4 self-start"
                 style={{ backgroundColor: 'var(--color-primary-50)' }}
               >
                 <Icon className="h-6 w-6" style={{ color: 'var(--color-primary-500)' }} />
@@ -216,7 +244,7 @@ export default function Home() {
               >
                 {t(ctaKey)} <ArrowRight className="h-4 w-4" />
               </span>
-            </Link>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -229,8 +257,8 @@ export default function Home() {
             { icon: LayoutGrid, titleKey: 'homeStepChooseTitle', descKey: 'homeStepChooseDesc', num: '1' },
             { icon: Search, titleKey: 'homeStepAskTitle', descKey: 'homeStepAskDesc', num: '2' },
             { icon: CheckCircle, titleKey: 'homeStepGetTitle', descKey: 'homeStepGetDesc', num: '3' },
-          ].map(({ icon: Icon, titleKey, descKey, num }) => (
-            <div key={num} className="text-center">
+          ].map(({ icon: Icon, titleKey, descKey, num }, idx) => (
+            <Reveal key={num} delay={idx * 150} className="text-center">
               <div className="relative mx-auto h-16 w-16 rounded-full flex items-center justify-center mb-4" style={{ backgroundColor: 'var(--color-primary-50)' }}>
                 <Icon className="h-7 w-7" style={{ color: 'var(--color-primary-500)' }} />
                 <span
@@ -247,7 +275,7 @@ export default function Home() {
                 {t(titleKey)}
               </h3>
               <p className="text-sm" style={{ color: 'var(--color-text-light)' }}>{t(descKey)}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
