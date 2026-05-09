@@ -8,7 +8,7 @@ import SEO from '../components/shared/SEO';
 const KITS = [
   {
     id: 'marriage',
-    price: '4.99',
+    price: '3.99',
     icon: Heart,
     titleKey: 'kitMarriageTitle',
     descKey: 'kitMarriageDesc',
