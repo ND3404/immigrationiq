@@ -1,24 +1,74 @@
 import { useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { CheckCircle2, Download, ArrowLeft, Mail } from 'lucide-react';
+import { CheckCircle2, Download, ArrowLeft, Mail, AlertTriangle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/shared/SEO';
 
-const KIT_PDFS = {
-  marriage: { titleKey: 'kitMarriageTitle', enPdf: '/kits/Marriage_Green_Card_Kit_EN.pdf' },
-  naturalization: { titleKey: 'kitNaturalizationTitle', enPdf: '/kits/Naturalization_Kit_EN.pdf' },
-  'naturalization-exam': { titleKey: 'kitNaturalizationExamTitle', enPdf: '/kits/Citizenship_Exam_Prep_Kit_EN.pdf' },
-  daca: { titleKey: 'kitDacaTitle', enPdf: '/kits/DACA_Kit_EN.pdf' },
-  eb1: { titleKey: 'kitEB1Title', enPdf: '/kits/EB1_Visa_Kit_EN.pdf' },
-  eb2: { titleKey: 'kitEB2Title', enPdf: '/kits/EB2_Visa_Kit_EN.pdf' },
-  eb3: { titleKey: 'kitEB3Title', enPdf: '/kits/EB3_Visa_Kit_EN.pdf' },
+const KIT_TITLES = {
+  marriage: 'kitMarriageTitle',
+  naturalization: 'kitNaturalizationTitle',
+  'naturalization-exam': 'kitNaturalizationExamTitle',
+  daca: 'kitDacaTitle',
+  eb1: 'kitEB1Title',
+  eb2: 'kitEB2Title',
+  eb3: 'kitEB3Title',
 };
 
 export default function KitThankYou() {
   const { t } = useLanguage();
   const [params] = useSearchParams();
   const kitId = params.get('kit');
-  const kit = useMemo(() => (kitId ? KIT_PDFS[kitId] : null), [kitId]);
+  const sessionId = params.get('session_id') || '';
+  const sessionValid = sessionId.startsWith('cs_');
+  const titleKey = useMemo(() => (kitId ? KIT_TITLES[kitId] : null), [kitId]);
+
+  if (!sessionValid) {
+    return (
+      <div className="page-container max-w-2xl">
+        <SEO
+          title="Access required — ImmigrationIQ Kits"
+          description="Complete your purchase to download your immigration kit."
+          path="/kits/thank-you"
+        />
+        <div
+          className="rounded-2xl p-6 sm:p-10 text-center"
+          style={{
+            background: 'linear-gradient(180deg, var(--color-warning-50) 0%, #ffffff 100%)',
+            border: '1px solid var(--color-accent-300)',
+          }}
+        >
+          <div
+            className="inline-flex items-center justify-center rounded-full mb-4"
+            style={{
+              width: 64,
+              height: 64,
+              backgroundColor: 'var(--color-accent-100)',
+            }}
+          >
+            <AlertTriangle className="h-8 w-8" style={{ color: 'var(--color-accent-700)' }} />
+          </div>
+          <h1 className="section-title">{t('thankYouAccessDeniedTitle')}</h1>
+          <p className="mt-3 text-base" style={{ color: 'var(--color-text-light)' }}>
+            {t('thankYouAccessDeniedBody')}
+          </p>
+          <div className="mt-6">
+            <Link
+              to="/kits"
+              className="buy-now-btn inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold no-underline"
+              style={{ backgroundColor: '#003087', color: '#ffffff', minHeight: '48px' }}
+            >
+              <ArrowLeft className="h-4 w-4" />
+              {t('thankYouBackToKits')}
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const downloadUrl = kitId
+    ? `/api/download-kit?session_id=${encodeURIComponent(sessionId)}&kit=${encodeURIComponent(kitId)}`
+    : null;
 
   return (
     <div className="page-container max-w-2xl">
@@ -51,47 +101,32 @@ export default function KitThankYou() {
           {t('thankYouSubtitle')}
         </p>
 
-        {kit ? (
+        {downloadUrl ? (
           <div className="mt-6">
-            <p className="text-lg font-semibold mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
-              {t(kit.titleKey)}
-            </p>
+            {titleKey && (
+              <p className="text-lg font-semibold mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
+                {t(titleKey)}
+              </p>
+            )}
             <a
-              href={kit.enPdf}
-              download
+              href={downloadUrl}
               className="buy-now-btn inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold no-underline"
               style={{ backgroundColor: '#003087', color: '#ffffff', minHeight: '48px' }}
             >
               <Download className="h-5 w-5" />
               {t('thankYouDownloadBtn')}
             </a>
+            <p
+              className="mt-4 text-sm font-semibold"
+              style={{ color: 'var(--color-accent-700)' }}
+            >
+              {t('thankYouLinkExpiresNote')}
+            </p>
           </div>
         ) : (
-          <div className="mt-6 text-left">
-            <h2 className="text-lg font-bold mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
-              {t('thankYouFallbackTitle')}
-            </h2>
-            <p className="text-sm mb-4" style={{ color: 'var(--color-text-light)' }}>
-              {t('thankYouFallbackBody')}
-            </p>
-            <ul className="space-y-2">
-              {Object.entries(KIT_PDFS).map(([id, k]) => (
-                <li key={id}>
-                  <a
-                    href={k.enPdf}
-                    download
-                    className="flex items-center justify-between gap-3 rounded-lg px-4 py-3 no-underline transition-colors hover:bg-[var(--color-primary-50)]"
-                    style={{ border: '1px solid var(--color-border)', backgroundColor: '#ffffff' }}
-                  >
-                    <span className="text-sm font-semibold" style={{ color: 'var(--color-text)' }}>
-                      {t(k.titleKey)}
-                    </span>
-                    <Download className="h-4 w-4 flex-shrink-0" style={{ color: 'var(--color-primary-600)' }} />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <p className="mt-6 text-sm" style={{ color: 'var(--color-text-light)' }}>
+            {t('thankYouFallbackBody')}
+          </p>
         )}
 
         <p className="mt-6 inline-flex items-center gap-1.5 text-xs" style={{ color: 'var(--color-text-light)' }}>
@@ -101,7 +136,7 @@ export default function KitThankYou() {
 
         <div className="mt-8">
           <Link
-            to="/services"
+            to="/kits"
             className="inline-flex items-center gap-1.5 text-sm font-semibold no-underline"
             style={{ color: 'var(--color-primary-600)' }}
           >

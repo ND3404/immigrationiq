@@ -18,7 +18,6 @@ const KITS = [
     descKey: 'kitMarriageDesc',
     stripeUrl: 'https://buy.stripe.com/cNiaEPbCqbsU5Uj3SO7g403',
     esPdf: '/kits/Kit_Green_Card_Matrimonio_ES.pdf',
-    enPdf: '/kits/Marriage_Green_Card_Kit_EN.pdf',
     badgeKey: 'servicesBadgeMostPopular',
     badgeKind: 'popular',
     previewBullets: {
@@ -51,7 +50,6 @@ const KITS = [
     descKey: 'kitNaturalizationDesc',
     stripeUrl: 'https://buy.stripe.com/5kQaEP49Y9kM3Mb4WS7g401',
     esPdf: '/kits/Kit_Naturalizacion_ES.pdf',
-    enPdf: '/kits/Naturalization_Kit_EN.pdf',
     previewBullets: {
       en: [
         'N-400 filing process step by step',
@@ -80,7 +78,6 @@ const KITS = [
     descKey: 'kitNaturalizationExamDesc',
     stripeUrl: 'https://buy.stripe.com/14A28j35U40s5Uj9d87g402',
     esPdf: '/kits/Kit_Examen_Ciudadania_ES.pdf',
-    enPdf: '/kits/Citizenship_Exam_Prep_Kit_EN.pdf',
     badgeKey: 'servicesBadgeBestValue',
     badgeKind: 'value',
     previewBullets: {
@@ -111,7 +108,6 @@ const KITS = [
     descKey: 'kitDacaDesc',
     stripeUrl: 'https://buy.stripe.com/eVqfZ90XMcwY6Yn4WS7g404',
     esPdf: '/kits/Kit_DACA_ES.pdf',
-    enPdf: '/kits/DACA_Kit_EN.pdf',
     previewBullets: {
       en: [
         'When and how to file your renewal',
@@ -140,7 +136,6 @@ const KITS = [
     descKey: 'kitEB1Desc',
     stripeUrl: 'https://buy.stripe.com/dRmfZ9bCq8gIciH8947g407',
     esPdf: '/kits/Kit_Visa_EB1_ES.pdf',
-    enPdf: '/kits/EB1_Visa_Kit_EN.pdf',
     previewBullets: {
       en: [
         'EB-1A, EB-1B, EB-1C comparison',
@@ -167,7 +162,6 @@ const KITS = [
     descKey: 'kitEB2Desc',
     stripeUrl: 'https://buy.stripe.com/7sYbITdKy9kM1E33SO7g406',
     esPdf: '/kits/Kit_Visa_EB2_ES.pdf',
-    enPdf: '/kits/EB2_Visa_Kit_EN.pdf',
     previewBullets: {
       en: [
         'EB-2 NIW National Interest Waiver strategy',
@@ -194,7 +188,6 @@ const KITS = [
     descKey: 'kitEB3Desc',
     stripeUrl: 'https://buy.stripe.com/28EeV58qe68AbeDexs7g405',
     esPdf: '/kits/Kit_Visa_EB3_ES.pdf',
-    enPdf: '/kits/EB3_Visa_Kit_EN.pdf',
     previewBullets: {
       en: [
         'Professionals, Skilled Workers, Other Workers',
