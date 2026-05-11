@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {
-  Heart, Award, Shield, FileText, AlertTriangle, Sparkles, Clock,
+  Heart, Award, Shield, FileText, AlertTriangle, Sparkles,
   GraduationCap, Lock, Download, BadgeCheck, Star, Trophy, Briefcase,
   Eye, Globe2,
 } from 'lucide-react';
@@ -11,12 +11,14 @@ import KitPreviewModal from '../components/shared/KitPreviewModal';
 const KITS = [
   {
     id: 'marriage',
-    price: '3.99',
+    price: '4.99',
     pages: 8,
     icon: Heart,
     titleKey: 'kitMarriageTitle',
     descKey: 'kitMarriageDesc',
     stripeUrl: 'https://buy.stripe.com/cNiaEPbCqbsU5Uj3SO7g403',
+    esPdf: '/kits/Kit_Green_Card_Matrimonio_ES.pdf',
+    enPdf: '/kits/Marriage_Green_Card_Kit_EN.pdf',
     badgeKey: 'servicesBadgeMostPopular',
     badgeKind: 'popular',
     previewBullets: {
@@ -42,12 +44,14 @@ const KITS = [
   },
   {
     id: 'naturalization',
-    price: '2.99',
+    price: '4.99',
     pages: 6,
     icon: Award,
     titleKey: 'kitNaturalizationTitle',
     descKey: 'kitNaturalizationDesc',
     stripeUrl: 'https://buy.stripe.com/5kQaEP49Y9kM3Mb4WS7g401',
+    esPdf: '/kits/Kit_Naturalizacion_ES.pdf',
+    enPdf: '/kits/Naturalization_Kit_EN.pdf',
     previewBullets: {
       en: [
         'N-400 filing process step by step',
@@ -69,12 +73,14 @@ const KITS = [
   },
   {
     id: 'naturalization-exam',
-    price: '3.99',
+    price: '4.99',
     pages: 9,
     icon: GraduationCap,
     titleKey: 'kitNaturalizationExamTitle',
     descKey: 'kitNaturalizationExamDesc',
     stripeUrl: 'https://buy.stripe.com/14A28j35U40s5Uj9d87g402',
+    esPdf: '/kits/Kit_Examen_Ciudadania_ES.pdf',
+    enPdf: '/kits/Citizenship_Exam_Prep_Kit_EN.pdf',
     badgeKey: 'servicesBadgeBestValue',
     badgeKind: 'value',
     previewBullets: {
@@ -98,12 +104,14 @@ const KITS = [
   },
   {
     id: 'daca',
-    price: '2.99',
+    price: '4.99',
     pages: 6,
     icon: Shield,
     titleKey: 'kitDacaTitle',
     descKey: 'kitDacaDesc',
     stripeUrl: 'https://buy.stripe.com/eVqfZ90XMcwY6Yn4WS7g404',
+    esPdf: '/kits/Kit_DACA_ES.pdf',
+    enPdf: '/kits/DACA_Kit_EN.pdf',
     previewBullets: {
       en: [
         'When and how to file your renewal',
@@ -130,6 +138,9 @@ const KITS = [
     icon: Trophy,
     titleKey: 'kitEB1Title',
     descKey: 'kitEB1Desc',
+    stripeUrl: 'https://buy.stripe.com/dRmfZ9bCq8gIciH8947g407',
+    esPdf: '/kits/Kit_Visa_EB1_ES.pdf',
+    enPdf: '/kits/EB1_Visa_Kit_EN.pdf',
     previewBullets: {
       en: [
         'EB-1A, EB-1B, EB-1C comparison',
@@ -154,6 +165,9 @@ const KITS = [
     icon: Star,
     titleKey: 'kitEB2Title',
     descKey: 'kitEB2Desc',
+    stripeUrl: 'https://buy.stripe.com/7sYbITdKy9kM1E33SO7g406',
+    esPdf: '/kits/Kit_Visa_EB2_ES.pdf',
+    enPdf: '/kits/EB2_Visa_Kit_EN.pdf',
     previewBullets: {
       en: [
         'EB-2 NIW National Interest Waiver strategy',
@@ -178,6 +192,9 @@ const KITS = [
     icon: Briefcase,
     titleKey: 'kitEB3Title',
     descKey: 'kitEB3Desc',
+    stripeUrl: 'https://buy.stripe.com/28EeV58qe68AbeDexs7g405',
+    esPdf: '/kits/Kit_Visa_EB3_ES.pdf',
+    enPdf: '/kits/EB3_Visa_Kit_EN.pdf',
     previewBullets: {
       en: [
         'Professionals, Skilled Workers, Other Workers',
@@ -239,8 +256,7 @@ export default function Services() {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {KITS.map((kit) => {
-            const { id, price, pages, icon: Icon, titleKey, descKey, stripeUrl, badgeKey, badgeKind } = kit;
-            const isAvailable = !!stripeUrl;
+            const { id, price, pages, icon: Icon, titleKey, descKey, stripeUrl, esPdf, badgeKey, badgeKind } = kit;
             return (
               <div
                 key={id}
@@ -266,17 +282,6 @@ export default function Services() {
                   </span>
                 )}
 
-                {/* Coming Soon ribbon */}
-                {!isAvailable && (
-                  <span
-                    className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide"
-                    style={{ backgroundColor: 'var(--color-accent-100)', color: 'var(--color-accent-800)' }}
-                  >
-                    <Clock className="h-3 w-3" />
-                    {t('servicesComingSoon')}
-                  </span>
-                )}
-
                 <div
                   className="rounded-xl inline-flex p-3 mb-4 self-start"
                   style={{ backgroundColor: 'var(--color-primary-50)' }}
@@ -285,7 +290,7 @@ export default function Services() {
                 </div>
 
                 <h2
-                  className={`text-lg font-bold mb-2 leading-snug ${isAvailable ? '' : 'pr-20'}`}
+                  className="text-lg font-bold mb-2 leading-snug"
                   style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}
                 >
                   {t(titleKey)}
@@ -313,55 +318,55 @@ export default function Services() {
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between gap-3 pt-4 border-t" style={{ borderColor: 'var(--color-border)' }}>
-                  <span className="font-semibold" style={{ fontFamily: 'var(--font-heading)', color: '#2c5282', fontSize: '21px' }}>
-                    ${price}
-                  </span>
-                  <div className="flex items-center gap-2">
+                <div className="pt-4 border-t flex flex-col gap-2" style={{ borderColor: 'var(--color-border)' }}>
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold" style={{ fontFamily: 'var(--font-heading)', color: '#2c5282', fontSize: '21px' }}>
+                      ${price}
+                    </span>
                     <button
                       type="button"
                       onClick={() => setPreviewKitId(id)}
                       aria-label={`${t('servicesPreview')} — ${t(titleKey)}`}
-                      className="rounded-full px-3 py-2 text-sm font-semibold inline-flex items-center gap-1.5 transition-colors hover:bg-[var(--color-primary-50)]"
+                      className="rounded-full px-3 py-1.5 text-xs font-semibold inline-flex items-center gap-1.5 transition-colors hover:bg-[var(--color-primary-50)]"
                       style={{
                         backgroundColor: '#ffffff',
                         color: 'var(--color-primary-600)',
                         border: '2px solid var(--color-primary-500)',
-                        minHeight: '40px',
+                        minHeight: '36px',
                       }}
                     >
                       <Eye className="h-3.5 w-3.5" />
                       {t('servicesPreview')}
                     </button>
-                    {isAvailable ? (
-                      <a
-                        href={stripeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${t('servicesBuyNow')} — $${price}`}
-                        className="buy-now-btn rounded-full px-3 py-2 text-sm font-semibold no-underline inline-flex items-center gap-1.5 transition-colors"
-                        style={{ backgroundColor: '#003087', color: '#ffffff', minHeight: '40px' }}
-                      >
-                        <Lock className="h-3.5 w-3.5" />
-                        {t('servicesBuyNow')} — ${price}
-                      </a>
-                    ) : (
-                      <button
-                        type="button"
-                        disabled
-                        className="rounded-full px-3 py-2 text-sm font-semibold cursor-not-allowed inline-flex items-center gap-1.5"
-                        style={{
-                          backgroundColor: 'var(--color-surface)',
-                          color: 'var(--color-text-light)',
-                          border: '1px solid var(--color-border)',
-                          minHeight: '40px',
-                        }}
-                      >
-                        <Clock className="h-3.5 w-3.5" />
-                        {t('servicesComingSoon')}
-                      </button>
-                    )}
                   </div>
+                  <a
+                    href={stripeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${t('servicesBuyNow')} — $${price}`}
+                    className="buy-now-btn w-full rounded-full px-4 py-2.5 text-sm font-semibold no-underline inline-flex items-center justify-center gap-1.5 transition-colors"
+                    style={{ backgroundColor: '#003087', color: '#ffffff', minHeight: '44px' }}
+                  >
+                    <Lock className="h-4 w-4" />
+                    {t('servicesBuyNow')} — ${price}
+                  </a>
+                  {esPdf && (
+                    <a
+                      href={esPdf}
+                      download
+                      aria-label={`${t('servicesFreeSpanishDownload')} — ${t(titleKey)}`}
+                      className="w-full rounded-full px-4 py-2.5 text-sm font-semibold no-underline inline-flex items-center justify-center gap-1.5 transition-colors hover:bg-[var(--color-primary-50)]"
+                      style={{
+                        backgroundColor: '#ffffff',
+                        color: 'var(--color-primary-700)',
+                        border: '2px solid var(--color-primary-500)',
+                        minHeight: '44px',
+                      }}
+                    >
+                      <Download className="h-4 w-4" />
+                      {t('servicesFreeSpanishDownload')}
+                    </a>
+                  )}
                 </div>
               </div>
             );

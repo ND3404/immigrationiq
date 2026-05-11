@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { X, Lock, Clock, FileText, Globe2, CheckCircle2 } from 'lucide-react';
+import { X, Lock, FileText, Globe2, CheckCircle2, Download } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function KitPreviewModal({ kit, open, onClose }) {
@@ -23,7 +23,6 @@ export default function KitPreviewModal({ kit, open, onClose }) {
 
   const Icon = kit.icon;
   const bullets = kit.previewBullets?.[language] || kit.previewBullets?.en || [];
-  const isAvailable = !!kit.stripeUrl;
 
   return (
     <div
@@ -129,11 +128,11 @@ export default function KitPreviewModal({ kit, open, onClose }) {
         </div>
 
         {/* Footer */}
-        <div className="px-5 sm:px-6 py-4 border-t flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="px-5 sm:px-6 py-4 border-t flex flex-col gap-2 sm:flex-row sm:justify-end sm:gap-3" style={{ borderColor: 'var(--color-border)' }}>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full px-5 py-2.5 text-sm font-semibold transition-colors"
+            className="order-3 sm:order-1 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors"
             style={{
               backgroundColor: 'var(--color-surface)',
               color: 'var(--color-text)',
@@ -143,30 +142,33 @@ export default function KitPreviewModal({ kit, open, onClose }) {
           >
             {t('servicesPreviewClose')}
           </button>
-          {isAvailable ? (
+          {kit.esPdf && (
+            <a
+              href={kit.esPdf}
+              download
+              className="order-2 rounded-full px-5 py-2.5 text-sm font-semibold no-underline inline-flex items-center justify-center gap-1.5 transition-colors hover:bg-[var(--color-primary-50)]"
+              style={{
+                backgroundColor: '#ffffff',
+                color: 'var(--color-primary-700)',
+                border: '2px solid var(--color-primary-500)',
+                minHeight: '44px',
+              }}
+            >
+              <Download className="h-4 w-4" />
+              {t('servicesFreeSpanishDownload')}
+            </a>
+          )}
+          {kit.stripeUrl && (
             <a
               href={kit.stripeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="buy-now-btn rounded-full px-5 py-2.5 text-sm font-semibold no-underline inline-flex items-center justify-center gap-1.5 transition-colors"
+              className="buy-now-btn order-1 sm:order-3 rounded-full px-5 py-2.5 text-sm font-semibold no-underline inline-flex items-center justify-center gap-1.5 transition-colors"
               style={{ backgroundColor: '#003087', color: '#ffffff', minHeight: '44px' }}
             >
-              <Lock className="h-3.5 w-3.5" />
+              <Lock className="h-4 w-4" />
               {t('servicesBuyNow')} — ${kit.price}
             </a>
-          ) : (
-            <span
-              className="rounded-full px-5 py-2.5 text-sm font-semibold inline-flex items-center justify-center gap-1.5"
-              style={{
-                backgroundColor: 'var(--color-surface)',
-                color: 'var(--color-text-light)',
-                border: '1px solid var(--color-border)',
-                minHeight: '44px',
-              }}
-            >
-              <Clock className="h-3.5 w-3.5" />
-              {t('servicesComingSoon')}
-            </span>
           )}
         </div>
       </div>

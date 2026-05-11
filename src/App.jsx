@@ -21,6 +21,7 @@ const FeeCalculator = lazy(() => import('./pages/FeeCalculator'));
 const VisaBulletin = lazy(() => import('./pages/VisaBulletin'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Services = lazy(() => import('./pages/Services'));
+const KitThankYou = lazy(() => import('./pages/KitThankYou'));
 const CaseTracker = lazy(() => import('./pages/CaseTracker'));
 
 function NotFound() {
@@ -73,6 +74,8 @@ export default function App() {
       <Route path="/contact" element={<SuspenseLayout><Contact /></SuspenseLayout>} />
       <Route path="/services" element={<SuspenseLayout><Services /></SuspenseLayout>} />
       <Route path="/premium" element={<SuspenseLayout><Services /></SuspenseLayout>} />
+      <Route path="/kits" element={<SuspenseLayout><Services /></SuspenseLayout>} />
+      <Route path="/kits/thank-you" element={<SuspenseLayout><KitThankYou /></SuspenseLayout>} />
       <Route path="/case-tracker" element={<SuspenseLayout><CaseTracker /></SuspenseLayout>} />
 
       {/* 404 */}
