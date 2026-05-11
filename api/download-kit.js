@@ -10,6 +10,9 @@ const KIT_FILES = {
   eb1: 'EB1_Visa_Kit_EN.pdf',
   eb2: 'EB2_Visa_Kit_EN.pdf',
   eb3: 'EB3_Visa_Kit_EN.pdf',
+  'eb1-es': 'Kit_Visa_EB1_ES.pdf',
+  'eb2-es': 'Kit_Visa_EB2_ES.pdf',
+  'eb3-es': 'Kit_Visa_EB3_ES.pdf',
 };
 
 function fail(res, message) {

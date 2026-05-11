@@ -135,7 +135,7 @@ const KITS = [
     titleKey: 'kitEB1Title',
     descKey: 'kitEB1Desc',
     stripeUrl: 'https://buy.stripe.com/dRmfZ9bCq8gIciH8947g407',
-    esPdf: '/kits/Kit_Visa_EB1_ES.pdf',
+    esStripeUrl: 'https://buy.stripe.com/fZufZ949YgNebeDblg7g408',
     previewBullets: {
       en: [
         'EB-1A, EB-1B, EB-1C comparison',
@@ -161,7 +161,7 @@ const KITS = [
     titleKey: 'kitEB2Title',
     descKey: 'kitEB2Desc',
     stripeUrl: 'https://buy.stripe.com/7sYbITdKy9kM1E33SO7g406',
-    esPdf: '/kits/Kit_Visa_EB2_ES.pdf',
+    esStripeUrl: 'https://buy.stripe.com/4gM3cneOC2Wo4Qf9d87g409',
     previewBullets: {
       en: [
         'EB-2 NIW National Interest Waiver strategy',
@@ -187,7 +187,7 @@ const KITS = [
     titleKey: 'kitEB3Title',
     descKey: 'kitEB3Desc',
     stripeUrl: 'https://buy.stripe.com/28EeV58qe68AbeDexs7g405',
-    esPdf: '/kits/Kit_Visa_EB3_ES.pdf',
+    esStripeUrl: 'https://buy.stripe.com/7sYbIT9uigNe1E360W7g40a',
     previewBullets: {
       en: [
         'Professionals, Skilled Workers, Other Workers',
@@ -249,7 +249,7 @@ export default function Services() {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {KITS.map((kit) => {
-            const { id, price, pages, icon: Icon, titleKey, descKey, stripeUrl, esPdf, badgeKey, badgeKind } = kit;
+            const { id, price, pages, icon: Icon, titleKey, descKey, stripeUrl, esPdf, esStripeUrl, badgeKey, badgeKind } = kit;
             return (
               <div
                 key={id}
@@ -343,7 +343,24 @@ export default function Services() {
                     <Lock className="h-4 w-4" />
                     {t('servicesBuyNow')} — ${price}
                   </a>
-                  {esPdf && (
+                  {esStripeUrl ? (
+                    <a
+                      href={esStripeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${t('servicesBuySpanish')} — $${price}`}
+                      className="w-full rounded-full px-4 py-2.5 text-sm font-semibold no-underline inline-flex items-center justify-center gap-1.5 transition-colors hover:bg-[var(--color-primary-50)]"
+                      style={{
+                        backgroundColor: '#ffffff',
+                        color: '#003087',
+                        border: '2px solid #003087',
+                        minHeight: '44px',
+                      }}
+                    >
+                      <Lock className="h-4 w-4" />
+                      {t('servicesBuySpanish')} — ${price}
+                    </a>
+                  ) : esPdf ? (
                     <a
                       href={esPdf}
                       download
@@ -359,7 +376,7 @@ export default function Services() {
                       <Download className="h-4 w-4" />
                       {t('servicesFreeSpanishDownload')}
                     </a>
-                  )}
+                  ) : null}
                 </div>
               </div>
             );

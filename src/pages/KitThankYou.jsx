@@ -5,13 +5,16 @@ import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/shared/SEO';
 
 const KIT_TITLES = {
-  marriage: 'kitMarriageTitle',
-  naturalization: 'kitNaturalizationTitle',
-  'naturalization-exam': 'kitNaturalizationExamTitle',
-  daca: 'kitDacaTitle',
-  eb1: 'kitEB1Title',
-  eb2: 'kitEB2Title',
-  eb3: 'kitEB3Title',
+  marriage: { kind: 'key', value: 'kitMarriageTitle' },
+  naturalization: { kind: 'key', value: 'kitNaturalizationTitle' },
+  'naturalization-exam': { kind: 'key', value: 'kitNaturalizationExamTitle' },
+  daca: { kind: 'key', value: 'kitDacaTitle' },
+  eb1: { kind: 'key', value: 'kitEB1Title' },
+  eb2: { kind: 'key', value: 'kitEB2Title' },
+  eb3: { kind: 'key', value: 'kitEB3Title' },
+  'eb1-es': { kind: 'literal', value: 'Guía Visa EB-1 (Español)' },
+  'eb2-es': { kind: 'literal', value: 'Guía Visa EB-2 (Español)' },
+  'eb3-es': { kind: 'literal', value: 'Guía Visa EB-3 (Español)' },
 };
 
 export default function KitThankYou() {
@@ -20,7 +23,10 @@ export default function KitThankYou() {
   const kitId = params.get('kit');
   const sessionId = params.get('session_id') || '';
   const sessionValid = sessionId.startsWith('cs_');
-  const titleKey = useMemo(() => (kitId ? KIT_TITLES[kitId] : null), [kitId]);
+  const titleEntry = useMemo(() => (kitId ? KIT_TITLES[kitId] : null), [kitId]);
+  const displayTitle = titleEntry
+    ? (titleEntry.kind === 'key' ? t(titleEntry.value) : titleEntry.value)
+    : null;
 
   if (!sessionValid) {
     return (
@@ -103,9 +109,9 @@ export default function KitThankYou() {
 
         {downloadUrl ? (
           <div className="mt-6">
-            {titleKey && (
+            {displayTitle && (
               <p className="text-lg font-semibold mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}>
-                {t(titleKey)}
+                {displayTitle}
               </p>
             )}
             <a

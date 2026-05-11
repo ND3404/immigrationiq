@@ -142,7 +142,23 @@ export default function KitPreviewModal({ kit, open, onClose }) {
           >
             {t('servicesPreviewClose')}
           </button>
-          {kit.esPdf && (
+          {kit.esStripeUrl ? (
+            <a
+              href={kit.esStripeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="order-2 rounded-full px-5 py-2.5 text-sm font-semibold no-underline inline-flex items-center justify-center gap-1.5 transition-colors hover:bg-[var(--color-primary-50)]"
+              style={{
+                backgroundColor: '#ffffff',
+                color: '#003087',
+                border: '2px solid #003087',
+                minHeight: '44px',
+              }}
+            >
+              <Lock className="h-4 w-4" />
+              {t('servicesBuySpanish')} — ${kit.price}
+            </a>
+          ) : kit.esPdf ? (
             <a
               href={kit.esPdf}
               download
@@ -157,7 +173,7 @@ export default function KitPreviewModal({ kit, open, onClose }) {
               <Download className="h-4 w-4" />
               {t('servicesFreeSpanishDownload')}
             </a>
-          )}
+          ) : null}
           {kit.stripeUrl && (
             <a
               href={kit.stripeUrl}
