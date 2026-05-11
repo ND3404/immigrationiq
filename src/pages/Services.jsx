@@ -11,7 +11,7 @@ import KitPreviewModal from '../components/shared/KitPreviewModal';
 const KITS = [
   {
     id: 'marriage',
-    price: '4.99',
+    price: '3.99',
     pages: 8,
     icon: Heart,
     titleKey: 'kitMarriageTitle',
@@ -44,7 +44,7 @@ const KITS = [
   },
   {
     id: 'naturalization',
-    price: '4.99',
+    price: '2.99',
     pages: 6,
     icon: Award,
     titleKey: 'kitNaturalizationTitle',
@@ -73,7 +73,7 @@ const KITS = [
   },
   {
     id: 'naturalization-exam',
-    price: '4.99',
+    price: '3.99',
     pages: 9,
     icon: GraduationCap,
     titleKey: 'kitNaturalizationExamTitle',
@@ -104,7 +104,7 @@ const KITS = [
   },
   {
     id: 'daca',
-    price: '4.99',
+    price: '2.99',
     pages: 6,
     icon: Shield,
     titleKey: 'kitDacaTitle',

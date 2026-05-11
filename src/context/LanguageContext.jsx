@@ -31,6 +31,7 @@ const translations = {
     toolVisaBulletinDesc: 'Final action & filing dates',
     toolChatDesc: 'Ask the AI assistant',
     toolCaseTrackerDesc: 'Check USCIS case status',
+    toolNewsDesc: 'Latest immigration news',
 
     // Fee Calculator
     feeCalculatorTitle: 'Visa Fee Calculator',
@@ -386,6 +387,9 @@ const translations = {
     homeToolFeeTitle: 'USCIS Fee Calculator',
     homeToolFeeDesc: 'Calculate filing fees for any immigration form',
     homeToolFeeCta: 'Calculate Fees',
+    homeToolKitsTitle: 'Immigration Kits',
+    homeToolKitsDesc: 'Step-by-step document preparation kits for the most common immigration cases',
+    homeToolKitsCta: 'Browse Kits',
 
     // Trust indicators / hero
     homeTrustFree: 'Free',
@@ -549,6 +553,7 @@ const translations = {
     toolVisaBulletinDesc: 'Fechas de acción final y presentación',
     toolChatDesc: 'Pregúntale al asistente IA',
     toolCaseTrackerDesc: 'Verifica el estatus de tu caso USCIS',
+    toolNewsDesc: 'Noticias de inmigración más recientes',
 
     // Fee Calculator
     feeCalculatorTitle: 'Calculadora de Tarifas de Visa',
@@ -904,6 +909,9 @@ const translations = {
     homeToolFeeTitle: 'Calculadora de Tarifas USCIS',
     homeToolFeeDesc: 'Calcula las tarifas de cualquier formulario de inmigración',
     homeToolFeeCta: 'Calcular Tarifas',
+    homeToolKitsTitle: 'Kits de Inmigración',
+    homeToolKitsDesc: 'Kits paso a paso para preparar los documentos de los casos de inmigración más comunes',
+    homeToolKitsCta: 'Ver Kits',
 
     // Indicadores de confianza / hero
     homeTrustFree: 'Gratis',

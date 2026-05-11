@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X, MessageSquare, Globe, ChevronDown, Calculator, CalendarDays, Clock, FileCheck, BookOpen, Search } from 'lucide-react';
+import { Menu, X, MessageSquare, Globe, ChevronDown, Calculator, CalendarDays, Clock, FileCheck, BookOpen, Search, Newspaper } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 const mainLinks = [
@@ -10,16 +10,16 @@ const mainLinks = [
   { to: '/timeline', key: 'timeline' },
   { to: '/lawyers', key: 'lawyers' },
   { to: '/services', key: 'services' },
-  { to: '/news', key: 'news' },
   { to: '/faq', key: 'faq' },
   { to: '/contact', key: 'contact' },
 ];
 
 const toolsDropdownItems = [
-  { to: '/chat', key: 'chat', icon: MessageSquare, descKey: 'toolChatDesc' },
+  { to: '/news', key: 'news', icon: Newspaper, descKey: 'toolNewsDesc' },
   { to: '/visa-bulletin', key: 'visaBulletin', icon: CalendarDays, descKey: 'toolVisaBulletinDesc' },
   { to: '/case-tracker', key: 'caseTracker', icon: Search, descKey: 'toolCaseTrackerDesc' },
   { to: '/fee-calculator', key: 'feeCalculator', icon: Calculator, descKey: 'toolFeeCalculatorDesc' },
+  { to: '/chat', key: 'chat', icon: MessageSquare, descKey: 'toolChatDesc' },
   { to: '/processing-times', key: 'processingTimes', icon: Clock, descKey: 'toolProcessingTimesDesc' },
   { to: '/checklist', key: 'checklist', icon: FileCheck, descKey: 'toolChecklistDesc' },
   { to: '/glossary', key: 'glossary', icon: BookOpen, descKey: 'toolGlossaryDesc' },

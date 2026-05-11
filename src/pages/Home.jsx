@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Search, ArrowRight, MessageSquare, Calculator, CalendarDays,
   CheckCircle, LayoutGrid, Newspaper, Lock, Globe, Zap, Smartphone,
+  FileCheck,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { newsItems } from '../data/news';
@@ -57,6 +58,13 @@ const SECONDARY_TOOLS = [
     titleKey: 'homeToolFeeTitle',
     descKey: 'homeToolFeeDesc',
     ctaKey: 'homeToolFeeCta',
+  },
+  {
+    to: '/kits',
+    icon: FileCheck,
+    titleKey: 'homeToolKitsTitle',
+    descKey: 'homeToolKitsDesc',
+    ctaKey: 'homeToolKitsCta',
   },
 ];
 
@@ -212,8 +220,8 @@ export default function Home() {
           </div>
         </Reveal>
 
-        {/* Secondary tools — 3 cards, navy-bordered */}
-        <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Secondary tools — 4 cards, navy-bordered */}
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {SECONDARY_TOOLS.map(({ to, icon: Icon, titleKey, descKey, ctaKey }, idx) => (
             <Reveal
               key={to}
