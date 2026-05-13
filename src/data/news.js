@@ -1,5 +1,85 @@
 export const newsItems = [
   {
+    id: 11,
+    title: {
+      en: 'June 2026 Visa Bulletin: EB-2 India Retrogresses, EB-3 India and China Advance',
+      es: 'Boletín de Visas de junio de 2026: EB-2 India Retrocede, EB-3 India y China Avanzan',
+    },
+    date: 'May 4, 2026',
+    dateEs: '4 de mayo de 2026',
+    category: 'Visa Bulletins',
+    summary: {
+      en: 'The State Department published the June 2026 Visa Bulletin showing significant retrogression for EB-2 India (back to 01SEP13) and a moderate pullback for EB-1 India (to 15DEC22). EB-3 India advanced to 15DEC13 and EB-3 China moved to 01AUG21. F2A jumped to 01JAN25 across all chargeability areas.',
+      es: 'El Departamento de Estado publicó el Boletín de Visas de junio de 2026 con retroceso significativo para EB-2 India (a 01SEP13) y un retroceso moderado para EB-1 India (a 15DEC22). EB-3 India avanzó a 15DEC13 y EB-3 China a 01AUG21. F2A saltó a 01JAN25 en todas las áreas de cargabilidad.',
+    },
+    source: 'U.S. Department of State',
+    url: 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/2026/visa-bulletin-for-june-2026.html',
+  },
+  {
+    id: 10,
+    title: {
+      en: '"End H-1B Visa Abuse Act of 2026" Introduced — Proposes 3-Year Suspension and 25,000 Cap',
+      es: 'Se Presenta la "End H-1B Visa Abuse Act of 2026" — Propone Suspensión de 3 Años y Tope de 25,000',
+    },
+    date: 'May 8, 2026',
+    dateEs: '8 de mayo de 2026',
+    category: 'Executive Orders',
+    summary: {
+      en: 'A bipartisan group of eight U.S. Representatives, led by Eli Crane, introduced legislation that would suspend new H-1B visas for three years, reduce the annual cap from 85,000 to 25,000, and replace the lottery with a wage-based, first-come selection system. The bill is in committee and faces an uncertain path.',
+      es: 'Un grupo bipartidista de ocho representantes federales, encabezado por Eli Crane, presentó un proyecto de ley que suspendería nuevas visas H-1B por tres años, reduciría el tope anual de 85,000 a 25,000 y reemplazaría la lotería con un sistema de selección por salario y orden de llegada. El proyecto está en comisión y enfrenta un camino incierto.',
+    },
+    source: 'U.S. Congress',
+    url: 'https://www.congress.gov/',
+  },
+  {
+    id: 9,
+    title: {
+      en: 'Office of the Immigration Detention Ombudsman Shuttered',
+      es: 'Se Clausura la Oficina del Defensor de Detención Migratoria',
+    },
+    date: 'May 6, 2026',
+    dateEs: '6 de mayo de 2026',
+    category: 'Executive Orders',
+    summary: {
+      en: 'DHS closed the Office of the Immigration Detention Ombudsman, the federal watchdog responsible for investigating misconduct claims at ICE detention facilities. The office was one of three oversight agencies that lost more than 100 employees during 2025 workforce reductions.',
+      es: 'DHS cerró la Oficina del Defensor de Detención Migratoria, la entidad federal encargada de investigar denuncias de irregularidades en los centros de detención de ICE. La oficina era una de tres agencias de supervisión que perdieron más de 100 empleados durante los recortes de personal de 2025.',
+    },
+    source: 'DHS',
+    url: 'https://www.dhs.gov/',
+  },
+  {
+    id: 8,
+    title: {
+      en: 'USCIS Resumes Processing Visa and Green Card Cases for Physicians',
+      es: 'USCIS Reanuda el Procesamiento de Casos de Visa y Residencia para Médicos',
+    },
+    date: 'May 3, 2026',
+    dateEs: '3 de mayo de 2026',
+    category: 'USCIS Policy',
+    summary: {
+      en: 'USCIS quietly lifted the enhanced-vetting adjudication hold for medical doctors, allowing H-1B petitions, J-1 waiver applications, and employment-based immigrant petitions tied to physicians to move forward again. Holds remain in place for most other case categories pending fingerprint background checks.',
+      es: 'USCIS levantó discretamente la pausa de adjudicación por verificación reforzada para médicos, permitiendo que las peticiones H-1B, las solicitudes de exención J-1 y las peticiones de inmigrante por empleo vinculadas a médicos avancen nuevamente. Las pausas siguen vigentes para la mayoría de las demás categorías mientras se completan las verificaciones de huellas digitales.',
+    },
+    source: 'USCIS Newsroom',
+    url: 'https://www.uscis.gov/newsroom',
+  },
+  {
+    id: 7,
+    title: {
+      en: 'Federal Judge Pauses Termination of TPS for Yemen',
+      es: 'Juez Federal Suspende la Terminación del TPS para Yemen',
+    },
+    date: 'May 1, 2026',
+    dateEs: '1 de mayo de 2026',
+    category: 'Court Decisions',
+    summary: {
+      en: 'The U.S. District Court for the Southern District of New York blocked the May 4, 2026 termination of Temporary Protected Status for Yemeni nationals. Existing Employment Authorization Documents are extended while the case proceeds.',
+      es: 'El Tribunal de Distrito de los EE. UU. para el Distrito Sur de Nueva York bloqueó la terminación, fijada para el 4 de mayo de 2026, del Estatus de Protección Temporal (TPS) para los nacionales de Yemen. Los Documentos de Autorización de Empleo (EAD) vigentes se extienden mientras avanza el caso.',
+    },
+    source: 'U.S. District Court SDNY',
+    url: 'https://www.uscis.gov/humanitarian/temporary-protected-status',
+  },
+  {
     id: 1,
     title: {
       en: 'USCIS Orders Enhanced Security Screening for All Immigration Applications',
