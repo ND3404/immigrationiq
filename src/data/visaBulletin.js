@@ -52,7 +52,10 @@ export function formatBulletinDate(value) {
  * Returns:
  *   { direction: 'forward' | 'backward' | 'same' | 'unknown',
  *     days:      integer | null    (positive = advanced, negative = retrogressed),
- *     label:     string             ('+28d', '+2mo', 'Now Current', 'Retrogressed', '') }
+ *     label:     string             ('+14d', '+2mo 14d', '+1y 3mo 5d', 'Now Current', 'Retrogressed', '') }
+ *
+ * The label is built from calendar-aware year/month/day arithmetic so partial-month
+ * advances are visible (e.g. a 75-day jump reads "+2mo 14d", not just "+2mo").
  */
 export function compareBulletinCells(current, previous) {
   if (current === undefined || previous === undefined) return { direction: 'unknown', days: null, label: '' };
@@ -64,10 +67,28 @@ export function compareBulletinCells(current, previous) {
   if (!c || !p) return { direction: 'unknown', days: null, label: '' };
   const days = Math.round((c.getTime() - p.getTime()) / (1000 * 60 * 60 * 24));
   if (days === 0) return { direction: 'same', days: 0, label: '' };
-  const abs = Math.abs(days);
+  const direction = days > 0 ? 'forward' : 'backward';
   const sign = days > 0 ? '+' : '−';
-  const label = abs >= 60 ? `${sign}${Math.round(abs / 30)}mo` : `${sign}${abs}d`;
-  return { direction: days > 0 ? 'forward' : 'backward', days, label };
+  const [earlier, later] = days > 0 ? [p, c] : [c, p];
+  let years = later.getUTCFullYear() - earlier.getUTCFullYear();
+  let months = later.getUTCMonth() - earlier.getUTCMonth();
+  let dayDiff = later.getUTCDate() - earlier.getUTCDate();
+  if (dayDiff < 0) {
+    months -= 1;
+    // Days in the month immediately before `later` (day 0 of current month).
+    const borrow = new Date(Date.UTC(later.getUTCFullYear(), later.getUTCMonth(), 0)).getUTCDate();
+    dayDiff += borrow;
+  }
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+  const parts = [];
+  if (years > 0)   parts.push(`${years}y`);
+  if (months > 0)  parts.push(`${months}mo`);
+  if (dayDiff > 0) parts.push(`${dayDiff}d`);
+  const label = `${sign}${parts.join(' ')}`;
+  return { direction, days, label };
 }
 
 export const FAMILY_CATEGORIES = [
