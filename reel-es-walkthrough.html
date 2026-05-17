@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ImmigrationIQ — Reel (ES, Walkthrough)</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<link rel="stylesheet" href="../shared/ad-base.css">
+<style>
+  html,body{background:#0a0d1f;}
+  .stage{width:1080px;height:1920px;background:linear-gradient(135deg,#000f3d 0%,#002a79 60%,#003087 100%);position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);}
+  .stage .plus-bg{opacity:.08;}
+  .iq-mark.md{position:absolute;top:64px;left:64px;z-index:30;}
+  .badge-pill{position:absolute;top:88px;right:64px;z-index:30;font-size:18px;padding:10px 20px;}
+  .hook{position:absolute;top:240px;left:64px;right:64px;z-index:20;color:#fff;text-align:center;font-family:var(--font-heading);font-weight:900;font-size:88px;line-height:1.0;letter-spacing:-0.025em;opacity:0;transform:translateY(40px);animation:hookIn 600ms var(--ease-out) 200ms forwards, hookOut 500ms var(--ease-in-out) 2400ms forwards;text-wrap:balance;}
+  .hook .accent{color:var(--color-accent-400);display:block;}
+  @keyframes hookIn{to{opacity:1;transform:translateY(0);}}
+  @keyframes hookOut{to{opacity:0;transform:translateY(-30px);}}
+  .phone{position:absolute;left:50%;top:280px;transform:translateX(-50%) translateY(80px);width:620px;height:1280px;background:#0a0d1f;border-radius:64px;border:14px solid #1a1d2e;box-shadow:0 40px 100px rgba(0,0,0,.6),inset 0 0 0 2px rgba(255,255,255,.05);overflow:hidden;z-index:10;opacity:0;animation:phoneIn 700ms var(--ease-out) 2700ms forwards;}
+  @keyframes phoneIn{to{opacity:1;transform:translateX(-50%) translateY(0);}}
+  .phone-screen{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;}
+  .status{height:48px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 36px;font-family:var(--font-body);font-weight:700;font-size:18px;color:#1a1a2e;flex-shrink:0;}
+  .right-ic{display:flex;align-items:center;gap:8px;}
+  .ic.bat{width:24px;height:12px;border:1.5px solid #1a1a2e;background:transparent;border-radius:3px;position:relative;}
+  .ic.bat::after{content:'';position:absolute;inset:1.5px;background:#1a1a2e;width:70%;border-radius:1px;}
+  .nav{height:64px;background:#fff;border-bottom:1px solid #e2e4ea;display:flex;align-items:center;padding:0 24px;gap:12px;flex-shrink:0;}
+  .nav .logo{display:flex;align-items:center;gap:8px;font-family:var(--font-heading);font-weight:900;color:var(--color-primary-500);font-size:22px;letter-spacing:-0.01em;}
+  .nav .logo .square{width:30px;height:30px;border-radius:6px;background:var(--color-primary-500);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .nav .ask{margin-left:auto;background:var(--color-secondary-500);color:#fff;padding:8px 16px;border-radius:9999px;font-size:14px;font-weight:700;}
+  .chat-area{flex:1;background:#f8f9fb;padding:28px 24px;overflow:hidden;position:relative;}
+  .msg{margin-bottom:18px;opacity:0;transform:translateY(14px);}
+  .msg.you,.you{align-self:flex-end;background:var(--color-primary-500);color:#fff;padding:14px 20px;border-radius:18px 18px 4px 18px;max-width:82%;font-size:18px;line-height:1.4;display:inline-block;}
+  .you-row{display:flex;justify-content:flex-end;}
+  .ai-row{display:flex;align-items:flex-start;gap:10px;}
+  .ai-av{width:36px;height:36px;border-radius:10px;background:var(--color-primary-500);color:#fff;font-family:var(--font-heading);font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:-0.02em;}
+  .ai{background:#fff;border:1px solid #e2e4ea;padding:14px 18px;border-radius:4px 18px 18px 18px;font-size:17px;line-height:1.45;color:#1a1a2e;flex:1;}
+  .ai b{color:var(--color-primary-500);}
+  .m-q1{animation:msgIn 400ms var(--ease-out) 3600ms forwards;}
+  .m-typing{animation:msgIn 300ms var(--ease-out) 4100ms forwards, msgOut 200ms var(--ease-in-out) 5000ms forwards;}
+  .m-a1{animation:msgIn 400ms var(--ease-out) 5200ms forwards;}
+  .m-q2{animation:msgIn 400ms var(--ease-out) 7400ms forwards;}
+  .m-typing2{animation:msgIn 300ms var(--ease-out) 7900ms forwards, msgOut 200ms var(--ease-in-out) 8800ms forwards;}
+  .m-a2{animation:msgIn 400ms var(--ease-out) 9000ms forwards;}
+  @keyframes msgIn{to{opacity:1;transform:translateY(0);}}
+  @keyframes msgOut{to{opacity:0;transform:translateY(-6px);}}
+  .typing{display:inline-flex;gap:6px;align-items:center;height:20px;}
+  .typing span{width:8px;height:8px;border-radius:50%;background:#9ca3af;animation:bounce 1.2s infinite;}
+  .typing span:nth-child(2){animation-delay:.2s;}
+  .typing span:nth-child(3){animation-delay:.4s;}
+  @keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-6px);opacity:1;}}
+  .outro{position:absolute;left:64px;right:64px;bottom:120px;z-index:25;background:#fff;border-radius:32px;padding:48px 52px;box-shadow:0 30px 60px rgba(0,0,0,.4);opacity:0;transform:translateY(40px);animation:outroIn 600ms var(--ease-out) 11200ms forwards;}
+  @keyframes outroIn{to{opacity:1;transform:translateY(0);}}
+  .outro h2{font-family:var(--font-heading);font-weight:900;font-size:50px;line-height:1.0;color:var(--color-text);letter-spacing:-0.025em;text-wrap:balance;}
+  .outro h2 .accent{color:var(--color-primary-500);}
+  .outro .url{margin-top:20px;font-family:var(--font-heading);font-weight:900;font-size:54px;color:var(--color-primary-500);letter-spacing:-0.01em;line-height:1;}
+  .outro .url .dot{color:var(--color-secondary-500);}
+  .outro .meta{margin-top:14px;display:flex;gap:14px;align-items:center;color:var(--color-text-light);font-size:18px;font-weight:500;}
+  .outro .meta .pill{background:#e8f5e9;color:var(--color-success-500);font-weight:700;font-size:14px;padding:4px 12px;border-radius:9999px;}
+  .progress{position:absolute;top:0;left:0;right:0;height:4px;z-index:50;background:rgba(255,255,255,.1);}
+  .progress span{display:block;height:100%;background:var(--color-accent-400);width:0;animation:bar 14s linear forwards;}
+  @keyframes bar{to{width:100%;}}
+  .controls{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:60;display:flex;gap:12px;}
+  .controls button{background:rgba(0,0,0,.5);color:#fff;border:1px solid rgba(255,255,255,.2);padding:10px 18px;border-radius:9999px;font-family:var(--font-body);font-weight:600;font-size:14px;cursor:pointer;backdrop-filter:blur(8px);}
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="plus-bg"></div>
+    <div class="progress"><span></span></div>
+    <div class="iq-mark md"><div class="iq">IQ</div><div class="bar"></div></div>
+    <span class="badge-pill"><span class="dot"></span>IA Gratis</span>
+
+    <div class="hook">¿Dudas sobre tu<span class="accent">inmigración?</span></div>
+
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="status">
+          <span>9:41</span>
+          <div class="right-ic"><span class="ic bat"></span></div>
+        </div>
+        <div class="nav">
+          <div class="logo"><span class="square">IQ</span>ImmigrationIQ</div>
+          <span class="ask">IA</span>
+        </div>
+        <div class="chat-area">
+          <div class="msg you-row m-q1"><span class="you">¿Cómo solicito una green card por matrimonio?</span></div>
+          <div class="msg ai-row m-typing"><div class="ai-av">IQ</div><div class="ai"><div class="typing"><span></span><span></span><span></span></div></div></div>
+          <div class="msg ai-row m-a1"><div class="ai-av">IQ</div><div class="ai">Si su cónyuge ya está en EE. UU., presenta el <b>I-130</b> junto con el <b>I-485</b>. Le explico paso a paso…</div></div>
+          <div class="msg you-row m-q2"><span class="you">¿Y el boletín de visas?</span></div>
+          <div class="msg ai-row m-typing2"><div class="ai-av">IQ</div><div class="ai"><div class="typing"><span></span><span></span><span></span></div></div></div>
+          <div class="msg ai-row m-a2"><div class="ai-av">IQ</div><div class="ai">Cónyuges de ciudadanos son <b>familiares inmediatos</b> — no hay espera. Revisemos su caso →</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outro">
+      <h2>Respuestas claras — <span class="accent">gratis.</span></h2>
+      <div class="url">immigrationiq<span class="dot">.</span>us</div>
+      <div class="meta"><span class="pill">100% GRATIS</span><span>•</span><span>English &amp; Español</span></div>
+    </div>
+
+    <div class="controls"><button id="replay">↻ Repetir</button></div>
+  </div>
+
+  <script>
+    document.getElementById('replay').addEventListener('click',()=>location.reload());
+  </script>
+</body>
+</html>
