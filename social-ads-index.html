@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ImmigrationIQ — Social Ads Index</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#0a0d1f;color:#fff;font-family:var(--font-body);min-height:100vh;padding:80px 60px 120px;}
+  .wrap{max-width:1400px;margin:0 auto;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:24px;}
+  .brand{display:flex;align-items:center;gap:18px;}
+  .brand .mark{width:64px;height:64px;border-radius:14px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px 0;box-shadow:0 8px 24px rgba(0,0,0,.3);}
+  .brand .iq{font-family:var(--font-heading);font-weight:900;color:var(--color-primary-500);font-size:28px;line-height:1;letter-spacing:-0.02em;}
+  .brand .bar{width:36px;height:3.5px;border-radius:2px;background:var(--color-secondary-500);margin-top:5px;}
+  h1{font-family:var(--font-heading);font-weight:900;font-size:56px;line-height:1.05;letter-spacing:-0.02em;}
+  h1 em{color:var(--color-accent-400);font-style:italic;}
+  .meta{color:rgba(255,255,255,.65);font-size:18px;margin-top:6px;font-weight:500;}
+
+  section{margin-top:64px;}
+  h2{font-family:var(--font-heading);font-weight:900;font-size:32px;letter-spacing:-0.01em;color:#fff;}
+  .section-meta{color:rgba(255,255,255,.55);font-size:16px;font-weight:500;margin-top:6px;}
+
+  .grid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;}
+  .card{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;padding:20px;
+    text-decoration:none;color:#fff;
+    display:flex;flex-direction:column;gap:14px;
+    transition:transform .2s var(--ease-out), border-color .2s, background .2s;
+  }
+  .card:hover{transform:translateY(-3px);border-color:rgba(245,166,35,.5);background:rgba(255,255,255,.07);}
+  .card-frame{
+    border-radius:12px;overflow:hidden;background:#fff;
+    position:relative;display:flex;align-items:center;justify-content:center;
+  }
+  .card iframe{border:0;display:block;transform-origin:top left;pointer-events:none;flex-shrink:0;position:absolute;top:0;left:0;}
+  .card-frame{position:relative;}
+  .card .label{font-family:var(--font-heading);font-weight:900;font-size:18px;line-height:1.2;letter-spacing:-0.01em;}
+  .card .sub{font-size:14px;color:rgba(255,255,255,.6);font-weight:500;}
+  .card .tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:9999px;background:rgba(245,166,35,.15);color:var(--color-accent-400);letter-spacing:.06em;text-transform:uppercase;width:fit-content;}
+  .card .tag.es{background:rgba(178,34,52,.18);color:#ffb3bb;}
+
+  /* Aspect ratio frames */
+  .ar-9x16{aspect-ratio:9/16;}
+  .ar-9x16 iframe{width:1080px;height:1920px;transform:scale(.236);} /* fits 255px wide */
+  .ar-4x5{aspect-ratio:4/5;}
+  .ar-4x5 iframe{width:1080px;height:1350px;transform:scale(.236);}
+  .ar-191x1{aspect-ratio:1200/628;}
+  .ar-191x1 iframe{width:1200px;height:628px;transform:scale(.213);}
+
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:9999px;background:rgba(245,166,35,.15);color:var(--color-accent-400);font-weight:700;font-size:14px;letter-spacing:.04em;}
+  footer{margin-top:80px;padding-top:32px;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.45);font-size:14px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="mark"><div class="iq">IQ</div><div class="bar"></div></div>
+        <div>
+          <h1>Social ads — <em>complete kit.</em></h1>
+          <div class="meta">28 ad files across 4 formats · English &amp; Español</div>
+        </div>
+      </div>
+      <span class="pill">immigrationiq.us</span>
+    </header>
+
+    <section>
+      <h2>Stories &amp; Reel covers <span style="color:var(--color-accent-400);">· 1080 × 1920</span></h2>
+      <div class="section-meta">Vertical 9:16 — Instagram &amp; Facebook stories, Reel covers, TikTok</div>
+      <div class="grid">
+        <a class="card" href="stories/story-en-ai-chat.html"><div class="card-frame ar-9x16"><iframe src="stories/story-en-ai-chat.html" scrolling="no"></iframe></div><div><span class="tag">EN</span></div><div class="label">Free AI Chat</div><div class="sub">Hero question + chat preview</div></a>
+        <a class="card" href="stories/story-es-ai-chat.html"><div class="card-frame ar-9x16"><iframe src="stories/story-es-ai-chat.html" scrolling="no"></iframe></div><div><span class="tag es">ES</span></div><div class="label">Chat IA Gratis</div><div class="sub">Hero + chat en español</div></a>
+        <a class="card" href="stories/story-en-visa-bulletin.html"><div class="card-frame ar-9x16"><iframe src="stories/story-en-visa-bulletin.html" scrolling="no"></iframe></div><div><span class="tag">EN</span></div><div class="label">Visa Bulletin</div><div class="sub">Final Action Dates dashboard</div></a>
+        <a class="card" href="stories/story-es-visa-bulletin.html"><div class="card-frame ar-9x16"><iframe src="stories/story-es-visa-bulletin.html" scrolling="no"></iframe></div><div><span class="tag es">ES</span></div><div class="label">Boletín de Visas</div><div class="sub">Fechas de Acción Final</div></a>
+        <a class="card" href="stories/story-en-find-lawyer.html"><div class="card-frame ar-9x16"><iframe src="stories/story-en-find-lawyer.html" scrolling="no"></iframe></div><div><span class="tag">EN</span></div><div class="label">Find a Lawyer</div><div class="sub">Vetted attorney directory</div></a>
+        <a class="card" href="stories/story-es-find-lawyer.html"><div class="card-frame ar-9x16"><iframe src="stories/story-es-find-lawyer.html" scrolling="no"></iframe></div><div><span class="tag es">ES</span></div><div class="label">Encuentra Abogado</div><div class="sub">Directorio de abogados</div></a>
+        <a class="card" href="stories/story-en-trust-uscis.html"><div class="card-frame ar-9x16"><iframe src="stories/story-en-trust-uscis.html" scrolling="no"></iframe></div><div><span class="tag">EN</span></div><div class="label">Built on USCIS</div><div class="sub">Trust / accuracy angle</div></a>
+        <a class="card" href="stories/story-es-trust-uscis.html"><div class="card-frame ar-9x16"><iframe src="stories/story-es-trust-uscis.html" scrolling="no"></iframe></div><div><span class="tag es">ES</span></div><div class="label">Fuentes oficiales</div><div class="sub">Confianza / USCIS</div></a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Reels <span style="color:var(--color-accent-400);">· 1080 × 1920 · animated</span></h2>
+      <div class="section-meta">~14 second phone-walkthrough reels (use a screen recorder to export to MP4)</div>
+      <div class="grid">
+        <a class="card" href="reels/reel-en-walkthrough.html"><div class="card-frame ar-9x16"><iframe src="reels/reel-en-walkthrough.html" scrolling="no"></iframe></div><div><span class="tag">EN · REEL</span></div><div class="label">Phone Walkthrough</div><div class="sub">Hook → AI chat demo → CTA</div></a>
+        <a class="card" href="reels/reel-es-walkthrough.html"><div class="card-frame ar-9x16"><iframe src="reels/reel-es-walkthrough.html" scrolling="no"></iframe></div><div><span class="tag es">ES · REEL</span></div><div class="label">Demostración</div><div class="sub">Gancho → IA en acción → CTA</div></a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Carousels <span style="color:var(--color-accent-400);">· 1080 × 1350 · 5 slides each</span></h2>
+      <div class="section-meta">Instagram portrait carousels — swipe-through educational sets</div>
+      <div class="grid">
+        <a class="card" href="carousel-en-marriage/01-cover.html"><div class="card-frame ar-4x5"><iframe src="carousel-en-marriage/01-cover.html" scrolling="no"></iframe></div><div><span class="tag">EN · 1/5</span></div><div class="label">Marriage Green Card — Cover</div><div class="sub">5-step guide intro</div></a>
+        <a class="card" href="carousel-en-marriage/02-step-1.html"><div class="card-frame ar-4x5"><iframe src="carousel-en-marriage/02-step-1.html" scrolling="no"></iframe></div><div><span class="tag">EN · 2/5</span></div><div class="label">Step 1 — File I-130</div><div class="sub">Petition for Alien Relative</div></a>
+        <a class="card" href="carousel-en-marriage/03-step-2.html"><div class="card-frame ar-4x5"><iframe src="carousel-en-marriage/03-step-2.html" scrolling="no"></iframe></div><div><span class="tag">EN · 3/5</span></div><div class="label">Step 2 — File I-485</div><div class="sub">Adjustment of status</div></a>
+        <a class="card" href="carousel-en-marriage/04-step-3.html"><div class="card-frame ar-4x5"><iframe src="carousel-en-marriage/04-step-3.html" scrolling="no"></iframe></div><div><span class="tag">EN · 4/5</span></div><div class="label">Step 3 — Evidence</div><div class="sub">Document checklist</div></a>
+        <a class="card" href="carousel-en-marriage/05-cta.html"><div class="card-frame ar-4x5"><iframe src="carousel-en-marriage/05-cta.html" scrolling="no"></iframe></div><div><span class="tag">EN · 5/5</span></div><div class="label">CTA — Ask AI Free</div><div class="sub">Closing card</div></a>
+
+        <a class="card" href="carousel-es-ciudadania/01-cover.html"><div class="card-frame ar-4x5"><iframe src="carousel-es-ciudadania/01-cover.html" scrolling="no"></iframe></div><div><span class="tag es">ES · 1/5</span></div><div class="label">Ciudadanía — Portada</div><div class="sub">Guía en 4 pasos</div></a>
+        <a class="card" href="carousel-es-ciudadania/02-elegibilidad.html"><div class="card-frame ar-4x5"><iframe src="carousel-es-ciudadania/02-elegibilidad.html" scrolling="no"></iframe></div><div><span class="tag es">ES · 2/5</span></div><div class="label">Paso 1 — Elegibilidad</div><div class="sub">Requisitos básicos</div></a>
+        <a class="card" href="carousel-es-ciudadania/03-n400.html"><div class="card-frame ar-4x5"><iframe src="carousel-es-ciudadania/03-n400.html" scrolling="no"></iframe></div><div><span class="tag es">ES · 3/5</span></div><div class="label">Paso 2 — N-400</div><div class="sub">Solicitud de naturalización</div></a>
+        <a class="card" href="carousel-es-ciudadania/04-examen.html"><div class="card-frame ar-4x5"><iframe src="carousel-es-ciudadania/04-examen.html" scrolling="no"></iframe></div><div><span class="tag es">ES · 4/5</span></div><div class="label">Paso 3 — Examen Cívico</div><div class="sub">Pregunta de práctica</div></a>
+        <a class="card" href="carousel-es-ciudadania/05-cta.html"><div class="card-frame ar-4x5"><iframe src="carousel-es-ciudadania/05-cta.html" scrolling="no"></iframe></div><div><span class="tag es">ES · 5/5</span></div><div class="label">CTA — Pregunta Gratis</div><div class="sub">Cierre</div></a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Landscape link ads <span style="color:var(--color-accent-400);">· 1200 × 628</span></h2>
+      <div class="section-meta">Facebook / LinkedIn link previews and Twitter cards</div>
+      <div class="grid">
+        <a class="card" href="landscape/landscape-en-ai-chat.html"><div class="card-frame ar-191x1"><iframe src="landscape/landscape-en-ai-chat.html" scrolling="no"></iframe></div><div><span class="tag">EN</span></div><div class="label">Free AI Chat</div></a>
+        <a class="card" href="landscape/landscape-es-ai-chat.html"><div class="card-frame ar-191x1"><iframe src="landscape/landscape-es-ai-chat.html" scrolling="no"></iframe></div><div><span class="tag es">ES</span></div><div class="label">Chat IA Gratis</div></a>
+        <a class="card" href="landscape/landscape-en-processing.html"><div class="card-frame ar-191x1"><iframe src="landscape/landscape-en-processing.html" scrolling="no"></iframe></div><div><span class="tag">EN</span></div><div class="label">Processing Times</div></a>
+        <a class="card" href="landscape/landscape-es-processing.html"><div class="card-frame ar-191x1"><iframe src="landscape/landscape-es-processing.html" scrolling="no"></iframe></div><div><span class="tag es">ES</span></div><div class="label">Tiempos de Trámite</div></a>
+        <a class="card" href="landscape/landscape-en-h1b.html"><div class="card-frame ar-191x1"><iframe src="landscape/landscape-en-h1b.html" scrolling="no"></iframe></div><div><span class="tag">EN</span></div><div class="label">H-1B / Tech Workers</div></a>
+        <a class="card" href="landscape/landscape-es-h1b.html"><div class="card-frame ar-191x1"><iframe src="landscape/landscape-es-h1b.html" scrolling="no"></iframe></div><div><span class="tag es">ES</span></div><div class="label">Visas de Trabajo</div></a>
+        <a class="card" href="landscape/landscape-en-documents.html"><div class="card-frame ar-191x1"><iframe src="landscape/landscape-en-documents.html" scrolling="no"></iframe></div><div><span class="tag">EN</span></div><div class="label">Document Checklists</div></a>
+        <a class="card" href="landscape/landscape-es-documents.html"><div class="card-frame ar-191x1"><iframe src="landscape/landscape-es-documents.html" scrolling="no"></iframe></div><div><span class="tag es">ES</span></div><div class="label">Lista de Documentos</div></a>
+      </div>
+    </section>
+
+    <footer>
+      Click any card to open the ad at full resolution. To export reels to video, screen-record the page in your browser.
+    </footer>
+  </div>
+</body>
+</html>
