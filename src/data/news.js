@@ -1,5 +1,85 @@
 export const newsItems = [
   {
+    id: 16,
+    title: {
+      en: 'Supreme Court Clears Way for Termination of Venezuela TPS as Litigation Continues',
+      es: 'Corte Suprema Permite la Terminación del TPS para Venezuela Mientras Sigue el Litigio',
+    },
+    date: 'May 19, 2026',
+    dateEs: '19 de mayo de 2026',
+    category: 'Court Decisions',
+    summary: {
+      en: 'The U.S. Supreme Court issued a procedural ruling allowing the administration to proceed with terminating Temporary Protected Status for Venezuela under the 2023 designation while legal challenges continue in the lower courts. Affected nationals should consult counsel about employment authorization and removal protections.',
+      es: 'La Corte Suprema de EE. UU. emitió un fallo procesal que permite a la administración avanzar con la terminación del Estatus de Protección Temporal para Venezuela bajo la designación de 2023, mientras los litigios continúan en tribunales inferiores. Los nacionales afectados deben consultar a un abogado sobre la autorización de empleo y las protecciones contra la deportación.',
+    },
+    source: 'U.S. Supreme Court / USCIS',
+    url: 'https://www.uscis.gov/i-9-central/form-i-9-related-news/update-supreme-court-order-for-tps-venezuela',
+  },
+  {
+    id: 15,
+    title: {
+      en: 'State Department Pauses Visa Services in South Sudan, DRC, and Uganda',
+      es: 'El Departamento de Estado Suspende los Servicios de Visa en Sudán del Sur, RD del Congo y Uganda',
+    },
+    date: 'May 18, 2026',
+    dateEs: '18 de mayo de 2026',
+    category: 'Executive Orders',
+    summary: {
+      en: 'The U.S. Department of State suspended visa operations at U.S. embassies in South Sudan, the Democratic Republic of the Congo, and Uganda effective May 18, 2026, citing enhanced public health measures. Applicants with pending visa appointments in these countries should monitor embassy websites for rescheduling guidance.',
+      es: 'El Departamento de Estado de EE. UU. suspendió las operaciones de visa en las embajadas de EE. UU. en Sudán del Sur, la República Democrática del Congo y Uganda a partir del 18 de mayo de 2026, citando medidas reforzadas de salud pública. Los solicitantes con citas pendientes en estos países deben revisar los sitios web de las embajadas para indicaciones de reprogramación.',
+    },
+    source: 'U.S. Department of State',
+    url: 'https://travel.state.gov/',
+  },
+  {
+    id: 14,
+    title: {
+      en: 'USCIS Extends TPS Somalia Work Permits Through July 1, 2026 After Court Order',
+      es: 'USCIS Extiende los Permisos de Trabajo del TPS Somalia hasta el 1 de julio de 2026 Tras Orden Judicial',
+    },
+    date: 'May 18, 2026',
+    dateEs: '18 de mayo de 2026',
+    category: 'Court Decisions',
+    summary: {
+      en: 'Following a federal court order staying the termination of Temporary Protected Status for Somalia, USCIS extended Employment Authorization Documents (EADs) issued under TPS Somalia through July 1, 2026. Eligible beneficiaries remain protected from removal while litigation proceeds.',
+      es: 'Tras una orden judicial federal que suspende la terminación del Estatus de Protección Temporal para Somalia, USCIS extendió los Documentos de Autorización de Empleo (EAD) emitidos bajo el TPS de Somalia hasta el 1 de julio de 2026. Los beneficiarios elegibles permanecen protegidos contra la deportación mientras avanza el litigio.',
+    },
+    source: 'USCIS',
+    url: 'https://www.uscis.gov/humanitarian/temporary-protected-status/temporary-protected-status-designated-country-somalia',
+  },
+  {
+    id: 13,
+    title: {
+      en: 'U.S. Waives Visa Bond Requirements for FIFA World Cup 2026 Travelers',
+      es: 'EE. UU. Exonera el Requisito de Fianza de Visa para Viajeros del Mundial FIFA 2026',
+    },
+    date: 'May 18, 2026',
+    dateEs: '18 de mayo de 2026',
+    category: 'Fee Changes',
+    summary: {
+      en: 'The U.S. announced a waiver of visa bond requirements for eligible FIFA World Cup 2026 travelers, including athletes, team personnel, and certain ticket-holding visitors from competing nations. The waiver applies to nonimmigrant visa applicants meeting program criteria for World Cup-related travel.',
+      es: 'EE. UU. anunció una exención del requisito de fianza de visa para viajeros elegibles del Mundial FIFA 2026, incluyendo atletas, personal de equipos y ciertos visitantes con boletos de países participantes. La exención aplica a solicitantes de visa de no inmigrante que cumplan los criterios del programa para viajes relacionados con el Mundial.',
+    },
+    source: 'U.S. Department of State',
+    url: 'https://travel.state.gov/',
+  },
+  {
+    id: 12,
+    title: {
+      en: 'DOL Requires English Proficiency Documentation for Foreign CMV Drivers in PERM Filings',
+      es: 'DOL Exige Documentación de Dominio del Inglés para Conductores Extranjeros de Vehículos Comerciales en PERM',
+    },
+    date: 'May 14, 2026',
+    dateEs: '14 de mayo de 2026',
+    category: 'Executive Orders',
+    summary: {
+      en: 'The Department of Labor issued new guidance on May 14, 2026 requiring employers to document English language proficiency for foreign commercial motor vehicle (CMV) operators during the PERM labor certification process. Employers in trucking and logistics should update recruitment files accordingly.',
+      es: 'El Departamento del Trabajo emitió una nueva guía el 14 de mayo de 2026 que exige a los empleadores documentar el dominio del idioma inglés para los conductores extranjeros de vehículos comerciales (CMV) durante el proceso de certificación laboral PERM. Los empleadores de transporte por carretera y logística deben actualizar sus expedientes de reclutamiento.',
+    },
+    source: 'U.S. Department of Labor',
+    url: 'https://www.dol.gov/agencies/eta/foreign-labor',
+  },
+  {
     id: 11,
     title: {
       en: 'June 2026 Visa Bulletin: EB-2 India Retrogresses, EB-3 India and China Advance',
