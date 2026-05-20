@@ -14,7 +14,7 @@ const BRAND = {
   mutedNavy: '#5B6B85',
 };
 
-const WHATSAPP_NUMBER = '+1 385-484-2438';
+const WHATSAPP_NUMBER = '+1 385-201-7220';
 
 export default function I130ComingSoon() {
   const { t } = useLanguage();
