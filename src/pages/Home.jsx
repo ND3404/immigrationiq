@@ -1,13 +1,11 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
-  Search, ArrowRight, MessageSquare, Calculator, CalendarDays,
-  CheckCircle, LayoutGrid, Newspaper, Lock, Globe, Zap, Smartphone,
-  FileCheck,
+  ArrowRight, MessageSquare, CalendarDays, FileText, Newspaper,
+  CheckCircle, LayoutGrid, Search, Lock, Globe, Zap, Smartphone, Users,
+  Calculator, FileCheck,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { newsItems } from '../data/news';
-import NewsCard from '../components/shared/NewsCard';
 import NewsletterSignup from '../components/shared/NewsletterSignup';
 import SEO from '../components/shared/SEO';
 import Reveal from '../components/shared/Reveal';
@@ -17,7 +15,7 @@ const HOME_JSON_LD = {
   '@type': 'WebSite',
   name: 'ImmigrationIQ',
   url: 'https://www.immigrationiq.us',
-  description: 'Free AI-powered U.S. immigration assistant providing guidance in English and Spanish',
+  description: 'AI-powered U.S. immigration platform in Spanish — I-130 drafter, chat, and visa bulletin.',
   potentialAction: {
     '@type': 'SearchAction',
     target: {
@@ -30,6 +28,15 @@ const HOME_JSON_LD = {
 
 const HEADLINE_TERRACOTTA = '#C75B45';
 
+// Brand palette — scoped to NEW elements on this page (do not touch global theme tokens)
+const BRAND = {
+  navy: '#1B2D4F',
+  cream: '#F5F1E8',
+  red: '#C9384B',
+  gold: '#E5B547',
+  mutedNavy: '#5B6B85',
+};
+
 const TRUST_STRIP = [
   { icon: Lock, key: 'homeTrustStripSecure' },
   { icon: Globe, key: 'homeTrustStripBilingual' },
@@ -37,127 +44,267 @@ const TRUST_STRIP = [
   { icon: Smartphone, key: 'homeTrustStripDevices' },
 ];
 
-const SECONDARY_TOOLS = [
-  {
-    to: '/visa-bulletin',
-    icon: CalendarDays,
-    titleKey: 'homeToolVBTitle',
-    descKey: 'homeToolVBDesc',
-    ctaKey: 'homeToolVBCta',
-  },
-  {
-    to: '/case-tracker',
-    icon: Search,
-    titleKey: 'homeToolCaseTitle',
-    descKey: 'homeToolCaseDesc',
-    ctaKey: 'homeToolCaseCta',
-  },
-  {
-    to: '/fee-calculator',
-    icon: Calculator,
-    titleKey: 'homeToolFeeTitle',
-    descKey: 'homeToolFeeDesc',
-    ctaKey: 'homeToolFeeCta',
-  },
-  {
-    to: '/kits',
-    icon: FileCheck,
-    titleKey: 'homeToolKitsTitle',
-    descKey: 'homeToolKitsDesc',
-    ctaKey: 'homeToolKitsCta',
-  },
-];
-
 export default function Home() {
   const { t } = useLanguage();
-  const navigate = useNavigate();
-  const [searchValue, setSearchValue] = useState('');
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchValue.trim()) navigate(`/chat?q=${encodeURIComponent(searchValue)}`);
-  };
 
   return (
     <div>
       <SEO
-        title="ImmigrationIQ | Free AI-Powered U.S. Immigration Assistant in English & Spanish"
-        description="Free AI-powered U.S. immigration assistant providing guidance on visas, green cards, and citizenship in English and Spanish. Step-by-step processes, document checklists, and lawyer directory."
+        title="ImmigrationIQ | Tu plataforma de inmigración con IA"
+        description="AI-powered U.S. immigration platform in Spanish — I-130 drafter, immigration chat, and real-time visa bulletin. Information, forms, and guidance from your phone."
         path="/"
         jsonLd={HOME_JSON_LD}
       />
 
-      {/* Section A — Hero (compact ~60vh) */}
-      <section
-        className="relative overflow-hidden flex items-center"
-        style={{
-          background: 'linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-600) 50%, var(--color-primary-500) 100%)',
-          minHeight: '60vh',
-        }}
-      >
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4h-4z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-          }}
-        />
-        <div className="relative mx-auto max-w-5xl px-4 py-14 sm:py-20 text-center w-full">
-          <div className="animate-fade-in-up">
-            <h1
-              className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
-              style={{ fontFamily: 'var(--font-heading)' }}
+      {/* ─── Hero (cream, brand-aligned) ─────────────────── */}
+      <section style={{ backgroundColor: BRAND.cream }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-8 sm:pb-12">
+          <div className="text-center">
+            <p
+              style={{
+                color: BRAND.mutedNavy,
+                fontSize: '13px',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                margin: 0,
+                marginBottom: '12px',
+              }}
             >
-              {t('heroTitle')}
-            </h1>
-            <p className="mt-4 sm:mt-5 text-base sm:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
-              {t('heroSubtitleNew')}
+              ImmigrationIQ
             </p>
+            <h1
+              style={{
+                fontFamily: 'var(--font-heading)',
+                color: BRAND.navy,
+                fontSize: 'clamp(2rem, 6.5vw, 3.5rem)',
+                fontWeight: 900,
+                lineHeight: 1.1,
+                margin: 0,
+                maxWidth: '46rem',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
+            >
+              {t('i130.home.heroHeadline')}
+            </h1>
+            <p
+              style={{
+                marginTop: '16px',
+                fontSize: '18px',
+                lineHeight: 1.5,
+                color: BRAND.mutedNavy,
+                maxWidth: '36rem',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
+            >
+              {t('i130.home.heroSubhead')}
+            </p>
+            <p
+              style={{
+                marginTop: '14px',
+                fontSize: '13px',
+                fontWeight: 600,
+                color: BRAND.navy,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                backgroundColor: 'rgba(229, 181, 71, 0.25)',
+                padding: '6px 14px',
+                borderRadius: '999px',
+              }}
+            >
+              <Users className="h-4 w-4" />
+              {t('i130.home.trustSignal')}
+            </p>
+          </div>
 
-            {/* Search bar — animated glow */}
-            <form onSubmit={handleSearch} className="mt-7 sm:mt-9 mx-auto max-w-2xl">
-              <div className="relative rounded-full animate-pulse-glow" style={{ boxShadow: '0 0 0 2px rgba(245, 166, 35, 0.45)' }}>
-                <Search className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-                <input
-                  type="text"
-                  value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  placeholder={t('searchPlaceholder')}
-                  className="w-full rounded-full bg-white py-4 pl-12 pr-4 sm:pr-36 text-base shadow-xl outline-none"
-                  style={{ fontFamily: 'var(--font-body)', color: 'var(--color-text)' }}
-                />
-                <Link
-                  to="/chat"
-                  className="btn-secondary hidden sm:inline-flex absolute right-2 top-1/2 -translate-y-1/2 rounded-full no-underline"
-                >
-                  <MessageSquare className="h-4 w-4" /> {t('askAI')}
-                </Link>
+          {/* 3-card CTA grid */}
+          <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-12 gap-4">
+            {/* Card 1 — primary, largest (I-130) */}
+            <Link
+              to="/i-130"
+              className="no-underline md:col-span-6 transition-all duration-150 hover:-translate-y-1 hover:shadow-2xl"
+              style={{
+                backgroundColor: BRAND.red,
+                color: '#FFFFFF',
+                borderRadius: '20px',
+                padding: '28px 24px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+                minHeight: '200px',
+                boxShadow: '0 10px 30px rgba(201, 56, 75, 0.25)',
+              }}
+            >
+              <div
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: '12px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <FileText className="h-6 w-6 text-white" />
               </div>
-              <Link to="/chat" className="btn-secondary sm:hidden mt-3 w-full no-underline rounded-full">
-                <MessageSquare className="h-4 w-4" /> {t('askAI')}
-              </Link>
-            </form>
+              <h2
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: 'clamp(1.5rem, 3.5vw, 2rem)',
+                  fontWeight: 800,
+                  lineHeight: 1.15,
+                  margin: 0,
+                  color: '#FFFFFF',
+                }}
+              >
+                {t('i130.home.card1Title')}
+              </h2>
+              <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.9)', margin: 0, flex: 1 }}>
+                {t('i130.home.card1Desc')}
+              </p>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  backgroundColor: BRAND.gold,
+                  color: BRAND.navy,
+                  padding: '10px 18px',
+                  borderRadius: '999px',
+                  fontWeight: 800,
+                  fontSize: '14px',
+                  alignSelf: 'flex-start',
+                }}
+              >
+                {t('i130.home.card1Cta')} <ArrowRight className="h-4 w-4" />
+              </span>
+            </Link>
 
-            {/* Trust indicators */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium" style={{ color: 'rgba(255,255,255,0.9)' }}>
-              <span className="inline-flex items-center gap-1.5">
-                <CheckCircle className="h-4 w-4" style={{ color: 'var(--color-accent-300)' }} />
-                {t('homeTrustFree')}
+            {/* Card 2 — chat (navy) */}
+            <Link
+              to="/chat"
+              className="no-underline md:col-span-3 transition-all duration-150 hover:-translate-y-1 hover:shadow-xl"
+              style={{
+                backgroundColor: BRAND.navy,
+                color: '#FFFFFF',
+                borderRadius: '20px',
+                padding: '24px 20px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+                minHeight: '200px',
+              }}
+            >
+              <div
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: '10px',
+                  backgroundColor: 'rgba(229, 181, 71, 0.3)',
+                  color: BRAND.gold,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <MessageSquare className="h-5 w-5" />
+              </div>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '20px',
+                  fontWeight: 800,
+                  lineHeight: 1.2,
+                  margin: 0,
+                  color: '#FFFFFF',
+                }}
+              >
+                {t('i130.home.card2Title')}
+              </h3>
+              <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.85)', margin: 0, flex: 1 }}>
+                {t('i130.home.card2Desc')}
+              </p>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  color: BRAND.gold,
+                  fontWeight: 700,
+                  fontSize: '14px',
+                }}
+              >
+                {t('i130.home.card2Cta')} <ArrowRight className="h-4 w-4" />
               </span>
-              <span className="inline-flex items-center gap-1.5">
-                <CheckCircle className="h-4 w-4" style={{ color: 'var(--color-accent-300)' }} />
-                {t('homeTrustBilingual')}
+            </Link>
+
+            {/* Card 3 — visa bulletin (white/gold) */}
+            <Link
+              to="/visa-bulletin"
+              className="no-underline md:col-span-3 transition-all duration-150 hover:-translate-y-1 hover:shadow-xl"
+              style={{
+                backgroundColor: '#FFFFFF',
+                color: BRAND.navy,
+                borderRadius: '20px',
+                padding: '24px 20px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+                minHeight: '200px',
+                border: `2px solid ${BRAND.gold}`,
+              }}
+            >
+              <div
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: '10px',
+                  backgroundColor: 'rgba(229, 181, 71, 0.25)',
+                  color: BRAND.navy,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <CalendarDays className="h-5 w-5" />
+              </div>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '20px',
+                  fontWeight: 800,
+                  lineHeight: 1.2,
+                  margin: 0,
+                  color: BRAND.navy,
+                }}
+              >
+                {t('i130.home.card3Title')}
+              </h3>
+              <p style={{ fontSize: '14px', color: BRAND.mutedNavy, margin: 0, flex: 1 }}>
+                {t('i130.home.card3Desc')}
+              </p>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  color: BRAND.navy,
+                  fontWeight: 700,
+                  fontSize: '14px',
+                }}
+              >
+                {t('i130.home.card3Cta')} <ArrowRight className="h-4 w-4" />
               </span>
-              <span className="inline-flex items-center gap-1.5">
-                <CheckCircle className="h-4 w-4" style={{ color: 'var(--color-accent-300)' }} />
-                {t('homeTrustUpdatedDaily')}
-              </span>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Trust strip — below hero */}
+      {/* Trust strip — below hero (kept) */}
       <section
         className="border-y"
         style={{ backgroundColor: 'var(--color-primary-50)', borderColor: 'var(--color-primary-100)' }}
@@ -174,90 +321,93 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section B — Tools Dashboard */}
-      <section className="page-container">
-        <div className="text-center mb-8">
-          <h2 className="section-title">{t('homeToolsHeading')}</h2>
-          <p className="mt-2 text-base max-w-2xl mx-auto" style={{ color: 'var(--color-text-light)' }}>
-            {t('homeToolsSubheading')}
-          </p>
-        </div>
-
-        {/* Featured AI Chat tool — full width, navy background */}
-        <Reveal
-          as={Link}
-          to="/chat"
-          className="tool-card block rounded-2xl no-underline transition-all duration-200 hover:shadow-2xl hover:-translate-y-1"
-          style={{
-            background: 'linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-primary-500) 100%)',
-            boxShadow: '0 10px 30px rgba(0, 48, 135, 0.25)',
-          }}
-        >
-          <div className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5">
-            <div
-              className="tool-icon rounded-2xl p-4 self-start flex-shrink-0"
-              style={{ backgroundColor: 'rgba(255,255,255,0.18)' }}
-            >
-              <MessageSquare className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3
-                className="text-xl sm:text-2xl font-bold text-white mb-1.5"
-                style={{ fontFamily: 'var(--font-heading)' }}
+      {/* ─── Tools Grid (Phase 6.5 — brand-aligned, conversion-focused) ─── */}
+      <section style={{ backgroundColor: '#FFFFFF' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+          <h2
+            style={{
+              fontFamily: 'var(--font-heading)',
+              color: BRAND.navy,
+              fontSize: 'clamp(1.5rem, 4vw, 2.25rem)',
+              fontWeight: 800,
+              textAlign: 'center',
+              margin: 0,
+              marginBottom: '28px',
+            }}
+          >
+            {t('i130.home.toolsGrid.title')}
+          </h2>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { to: '/case-tracker', icon: Search, titleKey: 'i130.home.toolsGrid.caseTitle', descKey: 'i130.home.toolsGrid.caseDesc' },
+              { to: '/fee-calculator', icon: Calculator, titleKey: 'i130.home.toolsGrid.feeTitle', descKey: 'i130.home.toolsGrid.feeDesc' },
+              { to: '/kits', icon: FileCheck, titleKey: 'i130.home.toolsGrid.kitsTitle', descKey: 'i130.home.toolsGrid.kitsDesc' },
+              { to: '/lawyers', icon: Users, titleKey: 'i130.home.toolsGrid.lawyersTitle', descKey: 'i130.home.toolsGrid.lawyersDesc' },
+            ].map(({ to, icon: Icon, titleKey, descKey }) => (
+              <Link
+                key={to}
+                to={to}
+                className="no-underline transition-all duration-150 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-lg flex flex-col"
+                style={{
+                  backgroundColor: BRAND.cream,
+                  color: BRAND.navy,
+                  borderRadius: '16px',
+                  padding: '20px',
+                  border: `1px solid rgba(27, 45, 79, 0.15)`,
+                  minHeight: '180px',
+                  gap: '10px',
+                }}
               >
-                {t('homeToolAIChatTitle')}
-              </h3>
-              <p className="text-sm sm:text-base" style={{ color: 'rgba(255,255,255,0.9)' }}>
-                {t('homeToolAIChatDesc')}
-              </p>
-            </div>
-            <span
-              className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold whitespace-nowrap self-start sm:self-auto flex-shrink-0"
-              style={{ backgroundColor: 'var(--color-accent-400)', color: 'var(--color-primary-900)' }}
-            >
-              {t('homeToolAIChatCta')} <ArrowRight className="h-4 w-4" />
-            </span>
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: '10px',
+                    backgroundColor: '#FFFFFF',
+                    color: BRAND.navy,
+                    border: `1px solid rgba(27, 45, 79, 0.12)`,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-heading)',
+                    color: BRAND.navy,
+                    fontSize: '17px',
+                    fontWeight: 700,
+                    lineHeight: 1.2,
+                    margin: 0,
+                  }}
+                >
+                  {t(titleKey)}
+                </h3>
+                <p style={{ color: BRAND.mutedNavy, fontSize: '13px', lineHeight: 1.4, margin: 0, flexGrow: 1 }}>
+                  {t(descKey)}
+                </p>
+                <span
+                  style={{
+                    color: BRAND.red,
+                    fontWeight: 700,
+                    fontSize: '13px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    marginTop: 'auto',
+                  }}
+                >
+                  {t('i130.home.toolsGrid.openCta')} <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
+            ))}
           </div>
-        </Reveal>
-
-        {/* Secondary tools — 4 cards, navy-bordered */}
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {SECONDARY_TOOLS.map(({ to, icon: Icon, titleKey, descKey, ctaKey }, idx) => (
-            <Reveal
-              key={to}
-              as={Link}
-              to={to}
-              delay={idx * 100}
-              className="tool-card rounded-2xl bg-white p-6 no-underline flex flex-col h-full transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
-              style={{ border: '2px solid var(--color-primary-500)' }}
-            >
-              <div
-                className="tool-icon rounded-xl inline-flex p-3 mb-4 self-start"
-                style={{ backgroundColor: 'var(--color-primary-50)' }}
-              >
-                <Icon className="h-6 w-6" style={{ color: 'var(--color-primary-500)' }} />
-              </div>
-              <h3
-                className="text-lg font-bold mb-2"
-                style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-text)' }}
-              >
-                {t(titleKey)}
-              </h3>
-              <p className="text-sm flex-1 mb-4" style={{ color: 'var(--color-text-light)' }}>
-                {t(descKey)}
-              </p>
-              <span
-                className="inline-flex items-center gap-1 text-sm font-semibold"
-                style={{ color: 'var(--color-primary-500)' }}
-              >
-                {t(ctaKey)} <ArrowRight className="h-4 w-4" />
-              </span>
-            </Reveal>
-          ))}
         </div>
       </section>
 
-      {/* Section C — How It Works */}
+      {/* Section C — How It Works (kept) */}
       <section className="page-container">
         <h2 className="section-title text-center">{t('homeStepsHeading')}</h2>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -288,30 +438,99 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section D — Latest Immigration News (3 + View All) */}
-      <section className="page-container">
-        <div className="flex items-center justify-between mb-3 flex-wrap gap-3">
-          <div className="flex items-center gap-2">
-            <Newspaper className="h-6 w-6" style={{ color: HEADLINE_TERRACOTTA }} />
-            <h2 className="section-title m-0" style={{ color: HEADLINE_TERRACOTTA }}>
-              {t('homeLatestNewsTitle')}
+      {/* Section D — Latest news (Phase 6.5 compact) */}
+      <section style={{ backgroundColor: '#FFFFFF' }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+          <div className="flex items-baseline justify-between gap-3 mb-4">
+            <h2
+              style={{
+                fontFamily: 'var(--font-heading)',
+                color: BRAND.navy,
+                fontSize: 'clamp(1.1rem, 2.5vw, 1.35rem)',
+                fontWeight: 800,
+                margin: 0,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}
+            >
+              <Newspaper className="h-5 w-5" style={{ color: HEADLINE_TERRACOTTA }} />
+              {t('i130.home.news.title')}
             </h2>
+            <Link
+              to="/news"
+              className="no-underline inline-flex items-center gap-1"
+              style={{ color: BRAND.red, fontWeight: 700, fontSize: '13px' }}
+            >
+              {t('i130.home.news.viewAll')} <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-          <Link to="/news" className="btn-outline text-sm no-underline">
-            {t('homeViewAllNews')} <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-        <p className="mb-6 text-sm" style={{ color: 'var(--color-text-light)' }}>
-          {t('homeLatestNewsIntro')}
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {newsItems.slice(0, 3).map(item => (
-            <NewsCard key={item.id} item={item} />
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {newsItems.slice(0, 3).map((item) => {
+              const title = item.title && typeof item.title === 'object'
+                ? (item.title.es || item.title.en || '')
+                : (item.title || '');
+              const titleEn = item.title && typeof item.title === 'object'
+                ? (item.title.en || '')
+                : (item.title || '');
+              return (
+                <Link
+                  key={item.id}
+                  to="/news"
+                  className="no-underline flex gap-3 transition-all hover:-translate-y-0.5"
+                  style={{
+                    backgroundColor: BRAND.cream,
+                    borderRadius: '12px',
+                    padding: '12px',
+                    border: `1px solid rgba(27, 45, 79, 0.1)`,
+                    minHeight: '88px',
+                    maxHeight: '120px',
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 56,
+                      height: 56,
+                      borderRadius: '8px',
+                      backgroundColor: BRAND.navy,
+                      color: BRAND.gold,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                    aria-hidden="true"
+                  >
+                    <Newspaper className="h-6 w-6" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p
+                      title={titleEn}
+                      style={{
+                        fontFamily: 'var(--font-heading)',
+                        color: BRAND.navy,
+                        fontSize: '13px',
+                        fontWeight: 700,
+                        lineHeight: 1.3,
+                        margin: 0,
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      {title}
+                    </p>
+                    <p style={{ color: BRAND.mutedNavy, fontSize: '11px', margin: '4px 0 0 0' }}>{item.date}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* Section E — Newsletter signup */}
+      {/* Section E — Newsletter signup (kept) */}
       <NewsletterSignup variant="banner" />
     </div>
   );

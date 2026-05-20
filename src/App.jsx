@@ -23,6 +23,7 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Services = lazy(() => import('./pages/Services'));
 const KitThankYou = lazy(() => import('./pages/KitThankYou'));
 const CaseTracker = lazy(() => import('./pages/CaseTracker'));
+const I130ComingSoon = lazy(() => import('./pages/I130ComingSoon'));
 
 function NotFound() {
   const { t } = useLanguage();
@@ -77,6 +78,7 @@ export default function App() {
       <Route path="/kits" element={<SuspenseLayout><Services /></SuspenseLayout>} />
       <Route path="/kits/thank-you" element={<SuspenseLayout><KitThankYou /></SuspenseLayout>} />
       <Route path="/case-tracker" element={<SuspenseLayout><CaseTracker /></SuspenseLayout>} />
+      <Route path="/i-130" element={<SuspenseLayout><I130ComingSoon /></SuspenseLayout>} />
 
       {/* 404 */}
       <Route path="*" element={
