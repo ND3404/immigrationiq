@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X, MessageSquare, Globe, ChevronDown, Calculator, CalendarDays, Clock, FileCheck, BookOpen, Search, Newspaper } from 'lucide-react';
+import { Menu, X, MessageSquare, Globe, ChevronDown, Calculator, CalendarDays, Clock, FileCheck, BookOpen, Search, Newspaper, FileText } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 const mainLinks = [
   { to: '/', key: 'home' },
   { to: '/categories', key: 'categories' },
+  { to: '/i-130', key: 'navI130Short', badgeKey: 'navBadgeNew' },
   { to: '/chat', key: 'chat' },
   { to: '/timeline', key: 'timeline' },
   { to: '/lawyers', key: 'lawyers' },
@@ -15,6 +16,7 @@ const mainLinks = [
 ];
 
 const toolsDropdownItems = [
+  { to: '/i-130', key: 'i130.product.name', icon: FileText, descKey: 'i130.tools.dropdownDesc', badgeKey: 'navBadgeNew' },
   { to: '/news', key: 'news', icon: Newspaper, descKey: 'toolNewsDesc' },
   { to: '/visa-bulletin', key: 'visaBulletin', icon: CalendarDays, descKey: 'toolVisaBulletinDesc' },
   { to: '/case-tracker', key: 'caseTracker', icon: Search, descKey: 'toolCaseTrackerDesc' },
@@ -24,6 +26,25 @@ const toolsDropdownItems = [
   { to: '/checklist', key: 'checklist', icon: FileCheck, descKey: 'toolChecklistDesc' },
   { to: '/glossary', key: 'glossary', icon: BookOpen, descKey: 'toolGlossaryDesc' },
 ];
+
+const NEW_BADGE_STYLE = {
+  display: 'inline-block',
+  marginLeft: '8px',
+  padding: '2px 8px',
+  backgroundColor: '#E5B547',
+  color: '#1B2D4F',
+  fontSize: '10px',
+  fontWeight: 800,
+  letterSpacing: '0.04em',
+  textTransform: 'uppercase',
+  borderRadius: '999px',
+  lineHeight: 1.2,
+  verticalAlign: 'middle',
+};
+
+function NewBadge({ label }) {
+  return <span style={NEW_BADGE_STYLE}>{label}</span>;
+}
 
 function LanguageToggle({ language, setLanguage, t, size = 'sm' }) {
   const isLg = size === 'lg';
@@ -110,9 +131,12 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden lg:flex lg:items-center lg:gap-0.5 flex-1 justify-center">
-            {mainLinks.map(({ to, key }) => (
+            {mainLinks.map(({ to, key, badgeKey }) => (
               <NavLink key={key} to={to} className={linkClass} end={to === '/'}>
-                <span className="px-2.5 py-1">{t(key)}</span>
+                <span className="px-2.5 py-1 inline-flex items-center">
+                  {t(key)}
+                  {badgeKey && <NewBadge label={t(badgeKey)} />}
+                </span>
               </NavLink>
             ))}
 
@@ -128,7 +152,7 @@ export default function Navbar() {
               </button>
               {toolsOpen && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white rounded-xl shadow-xl border py-2 animate-fade-in" style={{ borderColor: 'var(--color-border)' }}>
-                  {toolsDropdownItems.map(({ to, key, icon: Icon, descKey }) => (
+                  {toolsDropdownItems.map(({ to, key, icon: Icon, descKey, badgeKey }) => (
                     <Link
                       key={key}
                       to={to}
@@ -137,7 +161,10 @@ export default function Navbar() {
                     >
                       <Icon className="h-4 w-4 flex-shrink-0" style={{ color: 'var(--color-primary-400)' }} />
                       <div className="min-w-0">
-                        <p className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>{t(key)}</p>
+                        <p className="text-sm font-medium inline-flex items-center" style={{ color: 'var(--color-text)' }}>
+                          {t(key)}
+                          {badgeKey && <NewBadge label={t(badgeKey)} />}
+                        </p>
                         <p className="text-xs" style={{ color: 'var(--color-text-light)' }}>{t(descKey)}</p>
                       </div>
                     </Link>
@@ -183,7 +210,7 @@ export default function Navbar() {
       {open && (
         <div className="lg:hidden border-t animate-slide-in-right" style={{ borderColor: 'var(--color-border)' }}>
           <div className="px-4 py-3 space-y-1">
-            {mainLinks.map(({ to, key }) => (
+            {mainLinks.map(({ to, key, badgeKey }) => (
               <NavLink
                 key={key}
                 to={to}
@@ -193,7 +220,10 @@ export default function Navbar() {
                 }
                 end={to === '/'}
               >
-                {t(key)}
+                <span className="inline-flex items-center">
+                  {t(key)}
+                  {badgeKey && <NewBadge label={t(badgeKey)} />}
+                </span>
               </NavLink>
             ))}
 
@@ -207,7 +237,7 @@ export default function Navbar() {
             </button>
             {mobileToolsOpen && (
               <div className="pl-4 space-y-1">
-                {toolsDropdownItems.map(({ to, key, icon: Icon }) => (
+                {toolsDropdownItems.map(({ to, key, icon: Icon, badgeKey }) => (
                   <NavLink
                     key={key}
                     to={to}
@@ -217,7 +247,10 @@ export default function Navbar() {
                     }
                   >
                     <Icon className="h-4 w-4" style={{ color: 'var(--color-primary-400)' }} />
-                    {t(key)}
+                    <span className="inline-flex items-center">
+                      {t(key)}
+                      {badgeKey && <NewBadge label={t(badgeKey)} />}
+                    </span>
                   </NavLink>
                 ))}
               </div>
