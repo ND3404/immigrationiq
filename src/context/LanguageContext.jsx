@@ -582,7 +582,7 @@ const translations = {
 
     // === Homepage engagement fixes (Phase 4) ===
     'i130.home.heroHeadline': 'Your AI-powered immigration platform',
-    'i130.home.heroSubhead': 'Information, forms, and guidance — in Spanish, from your phone.',
+    'i130.home.heroSubhead': 'Information, forms, and guidance — in Spanish and English, from your phone.',
     'i130.home.card1Title': 'Start your I-130 from $39',
     'i130.home.card1Desc': 'AI-assisted family petition',
     'i130.home.card1Cta': 'Start now',
@@ -1207,7 +1207,7 @@ const translations = {
 
     // === Mejoras de página de inicio (Fase 4) ===
     'i130.home.heroHeadline': 'Tu plataforma de inmigración con IA',
-    'i130.home.heroSubhead': 'Información, formularios y guía — en español, desde tu celular.',
+    'i130.home.heroSubhead': 'Información, formularios y guía — en español e inglés, desde tu celular.',
     'i130.home.card1Title': 'Inicia tu I-130 desde $39',
     'i130.home.card1Desc': 'Petición familiar asistida por IA',
     'i130.home.card1Cta': 'Empezar ahora',
