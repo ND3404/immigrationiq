@@ -12,8 +12,8 @@ const BRAND = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default function EmailCaptureForm({ source = 'i-130-coming-soon' }) {
-  const { t } = useLanguage();
+export default function EmailCaptureForm({ source = 'i-130-launch' }) {
+  const { t, language } = useLanguage();
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -35,10 +35,20 @@ export default function EmailCaptureForm({ source = 'i-130-coming-soon' }) {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: trimmed, source }),
+        body: JSON.stringify({ email: trimmed, source, language }),
       });
 
       const data = await res.json().catch(() => ({}));
+
+      if (res.status === 502) {
+        setStatus('error');
+        setErrorMsg(
+          language === 'es'
+            ? 'Hubo un error. Por favor intenta de nuevo.'
+            : 'There was an error. Please try again.'
+        );
+        return;
+      }
 
       if (!res.ok || data.success === false) {
         setStatus('error');
