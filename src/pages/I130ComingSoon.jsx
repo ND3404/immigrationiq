@@ -106,7 +106,7 @@ export default function I130ComingSoon() {
           </p>
 
           <div style={{ marginTop: '32px', maxWidth: '28rem', marginLeft: 'auto', marginRight: 'auto' }}>
-            <EmailCaptureForm source="i-130-coming-soon" />
+            <EmailCaptureForm source="i-130-launch" />
             <p
               style={{
                 marginTop: '14px',
