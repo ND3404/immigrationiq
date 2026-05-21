@@ -6,7 +6,6 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { newsItems } from '../data/news';
-import NewsletterSignup from '../components/shared/NewsletterSignup';
 import SEO from '../components/shared/SEO';
 import Reveal from '../components/shared/Reveal';
 
@@ -529,9 +528,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Section E — Newsletter signup (kept) */}
-      <NewsletterSignup variant="banner" />
     </div>
   );
 }
