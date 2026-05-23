@@ -85,11 +85,7 @@
     "petitioner_ssn": {
       "kind": "text",
       "field": "Pt2Line11_SSN[0]",
-      "transform": "stripDashes",
-      "alsoCheck": {
-        "Pt2Line11_Yes[0]": { "when": "hasValue" },
-        "Pt2Line11_No[0]":  { "when": "isEmpty" }
-      }
+      "transform": "stripDashes"
     },
 
     "petitioner_a_number": {

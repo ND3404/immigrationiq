@@ -492,6 +492,14 @@ const intakeSchema = {
       // TODO Session 2: flesh out questions for Lines 10, 12 (mailing address),
       // 13a-13b (dates at current address), 14 (prior physical address),
       // 15a-15b (dates at prior address), plus phone/email/safe-mailing.
+      //
+      // TODO Session 4: add a `petitioner_mailing_same_as_physical` radio
+      // (yes/no) mapped to Pt2Line11_Yes[0] / Pt2Line11_No[0]. Those two
+      // widgets are intentionally orphaned in fieldMapping.json until then —
+      // they render Part 2 Item 11 ("Is your current mailing address the
+      // same as your physical address?"), not anything SSN-related. A prior
+      // `alsoCheck` block in petitioner_ssn incorrectly targeted them; that
+      // was removed once tooltips were verified against the PDF.
       questions: [
         // Placeholder anchor — IntakeWizard renders an "under construction"
         // notice when a step has no questions yet.
