@@ -1,0 +1,198 @@
+{
+  "$schema": "./fieldMapping.schema (informal — see mappingNotes.md)",
+  "meta": {
+    "formEdition": "04/01/24",
+    "schemaVersion": "0.1.0",
+    "description": "Maps intake question IDs (from intake/intakeSchema.js) to USCIS Form I-130 PDF field names (from data/fields.raw.json). Output of this mapping drives output/pdfFiller.js (Session 5).",
+    "fullyMappedSteps": ["relationship", "petitioner_identity", "petitioner_status"],
+    "scaffoldedSteps": [
+      "petitioner_address",
+      "petitioner_employment",
+      "beneficiary_identity",
+      "beneficiary_status",
+      "relationship_details",
+      "beneficiary_family",
+      "review"
+    ]
+  },
+
+  "mappings": {
+    "relationship_type": {
+      "kind": "radio-fanout",
+      "options": {
+        "spouse":  { "check": "Pt1Line1_Spouse[0]" },
+        "parent":  { "check": "Pt1Line1_Parent[0]" },
+        "child":   { "check": "Pt1Line1_Child[0]" },
+        "sibling": { "check": "Pt1Line1_Siblings[0]" }
+      }
+    },
+
+    "child_sub_type": {
+      "kind": "radio-fanout",
+      "condition": { "relationship_type": ["child", "parent"] },
+      "options": {
+        "in_wedlock":     { "check": "Pt1Line2_InWedlock[0]" },
+        "out_of_wedlock": { "check": "Pt1Line2_OutOfWedlock[0]" },
+        "stepchild":      { "check": "Pt1Line2_Stepchild[0]" },
+        "adopted":        { "check": "Pt1Line2_AdoptedChild[0]" }
+      }
+    },
+
+    "gained_status_via_adoption": {
+      "kind": "radio-fanout",
+      "condition": { "relationship_type": ["child", "sibling"] },
+      "options": {
+        "yes": { "check": "Pt1Line3_Yes[0]" },
+        "no":  { "check": "Pt1Line3_No[0]" }
+      }
+    },
+
+    "lpr_via_adoption": {
+      "kind": "radio-fanout",
+      "condition": { "petitioner_status": "lpr", "gained_status_via_adoption": "yes" },
+      "options": {
+        "yes": { "check": "Pt1Line4_Yes[0]" },
+        "no":  { "check": "Pt1Line4_No[0]" }
+      }
+    },
+
+    "petitioner_family_name":            { "kind": "text", "field": "Pt2Line4a_FamilyName[0]" },
+    "petitioner_given_name":             { "kind": "text", "field": "Pt2Line4b_GivenName[0]" },
+    "petitioner_middle_name":            { "kind": "text", "field": "Pt2Line4c_MiddleName[0]" },
+
+    "petitioner_other_names_used": {
+      "kind": "other-names-list",
+      "note": "Form provides ONE row of other-name fields on Pt2 Line 5. Any extra rows must spill to Part 9 continuation pages.",
+      "fields": [
+        "Pt2Line5a_FamilyName[0]",
+        "Pt2Line5b_GivenName[0]",
+        "Pt2Line5c_MiddleName[0]"
+      ]
+    },
+
+    "petitioner_city_of_birth":          { "kind": "text", "field": "Pt2Line6_CityTownOfBirth[0]" },
+    "petitioner_country_of_birth":       { "kind": "text", "field": "Pt2Line7_CountryofBirth[0]" },
+    "petitioner_dob":                    { "kind": "date", "field": "Pt2Line8_DateofBirth[0]" },
+
+    "petitioner_sex": {
+      "kind": "radio-fanout",
+      "options": {
+        "male":   { "check": "Pt2Line9_Male[0]" },
+        "female": { "check": "Pt2Line9_Female[0]" }
+      }
+    },
+
+    "petitioner_ssn": {
+      "kind": "text",
+      "field": "Pt2Line11_SSN[0]",
+      "transform": "stripDashes",
+      "alsoCheck": {
+        "Pt2Line11_Yes[0]": { "when": "hasValue" },
+        "Pt2Line11_No[0]":  { "when": "isEmpty" }
+      }
+    },
+
+    "petitioner_a_number": {
+      "kind": "text",
+      "fields": [
+        "Pt2Line1_AlienNumber[0]",
+        "Pt2Line1_AlienNumber[1]"
+      ],
+      "transform": "stripLeadingA"
+    },
+
+    "petitioner_uscis_online_account_number": {
+      "kind": "text",
+      "field": "Pt2Line2_USCISOnlineActNumber[0]"
+    },
+
+    "petitioner_status": {
+      "kind": "radio-fanout",
+      "options": {
+        "usc": { "check": "Pt2Line36_USCitizen[0]" },
+        "lpr": { "check": "Pt2Line36_LPR[0]" }
+      }
+    },
+
+    "usc_acquisition": {
+      "kind": "internal",
+      "note": "Drives whether usc_certificate_* fields render. The PDF does NOT have separate checkboxes for birth_us / naturalization / parents_naturalization; the distinction is implicit in whether a Certificate of Naturalization number is provided. Recorded for evidence-list generation only.",
+      "condition": { "petitioner_status": "usc" }
+    },
+
+    "usc_certificate_number": {
+      "kind": "text",
+      "condition": {
+        "petitioner_status": "usc",
+        "usc_acquisition": ["naturalization", "parents_naturalization", "birth_abroad"]
+      },
+      "field": "Pt2Line37a_CertificateNumber[0]"
+    },
+    "usc_certificate_place": {
+      "kind": "text",
+      "condition": {
+        "petitioner_status": "usc",
+        "usc_acquisition": ["naturalization", "parents_naturalization", "birth_abroad"]
+      },
+      "field": "Pt2Line37b_PlaceOfIssuance[0]"
+    },
+    "usc_certificate_date": {
+      "kind": "date",
+      "condition": {
+        "petitioner_status": "usc",
+        "usc_acquisition": ["naturalization", "parents_naturalization", "birth_abroad"]
+      },
+      "field": "Pt2Line37c_DateOfIssuance[0]"
+    },
+
+    "lpr_class_of_admission":      { "kind": "text", "condition": { "petitioner_status": "lpr" }, "field": "Pt2Line40a_ClassOfAdmission[0]" },
+    "lpr_date_of_admission":       { "kind": "date", "condition": { "petitioner_status": "lpr" }, "field": "Pt2Line40b_DateOfAdmission[0]" },
+    "lpr_place_of_admission_city": { "kind": "text", "condition": { "petitioner_status": "lpr" }, "field": "Pt2Line40d_CityOrTown[0]" },
+    "lpr_place_of_admission_state":{ "kind": "text", "condition": { "petitioner_status": "lpr" }, "field": "Pt2Line40e_State[0]" },
+
+    "lpr_via_marriage_to_usc": {
+      "kind": "radio-fanout",
+      "condition": { "petitioner_status": "lpr" },
+      "options": {
+        "yes": { "check": "Pt2Line41_Yes[0]" },
+        "no":  { "check": "Pt2Line41_No[0]" }
+      }
+    },
+
+    "__TODO_STEP_4_petitioner_address": {
+      "kind": "todo",
+      "session": 2,
+      "covers_pdf_fields_in": ["Pt2 Lines 10, 12, 13a, 13b, 14, 15a, 15b"]
+    },
+    "__TODO_STEP_5_petitioner_employment": {
+      "kind": "todo",
+      "session": 3,
+      "covers_pdf_fields_in": ["Pt2 Lines 40, 41 (also covered above), 42, 43, 44, 45, 46, 47"]
+    },
+    "__TODO_STEP_6_beneficiary_identity": {
+      "kind": "todo",
+      "session": 3,
+      "covers_pdf_fields_in": ["Pt4 Lines 1-9"]
+    },
+    "__TODO_STEP_7_beneficiary_status": {
+      "kind": "todo",
+      "session": 4,
+      "covers_pdf_fields_in": ["Pt4 Lines 10-13, 14-16, 20-28, 54-58"]
+    },
+    "__TODO_STEP_8_relationship_details": {
+      "kind": "todo",
+      "session": 4,
+      "covers_pdf_fields_in": ["Pt2 Lines 16-23 (petitioner marriages), Pt4 Lines 17-19 (beneficiary current marriage), Pt2 Lines 24-35 (parents)"]
+    },
+    "__TODO_STEP_9_beneficiary_family": {
+      "kind": "todo",
+      "session": 4,
+      "covers_pdf_fields_in": ["Pt4 Lines 30-49 (up to 5 children)"]
+    },
+    "__TODO_STEP_10_review": {
+      "kind": "todo",
+      "session": 5,
+      "covers_pdf_fields_in": ["Pt6 (petitioner signature), Pt9 (continuation)"]
+    }
+  }
+}
