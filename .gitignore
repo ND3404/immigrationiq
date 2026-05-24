@@ -43,5 +43,12 @@ Desktop.ini
 *.jpg
 *.jpeg
 
+# Exception: PWA icons must be in the repo so Vercel builds them into dist/
+!public/pwa-64x64.png
+!public/pwa-192x192.png
+!public/pwa-512x512.png
+!public/maskable-icon-512x512.png
+!public/apple-touch-icon-180x180.png
+
 # Claude Code session data
 .claude
