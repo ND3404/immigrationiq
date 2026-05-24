@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
 const SYSTEM_PROMPT_EN = 'You are an expert U.S. immigration assistant with deep knowledge of USCIS, DOS, and immigration law. Provide accurate, up-to-date guidance. Always clarify you are not a lawyer and recommend consulting one for legal advice. Be empathetic, clear, and thorough. When referencing official information, mention the relevant USCIS or DOS website. Format your responses with clear structure using markdown when helpful.';
 
@@ -75,5 +76,65 @@ function apiChatPlugin() {
 }
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), apiChatPlugin()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    apiChatPlugin(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon-180x180.png'],
+      manifest: {
+        name: 'ImmigrationIQ',
+        short_name: 'ImmigrationIQ',
+        description: 'Free AI-powered U.S. immigration assistant providing guidance on visas, green cards, and citizenship in English and Spanish.',
+        start_url: '/',
+        scope: '/',
+        display: 'standalone',
+        background_color: '#003087',
+        theme_color: '#003087',
+        lang: 'es',
+        orientation: 'portrait',
+        icons: [
+          { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'maskable-icon-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        ],
+      },
+      workbox: {
+        // Precache only the static app shell built into dist/.
+        // Note: this is the manifest of files Workbox will install on first load.
+        // PII-bearing PDFs/kits aren't matched by these globs.
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
+        // Hard cap any one precache entry; the build chunks are well below this.
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+        // SPA routing: any navigation falls back to index.html, EXCEPT API paths.
+        navigateFallback: '/index.html',
+        navigateFallbackDenylist: [/^\/api\//],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
+        // Explicit NetworkOnly for every PII / freshness-critical endpoint.
+        // Nothing here ever enters the SW cache. Order matters — first match wins.
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith('/api/'),
+            handler: 'NetworkOnly',
+            method: 'GET',
+          },
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith('/api/'),
+            handler: 'NetworkOnly',
+            method: 'POST',
+          },
+          {
+            // Anthropic API direct calls (defense in depth — currently proxied
+            // through /api/chat, but lock it down in case that ever changes).
+            urlPattern: /^https:\/\/api\.anthropic\.com\//,
+            handler: 'NetworkOnly',
+          },
+        ],
+      },
+    }),
+  ],
 })
