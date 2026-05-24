@@ -82,9 +82,15 @@ export default function Footer() {
       </div>
 
       {/* Slim disclaimer bar */}
-      <div className="border-t px-4 py-3 text-center" style={{ backgroundColor: 'var(--color-primary-800)', borderColor: BORDER }}>
-        <p className="text-[11px]" style={{ color: BODY }}>
-          {t('disclaimer')}
+      <div className="border-t px-4 py-4 text-center" style={{ backgroundColor: 'var(--color-primary-800)', borderColor: BORDER }}>
+        <p className="text-[11px] max-w-3xl mx-auto" style={{ color: BODY, lineHeight: 1.55 }}>
+          {t('i130.legal.disclaimer')}
+        </p>
+        <p
+          className="text-[12px] mt-2"
+          style={{ color: 'var(--color-accent-300)', fontWeight: 600, fontStyle: 'italic' }}
+        >
+          {t('i130.legal.tagline')}
         </p>
       </div>
     </footer>
