@@ -335,104 +335,59 @@ export default function I130ComingSoon() {
         </div>
       </section>
 
-      {/* ─── Section 4 — Price comparison ─────────────────── */}
+      {/* ─── Section 4 — Premium pricing (single card, no lawyer comparison) ─── */}
       <section style={{ backgroundColor: BRAND.cream }}>
-        <div className={`max-w-4xl mx-auto ${sectionPad}`}>
-          <h2
+        <div className={`max-w-md mx-auto ${sectionPad}`}>
+          <div
             style={{
-              fontFamily: 'var(--font-heading)',
-              color: BRAND.navy,
-              fontSize: 'clamp(1.5rem, 4vw, 2.25rem)',
-              fontWeight: 800,
+              border: `3px solid ${BRAND.gold}`,
+              borderRadius: '16px',
+              padding: '32px 24px',
+              backgroundColor: '#FFFFFF',
               textAlign: 'center',
-              margin: 0,
-              marginBottom: '32px',
+              position: 'relative',
             }}
           >
-            {t('i130.price.title')}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {/* Lawyer card */}
-            <div
+            <span
               style={{
-                border: `2px solid rgba(27, 45, 79, 0.18)`,
-                borderRadius: '16px',
-                padding: '24px',
-                backgroundColor: '#FFFFFF',
-                textAlign: 'center',
+                position: 'absolute',
+                top: '-14px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                backgroundColor: BRAND.gold,
+                color: BRAND.navy,
+                padding: '4px 14px',
+                borderRadius: '999px',
+                fontSize: '11px',
+                fontWeight: 800,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
               }}
             >
-              <p style={{ color: BRAND.mutedNavy, fontSize: '13px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', margin: 0 }}>
-                {t('i130.price.lawyerLabel')}
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '32px',
-                  fontWeight: 800,
-                  color: BRAND.mutedNavy,
-                  textDecoration: 'line-through',
-                  margin: '8px 0 0 0',
-                }}
-              >
-                {t('i130.price.lawyerAmount')}
-              </p>
-              <p style={{ color: BRAND.mutedNavy, fontSize: '14px', margin: '8px 0 0 0' }}>
-                {t('i130.price.lawyerNote')}
-              </p>
-            </div>
-            {/* ImmigrationIQ card */}
-            <div
+              {t('i130.price.recommended')}
+            </span>
+            <p style={{ color: BRAND.navy, fontSize: '13px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', margin: 0 }}>
+              {t('i130.price.iiqLabel')}
+            </p>
+            <p
               style={{
-                border: `3px solid ${BRAND.gold}`,
-                borderRadius: '16px',
-                padding: '24px',
-                backgroundColor: '#FFFFFF',
-                textAlign: 'center',
-                position: 'relative',
+                fontFamily: 'var(--font-heading)',
+                fontSize: '40px',
+                fontWeight: 900,
+                color: BRAND.red,
+                margin: '8px 0 0 0',
+                lineHeight: 1,
               }}
             >
-              <span
-                style={{
-                  position: 'absolute',
-                  top: '-14px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  backgroundColor: BRAND.gold,
-                  color: BRAND.navy,
-                  padding: '4px 14px',
-                  borderRadius: '999px',
-                  fontSize: '11px',
-                  fontWeight: 800,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {t('i130.price.recommended')}
-              </span>
-              <p style={{ color: BRAND.navy, fontSize: '13px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', margin: 0 }}>
-                {t('i130.price.iiqLabel')}
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '40px',
-                  fontWeight: 900,
-                  color: BRAND.red,
-                  margin: '8px 0 0 0',
-                  lineHeight: 1,
-                }}
-              >
-                $39
-              </p>
-              <p style={{ color: BRAND.navy, fontSize: '14px', margin: '8px 0 0 0', fontWeight: 600 }}>
-                {t('i130.price.iiqLaunchNote')}
-              </p>
-              <p style={{ color: BRAND.mutedNavy, fontSize: '13px', margin: '4px 0 0 0' }}>
-                {t('i130.price.iiqRegularNote')}
-              </p>
-            </div>
+              $39
+            </p>
+            <p style={{ color: BRAND.navy, fontSize: '14px', margin: '8px 0 0 0', fontWeight: 600 }}>
+              {t('i130.price.iiqLaunchNote')}
+            </p>
+            <p style={{ color: BRAND.mutedNavy, fontSize: '13px', margin: '4px 0 0 0' }}>
+              {t('i130.price.iiqRegularNote')}
+            </p>
           </div>
         </div>
       </section>
@@ -531,7 +486,7 @@ export default function I130ComingSoon() {
         </div>
       </section>
 
-      {/* ─── Section 7 — Legal disclaimer (both languages) ── */}
+      {/* ─── Section 7 — Legal disclaimer + tagline ── */}
       <section style={{ backgroundColor: BRAND.cream, borderTop: `1px solid rgba(27, 45, 79, 0.1)` }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <p
@@ -542,22 +497,19 @@ export default function I130ComingSoon() {
               margin: 0,
             }}
           >
-            <strong style={{ color: BRAND.navy }}>Aviso legal:</strong>{' '}
-            ImmigrationIQ no es un bufete de abogados y no proporciona asesoría legal. Este servicio es una herramienta
-            de auto-ayuda para preparar documentos. Para asesoría legal sobre su caso específico, consulte un abogado
-            de inmigración licenciado.
+            {t('i130.legal.disclaimer')}
           </p>
           <p
             style={{
-              color: BRAND.mutedNavy,
-              fontSize: '12px',
-              lineHeight: 1.6,
-              margin: '12px 0 0 0',
+              color: BRAND.navy,
+              fontSize: '13px',
+              lineHeight: 1.5,
+              fontStyle: 'italic',
+              fontWeight: 600,
+              margin: '14px 0 0 0',
             }}
           >
-            <strong style={{ color: BRAND.navy }}>Legal disclaimer:</strong>{' '}
-            ImmigrationIQ is not a law firm and does not provide legal advice. This service is a self-help tool to
-            prepare documents. For legal advice on your specific case, consult a licensed immigration attorney.
+            {t('i130.legal.tagline')}
           </p>
         </div>
       </section>

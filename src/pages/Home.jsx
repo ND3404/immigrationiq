@@ -100,23 +100,6 @@ export default function Home() {
             >
               {t('i130.home.heroSubhead')}
             </p>
-            <p
-              style={{
-                marginTop: '14px',
-                fontSize: '13px',
-                fontWeight: 600,
-                color: BRAND.navy,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                backgroundColor: 'rgba(229, 181, 71, 0.25)',
-                padding: '6px 14px',
-                borderRadius: '999px',
-              }}
-            >
-              <Users className="h-4 w-4" />
-              {t('i130.home.trustSignal')}
-            </p>
           </div>
 
           {/* 3-card CTA grid */}
@@ -241,9 +224,9 @@ export default function Home() {
               </span>
             </Link>
 
-            {/* Card 3 — visa bulletin (white/gold) */}
+            {/* Card 3 — case tracker (white/gold) */}
             <Link
-              to="/visa-bulletin"
+              to="/case-tracker"
               className="no-underline md:col-span-3 transition-all duration-150 hover:-translate-y-1 hover:shadow-xl"
               style={{
                 backgroundColor: '#FFFFFF',
@@ -269,7 +252,7 @@ export default function Home() {
                   justifyContent: 'center',
                 }}
               >
-                <CalendarDays className="h-5 w-5" />
+                <Search className="h-5 w-5" />
               </div>
               <h3
                 style={{
@@ -281,10 +264,10 @@ export default function Home() {
                   color: BRAND.navy,
                 }}
               >
-                {t('i130.home.card3Title')}
+                {t('i130.home.toolsGrid.caseTitle')}
               </h3>
               <p style={{ fontSize: '14px', color: BRAND.mutedNavy, margin: 0, flex: 1 }}>
-                {t('i130.home.card3Desc')}
+                {t('i130.home.toolsGrid.caseDesc')}
               </p>
               <span
                 style={{
@@ -296,7 +279,7 @@ export default function Home() {
                   fontSize: '14px',
                 }}
               >
-                {t('i130.home.card3Cta')} <ArrowRight className="h-4 w-4" />
+                {t('i130.home.toolsGrid.openCta')} <ArrowRight className="h-4 w-4" />
               </span>
             </Link>
           </div>
@@ -338,7 +321,7 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { to: '/case-tracker', icon: Search, titleKey: 'i130.home.toolsGrid.caseTitle', descKey: 'i130.home.toolsGrid.caseDesc' },
+              { to: '/visa-bulletin', icon: CalendarDays, titleKey: 'i130.home.card3Title', descKey: 'i130.home.card3Desc' },
               { to: '/fee-calculator', icon: Calculator, titleKey: 'i130.home.toolsGrid.feeTitle', descKey: 'i130.home.toolsGrid.feeDesc' },
               { to: '/kits', icon: FileCheck, titleKey: 'i130.home.toolsGrid.kitsTitle', descKey: 'i130.home.toolsGrid.kitsDesc' },
               { to: '/lawyers', icon: Users, titleKey: 'i130.home.toolsGrid.lawyersTitle', descKey: 'i130.home.toolsGrid.lawyersDesc' },
