@@ -631,6 +631,14 @@ const translations = {
     'i130.b2b.bullet3': 'Volume pricing available for professional preparers (10+ forms/month)',
     'i130.b2b.cta': 'Talk to us on WhatsApp',
     'i130.b2b.whatsappMessage': "Hi, I'm interested in ImmigrationIQ. Can you tell me more about the service?",
+
+    // === I-130 Intake Wizard (Session 2) ===
+    'i130.wizard.stepOf': 'Step {current} of {total}',
+    'i130.wizard.placeholder': 'This step is being built — it ships in a future session.',
+    'i130.wizard.back': 'Back',
+    'i130.wizard.next': 'Next',
+    'i130.wizard.required': 'This field is required.',
+    'i130.wizard.optional': 'Optional',
   },
 
   es: {
@@ -1263,6 +1271,14 @@ const translations = {
     'i130.b2b.bullet3': 'Precios por volumen disponibles para preparadores profesionales (10+ formas/mes)',
     'i130.b2b.cta': 'Habla con nosotros por WhatsApp',
     'i130.b2b.whatsappMessage': 'Hola, me interesa ImmigrationIQ. ¿Pueden contarme más sobre el servicio?',
+
+    // === I-130 Intake Wizard (Session 2) ===
+    'i130.wizard.stepOf': 'Paso {current} de {total}',
+    'i130.wizard.placeholder': 'Este paso está en construcción — se entrega en una sesión futura.',
+    'i130.wizard.back': 'Atrás',
+    'i130.wizard.next': 'Siguiente',
+    'i130.wizard.required': 'Este campo es obligatorio.',
+    'i130.wizard.optional': 'Opcional',
   },
 };
 
