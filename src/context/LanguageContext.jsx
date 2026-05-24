@@ -548,14 +548,12 @@ const translations = {
     'i130.included.b2Desc': 'You know exactly which documents to send.',
     'i130.included.b3Title': 'Cover letter included',
     'i130.included.b3Desc': 'Ready to print and send to USCIS.',
-    'i130.price.title': 'Compared to a lawyer:',
-    'i130.price.lawyerLabel': 'Traditional lawyer',
-    'i130.price.lawyerAmount': '$1,500 — $3,000',
-    'i130.price.lawyerNote': 'Plus consultation fees and waiting time',
-    'i130.price.recommended': 'Recommended',
+    'i130.price.recommended': 'Premium',
     'i130.price.iiqLabel': 'ImmigrationIQ',
     'i130.price.iiqLaunchNote': 'Launch price (first 100 subscribers)',
     'i130.price.iiqRegularNote': 'Regular price afterward: $49',
+    'i130.legal.disclaimer': 'ImmigrationIQ is not a law firm and does not provide legal advice. We provide self-help tools and information. For advice about your case, consult a licensed immigration attorney.',
+    'i130.legal.tagline': 'Built for families and the attorneys who help them.',
     'i130.services.title': 'Other services coming soon',
     'i130.services.i485Title': 'Adjustment of status',
     'i130.services.i485Desc': 'Apply for permanent residence',
@@ -593,8 +591,8 @@ const translations = {
 
     // === Homepage engagement fixes (Phase 4) ===
     'i130.home.heroHeadline': 'Your AI-powered immigration platform',
-    'i130.home.heroSubhead': 'Information, forms, and guidance — in Spanish and English, from your phone.',
-    'i130.home.card1Title': 'Start your I-130 from $39',
+    'i130.home.heroSubhead': 'Information, forms, and guidance — in Spanish and English, from your phone and desktop.',
+    'i130.home.card1Title': 'Start your I-130',
     'i130.home.card1Desc': 'AI-assisted family petition',
     'i130.home.card1Cta': 'Start now',
     'i130.home.card2Title': 'Immigration chat 24/7',
@@ -602,12 +600,10 @@ const translations = {
     'i130.home.card2Cta': 'Open chat',
     'i130.home.card3Title': 'Real-time visa bulletin',
     'i130.home.card3Desc': 'Dates updated monthly',
-    'i130.home.card3Cta': 'View bulletin',
-    'i130.home.trustSignal': 'Used by over 1,000 families this month',
 
     // === Navbar I-130 link + badge (Phase 6.5) ===
     'navI130Short': 'I-130',
-    'navBadgeNew': 'New',
+    'navBadgeNew': 'Premium',
     'i130.tools.dropdownDesc': 'AI-assisted I-130 drafter',
 
     // === Homepage Tools Grid (Phase 6.5) ===
@@ -1184,14 +1180,12 @@ const translations = {
     'i130.included.b2Desc': 'Sabes exactamente qué documentos enviar.',
     'i130.included.b3Title': 'Carta de presentación incluida',
     'i130.included.b3Desc': 'Lista para imprimir y enviar a USCIS.',
-    'i130.price.title': 'Comparado con un abogado:',
-    'i130.price.lawyerLabel': 'Abogado tradicional',
-    'i130.price.lawyerAmount': '$1,500 — $3,000',
-    'i130.price.lawyerNote': 'Más honorarios de consulta y tiempos de espera',
-    'i130.price.recommended': 'Recomendado',
+    'i130.price.recommended': 'Premium',
     'i130.price.iiqLabel': 'ImmigrationIQ',
     'i130.price.iiqLaunchNote': 'Precio de lanzamiento (primeros 100 suscriptores)',
     'i130.price.iiqRegularNote': 'Precio regular después: $49',
+    'i130.legal.disclaimer': 'ImmigrationIQ no es un bufete de abogados y no proporciona asesoría legal. Ofrecemos herramientas de auto-ayuda e información. Para asesoría sobre su caso, consulte a un abogado de inmigración con licencia.',
+    'i130.legal.tagline': 'Diseñado para las familias y los abogados que las ayudan.',
     'i130.services.title': 'Otros servicios próximamente',
     'i130.services.i485Title': 'Ajuste de estatus',
     'i130.services.i485Desc': 'Solicitud de residencia permanente',
@@ -1229,8 +1223,8 @@ const translations = {
 
     // === Mejoras de página de inicio (Fase 4) ===
     'i130.home.heroHeadline': 'Tu plataforma de inmigración con IA',
-    'i130.home.heroSubhead': 'Información, formularios y guía — en español e inglés, desde tu celular.',
-    'i130.home.card1Title': 'Inicia tu I-130 desde $39',
+    'i130.home.heroSubhead': 'Información, formularios y guía — en español e inglés, desde tu teléfono y computadora.',
+    'i130.home.card1Title': 'Comienza tu I-130',
     'i130.home.card1Desc': 'Petición familiar asistida por IA',
     'i130.home.card1Cta': 'Empezar ahora',
     'i130.home.card2Title': 'Chat de inmigración 24/7',
@@ -1238,12 +1232,10 @@ const translations = {
     'i130.home.card2Cta': 'Abrir chat',
     'i130.home.card3Title': 'Boletín de visas en tiempo real',
     'i130.home.card3Desc': 'Fechas actualizadas mensualmente',
-    'i130.home.card3Cta': 'Ver boletín',
-    'i130.home.trustSignal': 'Visto por más de 1,000 familias este mes',
 
     // === Enlace I-130 en navbar + insignia (Fase 6.5) ===
     'navI130Short': 'I-130',
-    'navBadgeNew': 'Nuevo',
+    'navBadgeNew': 'Premium',
     'i130.tools.dropdownDesc': 'Asistente I-130 con IA',
 
     // === Cuadrícula de herramientas en inicio (Fase 6.5) ===
