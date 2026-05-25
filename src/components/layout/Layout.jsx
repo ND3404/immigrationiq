@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import FloatingChatButton from '../chat/FloatingChatButton';
 import BackToTop from '../shared/BackToTop';
+import PWAInstallPrompt from '../shared/PWAInstallPrompt';
 
 export default function Layout({ children }) {
   const { pathname } = useLocation();
@@ -15,6 +16,7 @@ export default function Layout({ children }) {
       {!isChat && <Footer />}
       {!isChat && <FloatingChatButton />}
       {!isChat && <BackToTop />}
+      <PWAInstallPrompt />
     </div>
   );
 }
