@@ -639,6 +639,14 @@ const translations = {
     'i130.wizard.next': 'Next',
     'i130.wizard.required': 'This field is required.',
     'i130.wizard.optional': 'Optional',
+
+    // === PWA install prompt ===
+    'pwa.install.title': 'Install ImmigrationIQ',
+    'pwa.install.subtitle': 'Add to your home screen for quick access — works offline once installed.',
+    'pwa.install.cta': 'Install app',
+    'pwa.install.dismiss': 'Not now',
+    'pwa.install.close': 'Close',
+    'pwa.install.ios.subtitle': 'To install: tap Share, then Add to Home Screen.',
   },
 
   es: {
@@ -1279,6 +1287,14 @@ const translations = {
     'i130.wizard.next': 'Siguiente',
     'i130.wizard.required': 'Este campo es obligatorio.',
     'i130.wizard.optional': 'Opcional',
+
+    // === PWA install prompt ===
+    'pwa.install.title': 'Instalar ImmigrationIQ',
+    'pwa.install.subtitle': 'Agréguelo a su pantalla de inicio para acceso rápido — funciona sin conexión una vez instalado.',
+    'pwa.install.cta': 'Instalar app',
+    'pwa.install.dismiss': 'Ahora no',
+    'pwa.install.close': 'Cerrar',
+    'pwa.install.ios.subtitle': 'Para instalar: toca Compartir y luego Agregar a inicio.',
   },
 };
 
