@@ -1,6 +1,6 @@
 // U.S. Department of State Visa Bulletin data.
 // Source: https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html
-// Dates use the State Department's DDMMMYY format ("01JAN16"); "C" = Current, "U" = Unauthorized.
+// Dates use the State Department's DDMMMYY format ("01JAN16"); "C" = Current, "U" = Unavailable.
 
 // The State Dept bulletin officially lists five columns. El Salvador, Guatemala,
 // and Honduras don't have separate columns — they fall under "All Chargeability"
@@ -41,7 +41,7 @@ export function parseBulletinDate(value) {
 
 export function formatBulletinDate(value) {
   if (value === 'C') return 'Current';
-  if (value === 'U') return 'Unauthorized';
+  if (value === 'U') return 'Unavailable';
   const d = parseBulletinDate(value);
   if (!d) return value || '—';
   return d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
@@ -350,6 +350,6 @@ export const visaBulletinApril2026 = {
 };
 
 // Newest first.
-export const visaBulletinHistory = [visaBulletinJuly2026, visaBulletinJune2026];
+export const visaBulletinHistory = [visaBulletinJuly2026, visaBulletinJune2026, visaBulletinMay2026];
 export const currentVisaBulletin = visaBulletinJuly2026;
 export const previousVisaBulletin = visaBulletinJune2026;

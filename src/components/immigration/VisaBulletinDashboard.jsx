@@ -275,7 +275,7 @@ export default function VisaBulletinDashboard({
             <span className="font-mono font-bold" style={{ color: 'var(--color-success-500)' }}>C</span> Current — no waiting
           </span>
           <span className="inline-flex items-center gap-1">
-            <span className="font-mono font-bold" style={{ color: 'var(--color-secondary-500)' }}>U</span> Unauthorized
+            <span className="font-mono font-bold" style={{ color: 'var(--color-secondary-500)' }}>U</span> Unavailable
           </span>
           <span className="inline-flex items-center gap-1">
             <ArrowUp className="h-3 w-3" style={{ color: 'var(--color-success-500)' }} /> Advanced vs {prior?.label || 'prior'}

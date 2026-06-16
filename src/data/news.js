@@ -1,5 +1,21 @@
 export const newsItems = [
   {
+    id: 17,
+    title: {
+      en: 'July 2026 Visa Bulletin: EB-2 and EB-5 Unreserved India Go Unavailable; EB-4 Advances',
+      es: 'Boletín de Visas de julio de 2026: EB-2 y EB-5 No Reservado India Quedan No Disponibles; EB-4 Avanza',
+    },
+    date: 'June 16, 2026',
+    dateEs: '16 de junio de 2026',
+    category: 'Visa Bulletins',
+    summary: {
+      en: 'The State Department published the July 2026 Visa Bulletin. EB-2 India and EB-5 Unreserved India became "Unavailable" (U) for the remainder of the fiscal year as annual limits were reached, while EB-1 India retrogressed slightly to 15OCT22. EB-4 advanced two months to 15SEP22 across all areas, and EB-3 China moved to 22DEC21. Family categories advanced: F1 moved to 01FEB18 and F2B to 22NOV17.',
+      es: 'El Departamento de Estado publicó el Boletín de Visas de julio de 2026. EB-2 India y EB-5 No Reservado India quedaron "No Disponibles" (U) por el resto del año fiscal al alcanzarse los límites anuales, mientras que EB-1 India retrocedió ligeramente a 15OCT22. EB-4 avanzó dos meses a 15SEP22 en todas las áreas, y EB-3 China pasó a 22DEC21. Las categorías familiares avanzaron: F1 a 01FEB18 y F2B a 22NOV17.',
+    },
+    source: 'U.S. Department of State',
+    url: 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/2026/visa-bulletin-for-july-2026.html',
+  },
+  {
     id: 16,
     title: {
       en: 'Supreme Court Clears Way for Termination of Venezuela TPS as Litigation Continues',
