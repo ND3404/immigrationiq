@@ -71,12 +71,19 @@ jobs:
           if [ -n "$INPUT_YEAR"  ]; then ARGS="$ARGS --year=$INPUT_YEAR";  fi
           node scripts/fetch-visa-bulletin.js $ARGS
 
-      - name: Fetch immigration news (best effort)
-        continue-on-error: true
+      # No continue-on-error: silence here is what let the USCIS RSS feeds sit
+      # dead. The script exits 1 when the newsroom is unreachable and 2 when
+      # the page parses to zero items, and either should be seen.
+      - name: Fetch immigration news
+        if: always()
         run: node scripts/fetch-news.js
 
+      # if:always() from here down so a blocked bulletin doesn't strand an
+      # otherwise-good news update. The run still reports red — we just don't
+      # throw away work that succeeded.
       - name: Detect changes
         id: diff
+        if: always()
         run: |
           if git diff --quiet -- src/data/visaBulletin.js src/data/news.js; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -85,11 +92,11 @@ jobs:
           fi
 
       - name: Verify build still passes
-        if: steps.diff.outputs.changed == 'true'
+        if: always() && steps.diff.outputs.changed == 'true'
         run: npm run build
 
       - name: Commit & push to main
-        if: steps.diff.outputs.changed == 'true'
+        if: always() && steps.diff.outputs.changed == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -100,7 +107,7 @@ jobs:
           git push origin HEAD:main
 
       - name: Skip — nothing to commit
-        if: steps.diff.outputs.changed != 'true'
+        if: always() && steps.diff.outputs.changed != 'true'
         run: echo "No new bulletin or news content — exiting cleanly."
 
       # Runs last, and always: whatever happened above, if the committed data

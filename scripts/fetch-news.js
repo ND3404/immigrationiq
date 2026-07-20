@@ -23,16 +23,18 @@
  */
 
 import { readFile, writeFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_FILE = resolve(__dirname, '..', 'src', 'data', 'news.js');
 
-const FEED_CANDIDATES = [
-  'https://www.uscis.gov/news/rss-feeds/news-releases-rss-feed',
-  'https://www.uscis.gov/news/rss-feeds/alerts-rss-feed',
-];
+// USCIS retired its RSS feeds: both former endpoints under /news/rss-feeds/
+// now 404, and the surviving https://www.uscis.gov/rss.xml is a relic holding
+// two archive items from 2013 and 2015 — worse than nothing, since merging it
+// would backdate the news list. The newsroom listing page is now the source.
+const NEWS_INDEX_URL = 'https://www.uscis.gov/news/all-news';
+const NEWS_ORIGIN = 'https://www.uscis.gov';
 
 function parseArgs(argv) {
   const opts = { dryRun: false, max: 8 };
@@ -64,29 +66,44 @@ function decodeEntities(s) {
 async function fetchText(url) {
   const res = await fetch(url, {
     headers: {
-      'User-Agent': 'ImmigrationIQ-news-bot/1.0 (+https://github.com)',
-      'Accept': 'application/rss+xml, application/xml, text/xml, text/html',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.9',
     },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
   return res.text();
 }
 
-function parseRss(xml) {
+/**
+ * Scrape the newsroom listing. Each entry is a `views-row` block holding a
+ * title anchor, a machine-readable <time datetime>, and a body blurb:
+ *
+ *   <div class="views-row">
+ *     <div class="views-field views-field-title">
+ *       <h3 class="field-content"><a href="/newsroom/...">Title</a></h3></div>
+ *     <div class="views-field views-field-field-display-date">
+ *       <div class="field-content"><time datetime="2026-07-17T13:20:25Z" ...>
+ *     <div class="views-field views-field-body">
+ *       <div class="field-content">Summary…</div></div>
+ *
+ * Splitting on the row boundary keeps each record's fields from bleeding into
+ * the next one, which a single global regex over the whole document would do.
+ */
+function parseNewsIndex(html) {
   const items = [];
-  const itemRe = /<item\b[\s\S]*?<\/item>/gi;
-  const matches = xml.match(itemRe) || [];
-  for (const block of matches) {
-    const title = (block.match(/<title>([\s\S]*?)<\/title>/i) || [, ''])[1];
-    const link = (block.match(/<link>([\s\S]*?)<\/link>/i) || [, ''])[1];
-    const pubDate = (block.match(/<pubDate>([\s\S]*?)<\/pubDate>/i) || [, ''])[1];
-    const desc = (block.match(/<description>([\s\S]*?)<\/description>/i) || [, ''])[1];
-    if (!title || !link) continue;
+  for (const chunk of html.split(/<div class="views-row/).slice(1)) {
+    const link = /<h3 class="field-content"><a href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/.exec(chunk);
+    if (!link) continue;
+    const time = /<time[^>]*datetime="([^"]+)"/.exec(chunk);
+    const body = /views-field-body"[^>]*><div class="field-content">([\s\S]*?)<\/div>/.exec(chunk);
+    const title = decodeEntities(link[2]);
+    if (!title) continue;
     items.push({
-      title: decodeEntities(title),
-      url: decodeEntities(link),
-      pubDate: pubDate.trim(),
-      summary: decodeEntities(desc),
+      title,
+      url: new URL(link[1], NEWS_ORIGIN).toString(),
+      pubDate: time ? time[1] : '',
+      summary: body ? decodeEntities(body[1]) : '',
     });
   }
   return items;
@@ -100,11 +117,23 @@ function categorize(title) {
   return 'USCIS Policy';
 }
 
-function isoDate(input) {
-  if (!input) return new Date().toISOString().slice(0, 10);
-  const d = new Date(input);
-  if (Number.isNaN(d.getTime())) return new Date().toISOString().slice(0, 10);
-  return d.toISOString().slice(0, 10);
+// Curated entries render dates as "June 16, 2026" / "16 de junio de 2026",
+// not ISO. Match that, or new rows look foreign next to the existing ones.
+function toDate(input) {
+  const d = input ? new Date(input) : new Date();
+  return Number.isNaN(d.getTime()) ? new Date() : d;
+}
+
+function displayDate(d, locale) {
+  return d.toLocaleDateString(locale, {
+    day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
+  });
+}
+
+/** Sort key: the human-readable strings above don't compare correctly. */
+function sortKey(item) {
+  const d = new Date(item.date);
+  return Number.isNaN(d.getTime()) ? 0 : d.getTime();
 }
 
 function summarize(text, fallbackTitle, max = 280) {
@@ -114,50 +143,74 @@ function summarize(text, fallbackTitle, max = 280) {
   return cleaned.slice(0, max - 1).replace(/\s+\S*$/, '') + '…';
 }
 
+/** `title` may be a plain string or a { en, es } object — key off English. */
+function titleText(item) {
+  const t = item?.title;
+  if (t && typeof t === 'object') return t.en || '';
+  return t || '';
+}
+
 function dedupKey(item) {
   return [
     (item.url || '').toLowerCase().replace(/[#?].*$/, '').replace(/\/$/, ''),
-    (item.title || '').toLowerCase().trim(),
+    titleText(item).toLowerCase().trim(),
   ].join('|');
 }
 
+/**
+ * Read the existing entries.
+ *
+ * This used to convert the JS array literal to JSON by regex, and
+ * `.replace(/(\w+)\s*:/g, '"$1":')` quoted any word followed by a colon —
+ * including words *inside* string values. It rewrote curated prose:
+ *   "Boletín de Visas de julio de 2026: EB-2"  ->  ...de \"2026\": EB-2
+ *   "Las categorías familiares avanzaron: F1"  ->  ...familiares \"avanzaron\":
+ * Every successful run would have corrupted more Spanish and English text.
+ *
+ * news.js is a plain ES module we own, so just import it: real objects, no
+ * parser to get wrong. The cache-buster keeps repeat runs in one process
+ * honest.
+ */
 async function loadExistingNews() {
   const src = await readFile(DATA_FILE, 'utf8');
-  const startMatch = src.match(/export\s+const\s+newsItems\s*=\s*\[/);
-  if (!startMatch) throw new Error('Could not locate `export const newsItems` in news.js');
-  const start = startMatch.index + startMatch[0].length - 1; // include `[`
-  let depth = 0, end = -1;
-  for (let i = start; i < src.length; i++) {
-    const ch = src[i];
-    if (ch === '[') depth++;
-    else if (ch === ']') {
-      depth--;
-      if (depth === 0) { end = i; break; }
-    }
+  const mod = await import(`${pathToFileURL(DATA_FILE).href}?t=${Date.now()}`);
+  if (!Array.isArray(mod.newsItems)) {
+    throw new Error('news.js does not export a `newsItems` array');
   }
-  if (end === -1) throw new Error('Unterminated newsItems array');
-  const arrayLiteral = src.slice(start, end + 1);
-  // Convert the JS array literal into JSON (very narrow scope — only handles
-  // our well-formed news.js). We trust our own file format here.
-  const json = arrayLiteral
-    .replace(/(\w+)\s*:/g, '"$1":')
-    .replace(/'((?:[^'\\]|\\.)*)'/g, (_m, inner) => JSON.stringify(inner.replace(/\\'/g, "'")))
-    .replace(/,(\s*[\]}])/g, '$1');
-  const parsed = JSON.parse(json);
-  return { src, parsed };
+  // Clone so later mutation (id renumbering) can't write through to the
+  // module's live objects.
+  return { src, parsed: mod.newsItems.map((it) => ({ ...it })) };
+}
+
+// news.js is bilingual and hand-curated: `title` and `summary` are
+// { en, es } objects and there's a separate `dateEs`. The previous serializer
+// emitted a fixed flat field list, so the first successful run would have
+// silently dropped dateEs from every curated entry. Emit each item's own
+// fields instead, so anything we don't know about survives a round-trip.
+const FIELD_ORDER = ['id', 'title', 'date', 'dateEs', 'category', 'summary', 'source', 'url'];
+
+function emitValue(value, indent) {
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    const inner = Object.entries(value)
+      .map(([k, v]) => `${indent}  ${k}: ${JSON.stringify(v)},`)
+      .join('\n');
+    return `{\n${inner}\n${indent}}`;
+  }
+  return JSON.stringify(value);
 }
 
 function serializeItems(items) {
   const lines = ['export const newsItems = ['];
   items.forEach((it, idx) => {
     lines.push('  {');
-    lines.push(`    id: ${it.id},`);
-    lines.push(`    title: ${JSON.stringify(it.title)},`);
-    lines.push(`    date: ${JSON.stringify(it.date)},`);
-    lines.push(`    category: ${JSON.stringify(it.category)},`);
-    lines.push(`    summary: ${JSON.stringify(it.summary)},`);
-    lines.push(`    source: ${JSON.stringify(it.source)},`);
-    lines.push(`    url: ${JSON.stringify(it.url)},`);
+    const keys = [
+      ...FIELD_ORDER.filter((k) => it[k] !== undefined),
+      ...Object.keys(it).filter((k) => !FIELD_ORDER.includes(k)),
+    ];
+    for (const key of keys) {
+      const value = key === 'id' ? it.id : emitValue(it[key], '    ');
+      lines.push(`    ${key}: ${value},`);
+    }
     lines.push(`  }${idx === items.length - 1 ? '' : ','}`);
   });
   lines.push('];', '');
@@ -167,36 +220,26 @@ function serializeItems(items) {
 async function main() {
   const opts = parseArgs(process.argv);
 
-  let feedXml = null;
-  let usedUrl = null;
-  for (const url of FEED_CANDIDATES) {
-    try {
-      log('fetching', url);
-      feedXml = await fetchText(url);
-      usedUrl = url;
-      break;
-    } catch (err) {
-      warn(`failed: ${err.message}`);
-    }
-  }
-  if (!feedXml) {
-    warn('No USCIS feed reachable — exiting cleanly with no changes.');
+  let indexHtml;
+  try {
+    log('fetching', NEWS_INDEX_URL);
+    indexHtml = await fetchText(NEWS_INDEX_URL);
+  } catch (err) {
+    console.error(`::error::USCIS newsroom unreachable — ${err.message}`);
     process.exit(1);
   }
 
-  let fetched;
-  try {
-    fetched = parseRss(feedXml);
-  } catch (err) {
-    warn(`parse error: ${err.message}`);
+  const fetched = parseNewsIndex(indexHtml);
+  if (!fetched.length) {
+    // The page loaded but yielded nothing, so the markup moved. Silence here
+    // is what let the dead RSS feeds rot unnoticed — fail loudly instead.
+    console.error(
+      `::error::Fetched ${NEWS_INDEX_URL} but parsed 0 items — the newsroom ` +
+      'markup has changed and parseNewsIndex needs updating.'
+    );
     process.exit(2);
   }
-
-  if (!fetched.length) {
-    log('Feed parsed but contained no <item> entries — exiting clean.');
-    process.exit(0);
-  }
-  log(`parsed ${fetched.length} items from ${usedUrl}`);
+  log(`parsed ${fetched.length} items from ${NEWS_INDEX_URL}`);
 
   const { src: existingSrc, parsed: existing } = await loadExistingNews();
   const seen = new Set(existing.map(dedupKey));
@@ -206,12 +249,19 @@ async function main() {
   for (const raw of fetched) {
     const title = raw.title;
     const url = raw.url;
+    const published = toDate(raw.pubDate);
+    // Only `en` is populated: we have no translation, and inventing one by
+    // putting English text under `es` would silently show English to Spanish
+    // readers as though it were translated. NewsCard's pickLocalized already
+    // falls back to `.en`, so an es-less entry renders correctly today and
+    // can be translated in place later.
     const candidate = {
-      title,
+      title: { en: title },
       url,
-      date: isoDate(raw.pubDate),
+      date: displayDate(published, 'en-US'),
+      dateEs: displayDate(published, 'es-ES'),
       category: categorize(title),
-      summary: summarize(raw.summary, title),
+      summary: { en: summarize(raw.summary, title) },
       source: 'USCIS Newsroom',
     };
     if (seen.has(dedupKey(candidate))) continue;
@@ -231,7 +281,7 @@ async function main() {
     ...existing,
   ];
   // Keep ids unique & descending — re-sort by date desc, then renumber stably.
-  merged.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  merged.sort((a, b) => sortKey(b) - sortKey(a));
   merged.forEach((it, i) => { it.id = merged.length - i; });
 
   const nextSrc = serializeItems(merged);
