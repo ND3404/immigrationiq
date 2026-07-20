@@ -1,6 +1,6 @@
 export const newsItems = [
   {
-    id: 25,
+    id: 27,
     title: {
       en: "USCIS Reaches Fiscal Year 2027 H-1B Cap",
     },
@@ -14,7 +14,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/alerts/uscis-reaches-fiscal-year-2027-h-1b-cap",
   },
   {
-    id: 24,
+    id: 26,
     title: {
       en: "US Citizenship and Immigration Services Rescinds 2022 Public Charge Regulation",
     },
@@ -28,7 +28,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/us-citizenship-and-immigration-services-rescinds-2022-public-charge-regulation",
   },
   {
-    id: 23,
+    id: 25,
     title: {
       en: "USCIS Plays Critical Role in Illegal Aliens’ Sentencing for Sex Trafficking Child Orphan",
     },
@@ -42,7 +42,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/uscis-plays-critical-role-in-illegal-aliens-sentencing-for-sex-trafficking-child-orphan",
   },
   {
-    id: 22,
+    id: 24,
     title: {
       en: "Defendants Sentenced in Visa Fraud and Conspiracy Case",
     },
@@ -56,7 +56,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/defendants-sentenced-in-visa-fraud-and-conspiracy-case",
   },
   {
-    id: 21,
+    id: 23,
     title: {
       en: "USCIS Opens Asylum Office in Atlanta",
     },
@@ -70,7 +70,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/alerts/uscis-opens-asylum-office-in-atlanta",
   },
   {
-    id: 20,
+    id: 22,
     title: {
       en: "Man Sentenced to One Year Home Detention for Visa Fraud",
     },
@@ -84,7 +84,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/man-sentenced-to-one-year-home-detention-for-visa-fraud",
   },
   {
-    id: 19,
+    id: 21,
     title: {
       en: "Important Notice for Clients of Former Immigration Attorney Alexandra Lozano",
     },
@@ -98,7 +98,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/alerts/important-notice-for-clients-of-former-immigration-attorney-alexandra-lozano",
   },
   {
-    id: 18,
+    id: 20,
     title: {
       en: "July 2026 Visa Bulletin: EB-2 and EB-5 Unreserved India Go Unavailable; EB-4 Advances",
       es: "Boletín de Visas de julio de 2026: EB-2 y EB-5 No Reservado India Quedan No Disponibles; EB-4 Avanza",
@@ -114,7 +114,21 @@ export const newsItems = [
     url: "https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/2026/visa-bulletin-for-july-2026.html",
   },
   {
-    id: 17,
+    id: 19,
+    title: {
+      en: "Court Order on Hold Policies",
+    },
+    date: "June 12, 2026",
+    dateEs: "12 de junio de 2026",
+    category: "Court Decisions",
+    summary: {
+      en: "On June 5, 2026, the U.S. District Court for the District of Rhode Island issued an order in Dorcas International Institute of Rhode Island, et al. v. United States Citizenship and Immigration Services, et al., 26-cv-00132-JJM-PAS (D.RI.), vacating PM 602-0192, PM 602-0194, and…",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/court-order-on-hold-policies",
+  },
+  {
+    id: 18,
     title: {
       en: "Justice Department Moves to Strip U.S. Citizenship from 17 Naturalized Sex Offenders, Fraudsters, Drug Dealers, and More",
     },
@@ -126,6 +140,20 @@ export const newsItems = [
     },
     source: "USCIS Newsroom",
     url: "https://www.uscis.gov/newsroom/news-releases/justice-department-moves-to-strip-us-citizenship-from-17-naturalized-sex-offenders-fraudsters-drug",
+  },
+  {
+    id: 17,
+    title: {
+      en: "USCIS Opens Asylum Office in San Antonio",
+    },
+    date: "June 5, 2026",
+    dateEs: "5 de junio de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services opened an additional asylum office location in San Antonio, Texas. Beginning May 28, 2026, aliens who filed for asylum with USCIS who reside in the jurisdiction of the Houston Asylum Office may be interviewed at either the Houston…",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/uscis-opens-asylum-office-in-san-antonio",
   },
   {
     id: 16,
