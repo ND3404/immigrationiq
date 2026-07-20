@@ -41,6 +41,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Report how old the committed data is before we touch the network, so
+      # the log shows the starting state even if a later step explodes. This
+      # form never fails the job — see the enforcing check at the end.
+      - name: Check bulletin freshness (pre-fetch report)
+        run: node scripts/check-bulletin-freshness.js --warn-only
+
       # The script now owns the exit-code semantics: it exits 0 both when it
       # updates the data and when the bulletin genuinely isn't published yet
       # (404), and non-zero only on real failures — blocked (403), server
@@ -88,3 +94,12 @@ jobs:
       - name: Skip — nothing to commit
         if: steps.diff.outputs.changed != 'true'
         run: echo "No new bulletin or news content — exiting cleanly."
+
+      # Runs last, and always: whatever happened above, if the committed data
+      # is still older than one publish cycle then this workflow is not doing
+      # its job, and the run must go red. This is the backstop that would have
+      # caught the July 2026 silent-403 outage on day one instead of day 34.
+      # Placed after the commit so a legitimate update is never blocked by it.
+      - name: Enforce bulletin freshness
+        if: always()
+        run: node scripts/check-bulletin-freshness.js
