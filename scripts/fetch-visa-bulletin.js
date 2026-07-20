@@ -90,6 +90,33 @@ function candidateMonths(opts) {
   ];
 }
 
+// travel.state.gov sits behind Akamai, which began rejecting the old
+// "ImmigrationIQ-bot/1.0" User-Agent with a 403 sometime between 2026-06-16
+// and 2026-07-09. Presenting the header set a real Chrome navigation sends is
+// the cheapest thing that might satisfy it.
+//
+// Deliberately no Accept-Encoding: undici manages that header and the matching
+// decompression itself. Setting it by hand risks being handed br/gzip bytes
+// that never get decoded, which would surface as a confusing parse failure
+// rather than an honest network error.
+const BROWSER_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+  'Accept-Language': 'en-US,en;q=0.9',
+  'Referer': 'https://travel.state.gov/',
+  'Upgrade-Insecure-Requests': '1',
+  'Sec-Fetch-Dest': 'document',
+  'Sec-Fetch-Mode': 'navigate',
+  'Sec-Fetch-Site': 'same-origin',
+  'Sec-Fetch-User': '?1',
+  'Sec-CH-UA': '"Chromium";v="138", "Google Chrome";v="138", "Not?A_Brand";v="99"',
+  'Sec-CH-UA-Mobile': '?0',
+  'Sec-CH-UA-Platform': '"Windows"',
+  'Cache-Control': 'max-age=0',
+  'Pragma': 'no-cache',
+  'Connection': 'keep-alive',
+};
+
 /**
  * Fetch a bulletin URL.
  *
@@ -102,7 +129,7 @@ function candidateMonths(opts) {
 async function fetchHtml(url) {
   let res;
   try {
-    res = await fetch(url, { headers: { 'User-Agent': 'ImmigrationIQ-bot/1.0' } });
+    res = await fetch(url, { headers: BROWSER_HEADERS, redirect: 'follow' });
   } catch (cause) {
     throw Object.assign(new Error(`network failure: ${cause.message}`), { kind: 'network', cause });
   }
