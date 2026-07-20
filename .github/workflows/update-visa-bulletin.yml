@@ -57,6 +57,9 @@ jobs:
         env:
           INPUT_MONTH: ${{ github.event.inputs.month }}
           INPUT_YEAR: ${{ github.event.inputs.year }}
+          # Primary fetch path (ScraperAPI proxy). If unset/invalid, the script
+          # falls back to the Wayback Machine automatically.
+          SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
         run: |
           ARGS=""
           if [ -n "$INPUT_MONTH" ]; then ARGS="$ARGS --month=$INPUT_MONTH"; fi

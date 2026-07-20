@@ -90,56 +90,114 @@ function candidateMonths(opts) {
   ];
 }
 
-// travel.state.gov sits behind Akamai, which began rejecting the old
-// "ImmigrationIQ-bot/1.0" User-Agent with a 403 sometime between 2026-06-16
-// and 2026-07-09. Presenting the header set a real Chrome navigation sends is
-// the cheapest thing that might satisfy it.
-//
-// Deliberately no Accept-Encoding: undici manages that header and the matching
-// decompression itself. Setting it by hand risks being handed br/gzip bytes
-// that never get decoded, which would surface as a confusing parse failure
-// rather than an honest network error.
-const BROWSER_HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-  'Accept-Language': 'en-US,en;q=0.9',
-  'Referer': 'https://travel.state.gov/',
-  'Upgrade-Insecure-Requests': '1',
-  'Sec-Fetch-Dest': 'document',
-  'Sec-Fetch-Mode': 'navigate',
-  'Sec-Fetch-Site': 'same-origin',
-  'Sec-Fetch-User': '?1',
-  'Sec-CH-UA': '"Chromium";v="138", "Google Chrome";v="138", "Not?A_Brand";v="99"',
-  'Sec-CH-UA-Mobile': '?0',
-  'Sec-CH-UA-Platform': '"Windows"',
-  'Cache-Control': 'max-age=0',
-  'Pragma': 'no-cache',
-  'Connection': 'keep-alive',
-};
+// travel.state.gov (and uscis.gov) sit behind Cloudflare/Akamai, which serve a
+// 403 challenge to cloud egress like GitHub Actions runners regardless of
+// headers, TLS, or a real headless browser — the block is IP reputation. So we
+// don't fetch the origin directly anymore; we go through a residential proxy
+// (ScraperAPI) and fall back to the Wayback Machine. This UA is still used for
+// the proxy/archive requests.
+const USER_AGENT =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36';
+
+const SCRAPER_API_KEY = process.env.SCRAPER_API_KEY;
 
 /**
- * Fetch a bulletin URL.
- *
- * Throws with `kind` set so the caller can tell "this month isn't out yet"
- * apart from "we are being blocked / the site is down":
- *   'notfound' — HTTP 404, try the next candidate month
- *   'blocked'  — any other non-OK status; do not retry other months
- *   'network'  — DNS/TLS/timeout/connection failure
+ * Low-level GET returning { status, text }. Transport failures (DNS/TLS/
+ * timeout) throw a 'network' error; HTTP status interpretation is left to
+ * callers. undici handles Accept-Encoding and decompression itself, so
+ * response.text() is always decoded.
  */
-async function fetchHtml(url) {
+async function httpGet(url) {
   let res;
   try {
-    res = await fetch(url, { headers: BROWSER_HEADERS, redirect: 'follow' });
+    res = await fetch(url, { headers: { 'User-Agent': USER_AGENT }, redirect: 'follow' });
   } catch (cause) {
     throw Object.assign(new Error(`network failure: ${cause.message}`), { kind: 'network', cause });
   }
-  if (res.status === 404) {
-    throw Object.assign(new Error('HTTP 404'), { kind: 'notfound', status: 404 });
+  return { status: res.status, text: await res.text() };
+}
+
+/**
+ * PRIMARY path: travel.state.gov through the ScraperAPI proxy, which egresses
+ * from a residential IP Cloudflare doesn't challenge. ScraperAPI passes the
+ * upstream status through, so a 404 here means the month genuinely isn't
+ * published yet — surfaced as 'notfound' so the candidate loop advances to the
+ * next month. Any other non-200 (including ScraperAPI's own 401/403/429/500
+ * for a bad key or exhausted quota) is 'blocked', so the caller falls back to
+ * Wayback rather than mistaking an outage for "unpublished".
+ */
+async function fetchViaScraperApi(targetUrl) {
+  if (!SCRAPER_API_KEY) {
+    throw Object.assign(new Error('SCRAPER_API_KEY not set'), { kind: 'blocked' });
   }
-  if (!res.ok) {
-    throw Object.assign(new Error(`HTTP ${res.status} ${res.statusText}`.trim()), { kind: 'blocked', status: res.status });
+  const proxied = `http://api.scraperapi.com/?api_key=${SCRAPER_API_KEY}&url=${encodeURIComponent(targetUrl)}`;
+  const { status, text } = await httpGet(proxied);
+  if (status === 404) throw Object.assign(new Error('HTTP 404 via ScraperAPI'), { kind: 'notfound', status });
+  if (status !== 200) throw Object.assign(new Error(`HTTP ${status} via ScraperAPI`), { kind: 'blocked', status });
+  return text;
+}
+
+/** Wayback capture timestamp 20260714171833 -> ISO date 2026-07-14. */
+function waybackTsToIsoDate(ts) {
+  const m = /^(\d{4})(\d{2})(\d{2})/.exec(String(ts));
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
+}
+
+/**
+ * FALLBACK path: the newest 200 snapshot of the target in the Wayback Machine.
+ * Good for backfilling history and for covering a proxy outage, but it lags the
+ * State Dept by days and only holds months the Archive crawled before
+ * Cloudflare began blocking its crawler too — so it can legitimately have
+ * nothing for the current month, which surfaces as 'notfound'.
+ *
+ * Returns { html, capturedAt } where capturedAt is the snapshot's ISO date.
+ * The `id_` snapshot form returns the original archived bytes with no Wayback
+ * toolbar injected, so the existing parser works on it unchanged.
+ */
+async function fetchViaWayback(targetUrl) {
+  const cdxUrl =
+    `https://web.archive.org/cdx/search/cdx?url=${encodeURIComponent(targetUrl)}` +
+    '&filter=statuscode:200&limit=-1&output=json';
+  const cdx = await httpGet(cdxUrl);
+  if (cdx.status !== 200) {
+    throw Object.assign(new Error(`Wayback CDX HTTP ${cdx.status}`), { kind: 'blocked', status: cdx.status });
   }
-  return await res.text();
+  let rows;
+  try { rows = JSON.parse(cdx.text); } catch { rows = []; }
+  // rows[0] is the column header; captures are rows[1..], oldest→newest, so the
+  // last row is the most recent 200. limit=-1 already narrows it, but reading
+  // the last row is correct either way.
+  if (!Array.isArray(rows) || rows.length < 2) {
+    throw Object.assign(new Error('no 200 capture in Wayback'), { kind: 'notfound' });
+  }
+  const tsIdx = rows[0].indexOf('timestamp');
+  const timestamp = rows[rows.length - 1][tsIdx >= 0 ? tsIdx : 1];
+  const snapUrl = `https://web.archive.org/web/${timestamp}id_/${targetUrl}`;
+  const snap = await httpGet(snapUrl);
+  if (snap.status !== 200) {
+    throw Object.assign(new Error(`Wayback snapshot HTTP ${snap.status}`), { kind: 'blocked', status: snap.status });
+  }
+  return { html: snap.text, capturedAt: waybackTsToIsoDate(timestamp) };
+}
+
+/**
+ * Orchestrates PRIMARY → FALLBACK and reports which path won. Returns
+ * { html, source, capturedAt }. Propagates 'notfound' from the proxy so the
+ * candidate loop can try the next month; only reaches Wayback when the proxy
+ * hits a real error (not a 404).
+ */
+async function fetchBulletin(targetUrl) {
+  try {
+    const html = await fetchViaScraperApi(targetUrl);
+    console.log('[fetch-visa-bulletin]   ✓ fetched via ScraperAPI (primary)');
+    return { html, source: 'scraperapi', capturedAt: null };
+  } catch (err) {
+    if (err.kind === 'notfound') throw err;
+    console.log(`[fetch-visa-bulletin]   ScraperAPI unavailable (${err.message}) — falling back to Wayback`);
+  }
+  const { html, capturedAt } = await fetchViaWayback(targetUrl);
+  console.log(`[fetch-visa-bulletin]   ✓ fetched via Wayback Machine (fallback), capture ${capturedAt}`);
+  return { html, source: 'wayback', capturedAt };
 }
 
 // ── HTML helpers ────────────────────────────────────────────────────────────
@@ -207,10 +265,16 @@ function formatBlock(label, data, orderedKeys) {
   return `    ${label}: {\n${rows}\n    },`;
 }
 
-function buildBulletinObject({ year, parsed, monthCapitalized, monthLower }) {
+function buildBulletinObject({ year, parsed, monthCapitalized, monthLower, source, capturedAt }) {
   const FAMILY_ORDER = ['F1','F2A','F2B','F3','F4'];
   const EMP_ORDER = ['EB1','EB2','EB3','EB3_OTHER','EB4','EB4_RELIGIOUS','EB5_UNRESERVED','EB5_RURAL','EB5_HIGH_UNEMP','EB5_INFRA'];
   const today = new Date().toISOString().slice(0, 10);
+  const fetchedAt = new Date().toISOString();
+  // waybackCaptureDate only when the data came from the archive — it drives the
+  // "Data as of …" note the UI shows when a capture is more than 3 days old.
+  const waybackLine = source === 'wayback' && capturedAt
+    ? `\n  waybackCaptureDate: '${capturedAt}',`
+    : '';
   return `// ────────────────────────────────────────────────────────────────────────────
 // ${monthCapitalized.toUpperCase()} ${year} — auto-generated by scripts/fetch-visa-bulletin.js
 // ────────────────────────────────────────────────────────────────────────────
@@ -219,6 +283,9 @@ export const visaBulletin${monthCapitalized}${year} = {
   year: ${year},
   label: '${monthCapitalized} ${year}',
   publishedDate: '${today}',
+  // Provenance of this fetch: 'scraperapi' (live proxy) or 'wayback' (archive).
+  fetchSource: '${source}',
+  fetchedAt: '${fetchedAt}',${waybackLine}
   sourceUrl: '${bulletinUrl(monthLower, year)}',
   // NOTE: USCIS adjustment-of-status filing chart designation is NOT part of
   // the bulletin HTML. Verify at https://www.uscis.gov/visabulletininfo and
@@ -277,31 +344,45 @@ async function main() {
   const opts = parseArgs(process.argv);
   const candidates = candidateMonths(opts);
 
-  let html, monthLower, year;
+  let html, monthLower, year, fetchSource, waybackCaptureDate;
+  let sawHardFailure = false;
+  let lastHardError = null;
   for (const c of candidates) {
     const url = bulletinUrl(c.month, c.year);
     console.log(`[fetch-visa-bulletin] Trying ${url}`);
     try {
-      html = await fetchHtml(url);
+      const result = await fetchBulletin(url);
+      html = result.html;
+      fetchSource = result.source;
+      waybackCaptureDate = result.capturedAt;
       monthLower = c.month;
       year = c.year;
-      console.log(`[fetch-visa-bulletin] Found bulletin for ${monthLower} ${year}`);
+      console.log(`[fetch-visa-bulletin] Found bulletin for ${monthLower} ${year} (source: ${fetchSource})`);
       break;
     } catch (err) {
       if (err.kind === 'notfound') {
-        console.log('[fetch-visa-bulletin]   404 — not published yet, trying next candidate');
+        console.log('[fetch-visa-bulletin]   not published / not archived — trying next candidate');
         continue;
       }
-      // Blocked or network failure: retrying other months just repeats the
-      // same rejection, and pretending it means "unpublished" hides an outage.
-      console.error(`::error::Visa bulletin fetch failed for ${url} — ${err.message}. ` +
-        'This is NOT "not yet published"; the fetcher is blocked or the site is unreachable.');
-      return 1;
+      // Both the proxy AND Wayback failed for this month — a deeper outage.
+      // Keep trying remaining candidates (e.g. next-month proxy down but the
+      // current month is archived), and hard-fail only if none resolve.
+      sawHardFailure = true;
+      lastHardError = err;
+      console.error(`::error::All fetch paths failed for ${url} — ${err.message}`);
     }
   }
   if (!html) {
-    // Every candidate returned a genuine 404.
-    console.log('::notice::Bulletin not yet published (all candidate URLs returned 404); will retry.');
+    if (sawHardFailure) {
+      const tried = candidates.map((c) => `${c.month} ${c.year}`).join(', ');
+      console.error(
+        `::error::Could not fetch any candidate bulletin via ScraperAPI or Wayback ` +
+        `(tried, in order: ${tried}). Last error: ${lastHardError?.message}. ` +
+        'This is NOT "not yet published" — both the proxy and the archive are failing.'
+      );
+      return 1;
+    }
+    console.log('::notice::Bulletin not yet published (no candidate is live at the proxy or archived); will retry.');
     return 0;
   }
 
@@ -320,7 +401,10 @@ async function main() {
   }
 
   const monthCapitalized = monthLower.charAt(0).toUpperCase() + monthLower.slice(1);
-  const block = buildBulletinObject({ year, parsed, monthCapitalized, monthLower });
+  const block = buildBulletinObject({
+    year, parsed, monthCapitalized, monthLower,
+    source: fetchSource, capturedAt: waybackCaptureDate,
+  });
 
   if (opts.dryRun) {
     console.log('---- DRY RUN OUTPUT ----');

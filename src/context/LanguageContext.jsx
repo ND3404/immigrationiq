@@ -97,6 +97,10 @@ const translations = {
     visaBulletinLatest: 'latest',
     visaBulletinHowToRead: 'How to read this bulletin',
     visaBulletinHowToReadBody: "Find the row for your preference category and the column for your country of chargeability. If your priority date is *earlier* than the date shown, you may proceed with the next step in your case. The dates use the State Department's DDMMMYY format (e.g. 01JAN16 = January 1, 2016). \"C\" means Current — no waiting.",
+    // Shown only when the displayed data came from an archived snapshot more
+    // than 3 days old. Split around the date, which is interpolated in the UI.
+    visaBulletinAsOfPrefix: 'Bulletin data as of ',
+    visaBulletinAsOfSuffix: '. Verifying with the U.S. State Department. Refresh for updates.',
     visaBulletinNotSurePD: 'Not sure what your priority date is?',
     visaBulletinNotSurePDBody: 'Ask the AI assistant — it can walk through your case category and help you read the bulletin.',
     visaBulletinAskBtn: 'Ask ImmigrationIQ',
@@ -746,6 +750,8 @@ const translations = {
     visaBulletinLatest: 'más reciente',
     visaBulletinHowToRead: 'Cómo leer este boletín',
     visaBulletinHowToReadBody: 'Encuentra la fila para tu categoría de preferencia y la columna para tu país de cargo. Si tu fecha de prioridad es *anterior* a la fecha mostrada, puedes proceder con el siguiente paso de tu caso. Las fechas usan el formato DDMMMYY del Departamento de Estado (p. ej., 01JAN16 = 1 de enero de 2016). "C" significa Corriente — sin espera.',
+    visaBulletinAsOfPrefix: 'Datos del boletín al ',
+    visaBulletinAsOfSuffix: '. Verificando con el Departamento de Estado de EE.UU. Actualiza para ver cambios.',
     visaBulletinNotSurePD: '¿No estás seguro de cuál es tu fecha de prioridad?',
     visaBulletinNotSurePDBody: 'Pregúntale al asistente de IA — puede guiarte a través de la categoría de tu caso y ayudarte a leer el boletín.',
     visaBulletinAskBtn: 'Preguntar a ImmigrationIQ',
