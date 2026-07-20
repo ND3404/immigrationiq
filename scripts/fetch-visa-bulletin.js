@@ -142,6 +142,68 @@ async function fetchHtml(url) {
   return await res.text();
 }
 
+/**
+ * Last-resort fetch through headless Chromium.
+ *
+ * Akamai fingerprints far more than headers — notably the TLS/JA3 handshake,
+ * which undici cannot fake. A real browser engine matches on every axis at
+ * once. Playwright is intentionally NOT a repo dependency; CI installs it with
+ * `npm i --no-save playwright` so contributors don't pay for a browser
+ * download on every install. If it isn't present we report that plainly
+ * instead of pretending the bulletin is missing.
+ *
+ * Note this cannot defeat an IP-reputation block: if Akamai is rejecting the
+ * runner's Azure address, headless Chromium from that same address is refused
+ * exactly like undici was.
+ */
+async function fetchViaBrowser(url) {
+  let chromium;
+  try {
+    ({ chromium } = await import('playwright'));
+  } catch {
+    throw Object.assign(
+      new Error('blocked, and playwright is unavailable for the headless-browser retry'),
+      { kind: 'blocked' }
+    );
+  }
+
+  const browser = await chromium.launch({ args: ['--disable-blink-features=AutomationControlled'] });
+  try {
+    const context = await browser.newContext({
+      userAgent: BROWSER_HEADERS['User-Agent'],
+      locale: 'en-US',
+      viewport: { width: 1280, height: 900 },
+      extraHTTPHeaders: { 'Accept-Language': 'en-US,en;q=0.9' },
+    });
+    const page = await context.newPage();
+    const resp = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45_000 });
+    const status = resp?.status();
+    if (status === 404) {
+      throw Object.assign(new Error('HTTP 404 (headless)'), { kind: 'notfound', status });
+    }
+    if (!status || status >= 400) {
+      throw Object.assign(new Error(`HTTP ${status ?? 'no response'} (headless)`), { kind: 'blocked', status });
+    }
+    // The bulletin tables are server-rendered, but give them a beat in case a
+    // client-side widget hydrates them.
+    await page.waitForSelector('table', { timeout: 15_000 }).catch(() => {});
+    return await page.content();
+  } finally {
+    await browser.close();
+  }
+}
+
+/** Plain fetch, falling back to headless Chromium when we're blocked. */
+async function fetchBulletinHtml(url) {
+  try {
+    return await fetchHtml(url);
+  } catch (err) {
+    if (err.kind !== 'blocked') throw err;
+    console.log(`[fetch-visa-bulletin]   ${err.message} — retrying via headless browser`);
+    return await fetchViaBrowser(url);
+  }
+}
+
 // ── HTML helpers ────────────────────────────────────────────────────────────
 function stripTags(html) {
   return html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
@@ -282,7 +344,7 @@ async function main() {
     const url = bulletinUrl(c.month, c.year);
     console.log(`[fetch-visa-bulletin] Trying ${url}`);
     try {
-      html = await fetchHtml(url);
+      html = await fetchBulletinHtml(url);
       monthLower = c.month;
       year = c.year;
       console.log(`[fetch-visa-bulletin] Found bulletin for ${monthLower} ${year}`);

@@ -41,6 +41,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Headless-browser fallback for when Akamai 403s plain fetch. Installed
+      # with --no-save so it stays out of package.json and contributors don't
+      # download a browser on every local install.
+      - name: Install Playwright Chromium
+        run: |
+          npm i --no-save playwright
+          npx playwright install --with-deps chromium
+
       # Report how old the committed data is before we touch the network, so
       # the log shows the starting state even if a later step explodes. This
       # form never fails the job — see the enforcing check at the end.
