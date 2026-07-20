@@ -17,9 +17,14 @@
  *   node scripts/fetch-visa-bulletin.js --dry-run        # print, don't write
  *
  * Exit codes:
- *   0  success — file updated or already current
- *   1  bulletin not yet published (no candidate URL is reachable)
+ *   0  success — file updated, already current, or not yet published (404)
+ *   1  hard failure — blocked (403), server error, or network failure
  *   2  parsing failed (HTML structure changed)
+ *
+ * Only a 404 means "not yet published". Anything else (notably the 403 that
+ * Akamai returns when it decides the caller is a bot) is a real failure and
+ * must exit non-zero — otherwise CI reports success over stale data, which is
+ * exactly what happened silently through July 2026.
  */
 
 import { readFile, writeFile } from 'node:fs/promises';
@@ -85,9 +90,28 @@ function candidateMonths(opts) {
   ];
 }
 
+/**
+ * Fetch a bulletin URL.
+ *
+ * Throws with `kind` set so the caller can tell "this month isn't out yet"
+ * apart from "we are being blocked / the site is down":
+ *   'notfound' — HTTP 404, try the next candidate month
+ *   'blocked'  — any other non-OK status; do not retry other months
+ *   'network'  — DNS/TLS/timeout/connection failure
+ */
 async function fetchHtml(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': 'ImmigrationIQ-bot/1.0' } });
-  if (!res.ok) throw Object.assign(new Error(`HTTP ${res.status}`), { status: res.status });
+  let res;
+  try {
+    res = await fetch(url, { headers: { 'User-Agent': 'ImmigrationIQ-bot/1.0' } });
+  } catch (cause) {
+    throw Object.assign(new Error(`network failure: ${cause.message}`), { kind: 'network', cause });
+  }
+  if (res.status === 404) {
+    throw Object.assign(new Error('HTTP 404'), { kind: 'notfound', status: 404 });
+  }
+  if (!res.ok) {
+    throw Object.assign(new Error(`HTTP ${res.status} ${res.statusText}`.trim()), { kind: 'blocked', status: res.status });
+  }
   return await res.text();
 }
 
@@ -227,7 +251,6 @@ async function main() {
   const candidates = candidateMonths(opts);
 
   let html, monthLower, year;
-  let lastErr;
   for (const c of candidates) {
     const url = bulletinUrl(c.month, c.year);
     console.log(`[fetch-visa-bulletin] Trying ${url}`);
@@ -238,17 +261,21 @@ async function main() {
       console.log(`[fetch-visa-bulletin] Found bulletin for ${monthLower} ${year}`);
       break;
     } catch (err) {
-      lastErr = err;
-      if (err.status === 404) {
-        console.log(`[fetch-visa-bulletin]   404 — trying next candidate`);
-      } else {
-        console.error(`[fetch-visa-bulletin]   ${err.message}`);
+      if (err.kind === 'notfound') {
+        console.log('[fetch-visa-bulletin]   404 — not published yet, trying next candidate');
+        continue;
       }
+      // Blocked or network failure: retrying other months just repeats the
+      // same rejection, and pretending it means "unpublished" hides an outage.
+      console.error(`::error::Visa bulletin fetch failed for ${url} — ${err.message}. ` +
+        'This is NOT "not yet published"; the fetcher is blocked or the site is unreachable.');
+      return 1;
     }
   }
   if (!html) {
-    console.error(`[fetch-visa-bulletin] No reachable bulletin (${lastErr?.message ?? 'unknown'}).`);
-    process.exit(1);
+    // Every candidate returned a genuine 404.
+    console.log('::notice::Bulletin not yet published (all candidate URLs returned 404); will retry.');
+    return 0;
   }
 
   const tables = findTablesBySection(html);
@@ -261,8 +288,8 @@ async function main() {
   const missing = Object.entries(parsed).filter(([, v]) => !v).map(([k]) => k);
   if (missing.length) {
     console.error(`[fetch-visa-bulletin] Failed to parse sections: ${missing.join(', ')}`);
-    console.error('[fetch-visa-bulletin] State Dept HTML structure may have changed.');
-    process.exit(2);
+    console.error('::error::State Dept HTML structure may have changed.');
+    return 2;
   }
 
   const monthCapitalized = monthLower.charAt(0).toUpperCase() + monthLower.slice(1);
@@ -271,12 +298,18 @@ async function main() {
   if (opts.dryRun) {
     console.log('---- DRY RUN OUTPUT ----');
     console.log(block);
-    return;
+    return 0;
   }
   await updateDataFile({ monthCapitalized, year, bulletinBlock: block });
+  return 0;
 }
 
-main().catch((err) => {
-  console.error('[fetch-visa-bulletin] Unhandled error:', err);
-  process.exit(2);
-});
+// Set `exitCode` rather than calling process.exit(): a hard exit while undici
+// still holds keep-alive sockets trips a libuv assertion on Windows and
+// reports a bogus 127. Letting Node drain gives the correct code everywhere.
+main()
+  .then((code) => { process.exitCode = code ?? 0; })
+  .catch((err) => {
+    console.error(`::error::fetch-visa-bulletin unhandled error: ${err?.stack || err}`);
+    process.exitCode = 2;
+  });

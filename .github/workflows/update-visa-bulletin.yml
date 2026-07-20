@@ -41,6 +41,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # The script now owns the exit-code semantics: it exits 0 both when it
+      # updates the data and when the bulletin genuinely isn't published yet
+      # (404), and non-zero only on real failures — blocked (403), server
+      # error, network failure, or a parse break. So no swallowing here: any
+      # non-zero exit turns the run red and triggers the failure notification.
       - name: Fetch visa bulletin
         id: bulletin
         env:
@@ -50,20 +55,7 @@ jobs:
           ARGS=""
           if [ -n "$INPUT_MONTH" ]; then ARGS="$ARGS --month=$INPUT_MONTH"; fi
           if [ -n "$INPUT_YEAR"  ]; then ARGS="$ARGS --year=$INPUT_YEAR";  fi
-          set +e
           node scripts/fetch-visa-bulletin.js $ARGS
-          code=$?
-          set -e
-          if [ $code -eq 1 ]; then
-            echo "::notice::Bulletin not yet published; will retry tomorrow."
-            echo "ok=skipped" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          if [ $code -ne 0 ]; then
-            echo "::error::fetch-visa-bulletin.js failed with code $code"
-            exit $code
-          fi
-          echo "ok=true" >> "$GITHUB_OUTPUT"
 
       - name: Fetch immigration news (best effort)
         continue-on-error: true
