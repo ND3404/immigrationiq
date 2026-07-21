@@ -49,6 +49,8 @@ Desktop.ini
 !public/pwa-512x512.png
 !public/maskable-icon-512x512.png
 !public/apple-touch-icon-180x180.png
+# Open Graph share image for /visa-bulletin
+!public/og-visa-bulletin.png
 
 # Claude Code session data
 .claude

@@ -9,6 +9,7 @@ import {
 } from '../data/visaBulletin';
 import VisaBulletinDashboard from '../components/immigration/VisaBulletinDashboard';
 import SEO from '../components/shared/SEO';
+import { buildBulletinShare } from '../utils/visaBulletinShare';
 
 // Whole days between an ISO date (YYYY-MM-DD, treated as UTC) and today.
 // null if the input can't be parsed.
@@ -40,12 +41,23 @@ export default function VisaBulletin() {
       )
     : null;
 
+  // OG/Twitter title+description mirror the share payload for the current
+  // bulletin, so a scraped link preview matches what the Share button sends.
+  // The page <title> keeps a keyword-rich, branded form for search.
+  const shareMeta = buildBulletinShare(currentVisaBulletin, language);
+  const seoSuffix = language === 'es'
+    ? ' | Fechas de Prioridad y Tablas de USCIS | ImmigrationIQ'
+    : ' | Priority Dates & USCIS Filing Charts | ImmigrationIQ';
+
   return (
     <div className="page-container max-w-7xl">
       <SEO
-        title="Visa Bulletin | Current Priority Dates & Movement | ImmigrationIQ"
-        description="Track the current State Department Visa Bulletin, priority date movement, and final action dates for family and employment-based green cards."
+        title={`${shareMeta.title}${seoSuffix}`}
+        description={shareMeta.text}
         path="/visa-bulletin"
+        image="/og-visa-bulletin.png"
+        ogTitle={shareMeta.title}
+        ogDescription={shareMeta.text}
       />
       {/* Page intro */}
       <div className="mb-5">

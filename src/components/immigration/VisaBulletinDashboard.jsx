@@ -14,6 +14,7 @@ import {
   compareBulletinCells,
 } from '../../data/visaBulletin';
 import { useLanguage } from '../../context/LanguageContext';
+import ShareButton from '../shared/ShareButton';
 
 const SECTION_KEYS = [
   { key: 'family',     tKey: 'vbFamilyBased',     icon: Users,     categories: FAMILY_CATEGORIES },
@@ -144,6 +145,7 @@ export default function VisaBulletinDashboard({
         >
           {t('vbOfficialSource')} <ExternalLink className="h-3.5 w-3.5" />
         </a>
+        <ShareButton />
       </div>
 
       {/* USCIS chart designation banner */}
