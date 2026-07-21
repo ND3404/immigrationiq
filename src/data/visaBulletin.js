@@ -113,6 +113,70 @@ export const EMPLOYMENT_CATEGORIES = [
 ];
 
 // ────────────────────────────────────────────────────────────────────────────
+// AUGUST 2026 — current bulletin (manual population, cross-verified vs USCIS)
+// ────────────────────────────────────────────────────────────────────────────
+export const visaBulletinAugust2026 = {
+  month: 'August',
+  year: 2026,
+  label: 'August 2026',
+  publishedDate: '2026-07-21',
+  // Manually populated from the official travel.state.gov August 2026 bulletin,
+  // cross-verified cell-by-cell against uscis.gov/visabulletininfo, because the
+  // automated proxy/archive paths cannot reach Cloudflare-fronted DoS from CI.
+  fetchSource: 'manual',
+  fetchedAt: '2026-07-21T00:47:49.119Z',
+  sourceUrl: 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/2026/visa-bulletin-for-august-2026.html',
+  // USCIS AoS filing-chart designation confirmed at uscis.gov/visabulletininfo:
+  // Family → Dates for Filing, Employment → Final Action Dates.
+  uscisFilingChart: {
+    family: 'datesForFiling',
+    employment: 'finalActionDates',
+  },
+  family: {
+    finalActionDates: {
+      F1:  { all: '15DEC18' , china: '15DEC18' , india: '15DEC18' , mexico: '01DEC07' , philippines: '01MAY13' },
+      F2A: { all: '22JUL26' , china: '22JUL26' , india: '22JUL26' , mexico: '22JUL25' , philippines: '22JUL26' },
+      F2B: { all: '01JAN18' , china: '01JAN18' , india: '01JAN18' , mexico: '15FEB09' , philippines: '01JUN13' },
+      F3:  { all: '15MAY12' , china: '15MAY12' , india: '15MAY12' , mexico: '01JUL01' , philippines: '22FEB06' },
+      F4:  { all: '01SEP09' , china: '01SEP09' , india: '01NOV06' , mexico: '08APR01' , philippines: '01AUG07' },
+    },
+    datesForFiling: {
+      F1:  { all: '15JUN19' , china: '15JUN19' , india: '15JUN19' , mexico: '01DEC08' , philippines: '22APR15' },
+      F2A: { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+      F2B: { all: '01JAN19' , china: '01JAN19' , india: '01JAN19' , mexico: '15MAY10' , philippines: '01OCT13' },
+      F3:  { all: '01MAR13' , china: '01MAR13' , india: '01MAR13' , mexico: '15JUL01' , philippines: '08AUG06' },
+      F4:  { all: '22JUN10' , china: '22JUN10' , india: '15DEC06' , mexico: '30APR01' , philippines: '22MAR08' },
+    },
+  },
+  employment: {
+    finalActionDates: {
+      EB1:            { all: 'C'       , china: '01JUL23' , india: '15OCT22' , mexico: 'C'       , philippines: 'C' },
+      EB2:            { all: 'C'       , china: '01SEP21' , india: 'U'       , mexico: 'C'       , philippines: 'C' },
+      EB3:            { all: '01SEP24' , china: '01JAN22' , india: '01JAN14' , mexico: '01SEP24' , philippines: '01AUG23' },
+      EB3_OTHER:      { all: '01APR22' , china: '01MAY19' , india: '01JAN14' , mexico: '01APR22' , philippines: '01DEC21' },
+      EB4:            { all: '15OCT22' , china: '15OCT22' , india: '15OCT22' , mexico: '15OCT22' , philippines: '15OCT22' },
+      EB4_RELIGIOUS:  { all: '15OCT22' , china: '15OCT22' , india: '15OCT22' , mexico: '15OCT22' , philippines: '15OCT22' },
+      EB5_UNRESERVED: { all: 'C'       , china: '01DEC16' , india: 'U'       , mexico: 'C'       , philippines: 'C' },
+      EB5_RURAL:      { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+      EB5_HIGH_UNEMP: { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+      EB5_INFRA:      { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+    },
+    datesForFiling: {
+      EB1:            { all: 'C'       , china: '01DEC23' , india: '01DEC23' , mexico: 'C'       , philippines: 'C' },
+      EB2:            { all: 'C'       , china: '01JAN22' , india: '15JAN15' , mexico: 'C'       , philippines: 'C' },
+      EB3:            { all: 'C'       , china: '08JAN22' , india: '15JAN15' , mexico: 'C'       , philippines: '01JAN24' },
+      EB3_OTHER:      { all: '01AUG22' , china: '01OCT19' , india: '15JAN15' , mexico: '01AUG22' , philippines: '01AUG22' },
+      EB4:            { all: '01JAN23' , china: '01JAN23' , india: '01JAN23' , mexico: '01JAN23' , philippines: '01JAN23' },
+      EB4_RELIGIOUS:  { all: '01JAN23' , china: '01JAN23' , india: '01JAN23' , mexico: '01JAN23' , philippines: '01JAN23' },
+      EB5_UNRESERVED: { all: 'C'       , china: '01MAR17' , india: '01MAY24' , mexico: 'C'       , philippines: 'C' },
+      EB5_RURAL:      { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+      EB5_HIGH_UNEMP: { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+      EB5_INFRA:      { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+    },
+  },
+};
+
+// ────────────────────────────────────────────────────────────────────────────
 // JULY 2026 — auto-generated by scripts/fetch-visa-bulletin.js
 // ────────────────────────────────────────────────────────────────────────────
 export const visaBulletinJuly2026 = {
@@ -350,6 +414,6 @@ export const visaBulletinApril2026 = {
 };
 
 // Newest first.
-export const visaBulletinHistory = [visaBulletinJuly2026, visaBulletinJune2026, visaBulletinMay2026];
-export const currentVisaBulletin = visaBulletinJuly2026;
-export const previousVisaBulletin = visaBulletinJune2026;
+export const visaBulletinHistory = [visaBulletinAugust2026, visaBulletinJuly2026, visaBulletinJune2026, visaBulletinMay2026];
+export const currentVisaBulletin = visaBulletinAugust2026;
+export const previousVisaBulletin = visaBulletinJuly2026;
