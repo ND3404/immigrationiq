@@ -63,13 +63,16 @@ function MovementCell({ value, prevValue }) {
   );
 }
 
-function chargeabilityHeader(area) {
+// `hideOnMobile` collapses a column below the md breakpoint via CSS only, so no
+// viewport JS / resize listener is needed and there's no hydration flash. The
+// caller decides which Central America columns duplicate Worldwide.
+function chargeabilityHeader(area, hideOnMobile = false) {
   const isCa = area.group === 'central-america';
   return (
     <th
       key={area.key}
       scope="col"
-      className="text-left font-semibold px-3 py-2.5 text-xs uppercase tracking-wide whitespace-nowrap"
+      className={`text-left font-semibold px-3 py-2.5 text-xs uppercase tracking-wide whitespace-nowrap${hideOnMobile ? ' hidden md:table-cell' : ''}`}
       style={{ color: isCa ? 'var(--color-text-light)' : 'var(--color-primary-700)' }}
       title={isCa ? 'Falls under "All Chargeability Areas" unless the bulletin lists a separate cutoff' : (area.tooltip || area.label)}
     >
@@ -112,6 +115,27 @@ export default function VisaBulletinDashboard({
     }
     return { forward: f, backward: b, same: s };
   }, [data, priorData, sectionDef]);
+
+  // Central America columns (El Salvador, Guatemala, Honduras) mirror Worldwide
+  // via `fallbackTo: 'all'` unless the bulletin carves out a separate cutoff.
+  // When a column adds no information in the current view, hide it on mobile to
+  // save horizontal scroll — evaluated per country, and re-run whenever the
+  // section/chart toggles (data changes). Desktop keeps every column; the
+  // official columns (China/India/Mexico/Philippines) are never hidden.
+  const mobileHiddenAreaKeys = useMemo(() => {
+    const hidden = new Set();
+    const worldwide = CHARGEABILITY_AREAS.find((a) => a.key === 'all');
+    if (!data || !worldwide) return hidden;
+    for (const area of CHARGEABILITY_AREAS) {
+      if (area.group !== 'central-america') continue;
+      const diverges = sectionDef.categories.some((cat) => {
+        const row = data[cat.key];
+        return row && getCellValue(row, area) !== getCellValue(row, worldwide);
+      });
+      if (!diverges) hidden.add(area.key);
+    }
+    return hidden;
+  }, [data, sectionDef]);
 
   return (
     <div className={`rounded-2xl bg-white shadow-md ${className}`} style={{ border: '1px solid var(--color-border)' }}>
@@ -245,7 +269,7 @@ export default function VisaBulletinDashboard({
                 >
                   {t('vbCategoryColumn')}
                 </th>
-                {CHARGEABILITY_AREAS.map(chargeabilityHeader)}
+                {CHARGEABILITY_AREAS.map((area) => chargeabilityHeader(area, mobileHiddenAreaKeys.has(area.key)))}
               </tr>
             </thead>
             <tbody>
@@ -260,7 +284,10 @@ export default function VisaBulletinDashboard({
                       <div className="text-[11px] leading-tight" style={{ color: 'var(--color-text-light)' }}>{cat.description}</div>
                     </td>
                     {CHARGEABILITY_AREAS.map((area) => (
-                      <td key={area.key} className="px-3 py-2.5">
+                      <td
+                        key={area.key}
+                        className={`px-3 py-2.5${mobileHiddenAreaKeys.has(area.key) ? ' hidden md:table-cell' : ''}`}
+                      >
                         <MovementCell value={getCellValue(row, area)} prevValue={getCellValue(prevRow, area)} />
                       </td>
                     ))}
