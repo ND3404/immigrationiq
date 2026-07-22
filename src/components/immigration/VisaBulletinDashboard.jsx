@@ -17,13 +17,13 @@ import { useLanguage } from '../../context/LanguageContext';
 import ShareButton from '../shared/ShareButton';
 
 const SECTION_KEYS = [
-  { key: 'family',     tKey: 'vbFamilyBased',     icon: Users,     categories: FAMILY_CATEGORIES },
-  { key: 'employment', tKey: 'vbEmploymentBased', icon: Briefcase, categories: EMPLOYMENT_CATEGORIES },
+  { key: 'family',     tKey: 'vbFamilyBased',     shortKey: 'vbFamilyShort',     icon: Users,     categories: FAMILY_CATEGORIES },
+  { key: 'employment', tKey: 'vbEmploymentBased', shortKey: 'vbEmploymentShort', icon: Briefcase, categories: EMPLOYMENT_CATEGORIES },
 ];
 
 const CHART_KEYS = [
-  { key: 'finalActionDates', tKey: 'vbFinalActionDates' },
-  { key: 'datesForFiling',   tKey: 'vbDatesForFiling' },
+  { key: 'finalActionDates', tKey: 'vbFinalActionDates', shortKey: 'vbFinalActionShort' },
+  { key: 'datesForFiling',   tKey: 'vbDatesForFiling',   shortKey: 'vbFilingShort' },
 ];
 
 function valueColor(value) {
@@ -153,13 +153,17 @@ export default function VisaBulletinDashboard({
           </h2>
           <p className="text-xs sm:text-sm text-blue-200">{t('vbDashboardSubtitle')}</p>
         </div>
-        <span
-          className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide"
-          style={{ backgroundColor: 'var(--color-accent-400)', color: 'var(--color-primary-900)' }}
-          title={`Bulletin published ${formatBulletinDate(bulletin.publishedDate?.replace(/-/g, '').replace(/^(\d{4})(\d{2})(\d{2})$/, ''))}`}
-        >
-          {t('vbLastUpdated')}: {bulletin.label}
-        </span>
+        {/* Full-width row on mobile so the badge stacks below the title/subtitle
+            instead of overlapping the subtitle; inline on desktop. */}
+        <div className="w-full md:w-auto">
+          <span
+            className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide"
+            style={{ backgroundColor: 'var(--color-accent-400)', color: 'var(--color-primary-900)' }}
+            title={`Bulletin published ${formatBulletinDate(bulletin.publishedDate?.replace(/-/g, '').replace(/^(\d{4})(\d{2})(\d{2})$/, ''))}`}
+          >
+            {t('vbLastUpdated')}: {bulletin.label}
+          </span>
+        </div>
         <a
           href={bulletin.sourceUrl}
           target="_blank"
@@ -191,14 +195,16 @@ export default function VisaBulletinDashboard({
               key={s.key}
               type="button"
               onClick={() => setSection(s.key)}
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs sm:text-sm font-semibold transition"
+              className="inline-flex items-center gap-1.5 rounded-full px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-semibold transition whitespace-nowrap"
               style={
                 section === s.key
                   ? { backgroundColor: 'var(--color-primary-500)', color: 'white' }
                   : { color: 'var(--color-text)' }
               }
             >
-              <s.icon className="h-4 w-4" /> {t(s.tKey)}
+              <s.icon className="h-4 w-4 flex-shrink-0" />
+              <span className="md:hidden">{t(s.shortKey)}</span>
+              <span className="hidden md:inline">{t(s.tKey)}</span>
             </button>
           ))}
         </div>
@@ -212,13 +218,14 @@ export default function VisaBulletinDashboard({
                 key={c.key}
                 type="button"
                 onClick={() => setChart(c.key)}
-                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs sm:text-sm font-semibold transition whitespace-nowrap"
+                className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-semibold transition whitespace-nowrap"
                 style={active ? { backgroundColor: 'var(--color-primary-500)', color: 'white' } : { color: 'var(--color-text)' }}
               >
-                {t(c.tKey)}
+                <span className="md:hidden">{t(c.shortKey)}</span>
+                <span className="hidden md:inline">{t(c.tKey)}</span>
                 {isRecommended && (
                   <span
-                    className="rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide"
+                    className="rounded-full px-1 sm:px-1.5 py-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-wide"
                     style={
                       active
                         ? { backgroundColor: 'var(--color-accent-400)', color: 'var(--color-primary-900)' }

@@ -50,7 +50,9 @@ export default function VisaBulletin() {
     : ' | Priority Dates & USCIS Filing Charts | ImmigrationIQ';
 
   return (
-    <div className="page-container max-w-7xl">
+    // Extra bottom padding on mobile so the table can scroll clear of the
+    // fixed floating chat button (bottom-right); desktop keeps normal spacing.
+    <div className="page-container max-w-7xl pb-24 md:pb-8">
       <SEO
         title={`${shareMeta.title}${seoSuffix}`}
         description={shareMeta.text}
