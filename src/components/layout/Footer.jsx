@@ -10,7 +10,7 @@ const BORDER = 'rgba(255,255,255,0.15)';
 // Visible build marker. Bump on deploy to eyeball that a new build reached a
 // browser (see README "PWA service worker"). Doubles as the change used to
 // verify the auto-update path end-to-end.
-const BUILD_TAG = 'build 2026.07.22-2';
+const BUILD_TAG = 'build 2026.07.22-3';
 
 // Brand glyphs — lucide-react omits these for trademark reasons, so we ship
 // our own. Paths from Simple Icons (CC0). Same inlined-SVG pattern the
