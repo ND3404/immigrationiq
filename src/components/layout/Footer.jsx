@@ -7,6 +7,11 @@ const HEADING = 'rgba(255,255,255,0.95)';
 const BODY = 'rgba(255,255,255,0.75)';
 const BORDER = 'rgba(255,255,255,0.15)';
 
+// Visible build marker. Bump on deploy to eyeball that a new build reached a
+// browser (see README "PWA service worker"). Doubles as the change used to
+// verify the auto-update path end-to-end.
+const BUILD_TAG = 'build 2026.07.22-2';
+
 // Brand glyphs — lucide-react omits these for trademark reasons, so we ship
 // our own. Paths from Simple Icons (CC0). Same inlined-SVG pattern the
 // WhatsAppButton uses.
@@ -134,7 +139,10 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          <p className="text-xs" style={{ color: BODY }}>{t('copyright')}</p>
+          <p className="text-xs" style={{ color: BODY }}>
+            {t('copyright')}
+            <span style={{ opacity: 0.5 }}> · {BUILD_TAG}</span>
+          </p>
         </div>
       </div>
 
