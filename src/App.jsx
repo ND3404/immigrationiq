@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import Layout from './components/layout/Layout';
 import ScrollToTop from './components/layout/ScrollToTop';
+import UpdateToast from './components/UpdateToast';
 import Home from './pages/Home';
 import { useLanguage } from './context/LanguageContext';
 
@@ -89,6 +90,7 @@ export default function App() {
         </Layout>
       } />
       </Routes>
+      <UpdateToast />
       <Analytics />
     </>
   );

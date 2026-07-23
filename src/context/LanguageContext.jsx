@@ -22,6 +22,7 @@ const translations = {
     languageEnglish: 'English',
     languageSpanish: 'Español',
     languageToggleAria: 'Switch language',
+    pwaUpdatedToast: 'Site updated',
 
     // Tools dropdown descriptions
     toolFeeCalculatorDesc: 'Estimate filing costs',
@@ -689,6 +690,7 @@ const translations = {
     languageEnglish: 'English',
     languageSpanish: 'Español',
     languageToggleAria: 'Cambiar idioma',
+    pwaUpdatedToast: 'Sitio actualizado',
 
     // Tools dropdown descriptions
     toolFeeCalculatorDesc: 'Estima costos de presentación',
