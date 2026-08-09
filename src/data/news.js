@@ -1,5 +1,117 @@
 export const newsItems = [
   {
+    id: 35,
+    title: {
+      en: "USCIS Identity Checks Lead to Arrest of Former Latvian Reality TV Contestant with Violent Criminal History",
+    },
+    date: "August 6, 2026",
+    dateEs: "6 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services’ robust screening and vetting uncovered an illegal alien and former reality TV contestant from Latvia with a criminal history that includes sexual battery, aggravated assault, and drug possession.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/uscis-identity-checks-lead-to-arrest-of-former-latvian-reality-tv-contestant-with-violent-criminal",
+  },
+  {
+    id: 34,
+    title: {
+      en: "USCIS to Reduce Frivolous Immigration Benefits Requests by Reinforcing Evidence Standards",
+    },
+    date: "August 5, 2026",
+    dateEs: "5 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services (USCIS) is clarifying that benefit requestors should establish eligibility for an immigration benefit at the time they file a benefit request.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/uscis-to-reduce-frivolous-immigration-benefits-requests-by-reinforcing-evidence-standards",
+  },
+  {
+    id: 33,
+    title: {
+      en: "Mexican Alien Sentenced for Fraud Conspiracy",
+    },
+    date: "August 4, 2026",
+    dateEs: "4 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "A Mexican alien in the Kansas City area was sentenced in federal court for his role in helping illegal aliens fraudulently obtain visas allowing them to reside and work in the United States.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/mexican-alien-sentenced-for-fraud-conspiracy",
+  },
+  {
+    id: 32,
+    title: {
+      en: "Cuban Alien Sentenced for Role in International Alien Smuggling, Asylum Fraud, and Money Laundering Conspiracy",
+    },
+    date: "July 30, 2026",
+    dateEs: "30 de julio de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services played a critical role in an investigation that resulted in the sentencing of Cuban alien Erik Ventura-Castro, 24, of Hialeah, Florida, to 30 months in prison for his role in an international alien smuggling, asylum fraud, and money…",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/cuban-alien-sentenced-for-role-in-international-alien-smuggling-asylum-fraud-and-money-laundering",
+  },
+  {
+    id: 31,
+    title: {
+      en: "USCIS Announces Rule Change to Asylum System to Reduce Backlog",
+    },
+    date: "July 27, 2026",
+    dateEs: "27 de julio de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "The United States Department of Homeland Security (DHS) released the following statement after U.S. Citizenship and Immigration Services (USCIS) announced a rule change designed to reduce the backlog in the asylum system.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/uscis-announces-rule-change-to-asylum-system-to-reduce-backlog",
+  },
+  {
+    id: 30,
+    title: {
+      en: "Court Issues Administrative Stay of Certain USCIS Policies",
+    },
+    date: "July 23, 2026",
+    dateEs: "23 de julio de 2026",
+    category: "Court Decisions",
+    summary: {
+      en: "On July 21, 2026, the U.S. District Court for the District of Massachusetts issued an order in Venez. Ass’n of Mass., et al. v. United States Citizenship and Immigr. Servs., et al., 26-cv-13038-NMG (D. Mass.), granting, in part, plaintiffs’ emergency motion for an…",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/court-issues-administrative-stay-of-certain-uscis-policies",
+  },
+  {
+    id: 29,
+    title: {
+      en: "DHS and Department of Justice Announce Move to Revoke U.S. Citizenship from 10 Naturalized Criminals Including Child Molesters, Scammers, and Drug Dealers",
+    },
+    date: "July 22, 2026",
+    dateEs: "22 de julio de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services assisted the Department of Justice (DOJ) with several recent denaturalization actions in U.S. district courts to revoke citizenship from 10 individuals accused of serious crimes, including sexual abuse of a child, health care and wire…",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/dhs-and-department-of-justice-announce-move-to-revoke-us-citizenship-from-10-naturalized-criminals",
+  },
+  {
+    id: 28,
+    title: {
+      en: "Illegal Alien Child Rapist Sentenced for Immigration Fraud",
+    },
+    date: "July 21, 2026",
+    dateEs: "21 de julio de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services supported an investigation resulting in the sentencing of Juarez Sanchez-Montiel, 41, an illegal alien from Mexico, for immigration fraud.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/illegal-alien-child-rapist-sentenced-for-immigration-fraud",
+  },
+  {
     id: 27,
     title: {
       en: "USCIS Reaches Fiscal Year 2027 H-1B Cap",
