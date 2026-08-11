@@ -1,5 +1,33 @@
 export const newsItems = [
   {
+    id: 37,
+    title: {
+      en: "Court issues Stay: Permits participation of Non-Governmental Organizations at Administrative Naturalization Ceremonies",
+    },
+    date: "August 10, 2026",
+    dateEs: "10 de agosto de 2026",
+    category: "Court Decisions",
+    summary: {
+      en: "On Monday, Aug. 3, 2026, the U.S. District Court for the District of Maryland pursuant to 5 U.S.C. § 705 stayed the USCIS August 29, 2025 Policy Alert and Update pending a final resolution of the case on the merits.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/court-issues-stay-permits-participation-of-non-governmental-organizations-at-administrative",
+  },
+  {
+    id: 36,
+    title: {
+      en: "USCIS To Require Electronic Filing of Forms: Strengthening National Security",
+    },
+    date: "August 10, 2026",
+    dateEs: "10 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "The Department of Homeland Security (DHS) is introducing an interim final rule (IFR) that allows U.S. Citizenship and Immigration Services (USCIS) to mandate electronic filing, or e-filing, for certain immigration forms.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/uscis-to-require-electronic-filing-of-forms-strengthening-national-security",
+  },
+  {
     id: 35,
     title: {
       en: "USCIS Identity Checks Lead to Arrest of Former Latvian Reality TV Contestant with Violent Criminal History",
