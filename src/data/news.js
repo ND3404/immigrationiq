@@ -1,5 +1,33 @@
 export const newsItems = [
   {
+    id: 39,
+    title: {
+      en: "Miami Man Charged With Defrauding U.S. Immigration System as Part of a National Health Care Takedown",
+    },
+    date: "August 11, 2026",
+    dateEs: "11 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services played a key role in an investigation resulting in federal charges against Eduardo Javier Ibarra Arrowsmith, 61, of Miami.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/miami-man-charged-with-defrauding-us-immigration-system-as-part-of-a-national-health-care-takedown",
+  },
+  {
+    id: 38,
+    title: {
+      en: "Justice Department Files Record 25 Denaturalization Cases Against Naturalized Criminals Including Attempted Murderers, Spousal Abusers, and Child Sex Offenders",
+    },
+    date: "August 11, 2026",
+    dateEs: "11 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services partnered with the Department of Justice in its filing of denaturalization actions against 25 individuals accused of serious offenses, including attempted first-degree murder and assault with a deadly weapon with intent to kill, assault…",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/justice-department-files-record-25-denaturalization-cases-against-naturalized-criminals-including",
+  },
+  {
     id: 37,
     title: {
       en: "Court issues Stay: Permits participation of Non-Governmental Organizations at Administrative Naturalization Ceremonies",
