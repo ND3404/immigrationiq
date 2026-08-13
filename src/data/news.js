@@ -1,5 +1,33 @@
 export const newsItems = [
   {
+    id: 41,
+    title: {
+      en: "USCIS Plays Key Role in Takedown of Decade-Long Marriage Fraud Ring",
+    },
+    date: "August 12, 2026",
+    dateEs: "12 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services played a key role in the indictment unsealed today charging 11 individuals with conspiring, over the course of more than a decade, to orchestrate more than 1,000 sham marriages.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/uscis-plays-key-role-in-takedown-of-decade-long-marriage-fraud-ring",
+  },
+  {
+    id: 40,
+    title: {
+      en: "Denaturalization Case Filed Against Man Who Procured U.S. Citizenship Under False Identity",
+    },
+    date: "August 12, 2026",
+    dateEs: "12 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services provided crucial support to an investigation resulting in charges to denaturalize a man born in India for using a false identity to become a U.S. citizen.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/denaturalization-case-filed-against-man-who-procured-us-citizenship-under-false-identity",
+  },
+  {
     id: 39,
     title: {
       en: "Miami Man Charged With Defrauding U.S. Immigration System as Part of a National Health Care Takedown",
