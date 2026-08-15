@@ -1,5 +1,19 @@
 export const newsItems = [
   {
+    id: 42,
+    title: {
+      en: "USCIS to Publish New Editions of Form I-539 and Form I-765; Older Editions Will Be Rejected Starting Sept. 15",
+    },
+    date: "August 14, 2026",
+    dateEs: "14 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "On Sept. 15, 2026, U.S. Citizenship and Immigration Services will publish revised editions of Form I-539, Application to Extend/Change Nonimmigrant Status, and Form I-765, Application for Employment Authorization (edition date for both: 09/15/26). The forms have been revised to…",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/uscis-to-publish-new-editions-of-form-i-539-and-form-i-765-older-editions-will-be-rejected-starting",
+  },
+  {
     id: 41,
     title: {
       en: "USCIS Plays Key Role in Takedown of Decade-Long Marriage Fraud Ring",
