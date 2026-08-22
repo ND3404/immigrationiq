@@ -113,7 +113,80 @@ export const EMPLOYMENT_CATEGORIES = [
 ];
 
 // ────────────────────────────────────────────────────────────────────────────
-// AUGUST 2026 — current bulletin (manual population, cross-verified vs USCIS)
+// SEPTEMBER 2026 — current bulletin (manual population from official screenshots)
+// ────────────────────────────────────────────────────────────────────────────
+// Final month of FY2026: large family-sponsored advances across the board
+// (F1 +13mo, F2B +19mo, F3 +29mo, F4 +25mo on Final Action). Employment is
+// essentially flat vs. August — only EB-4 and EB-4 Certain Religious Workers
+// moved (15OCT22 → 15DEC22).
+//
+// India keeps its split treatment: "U" (Unavailable) on Final Action for EB-2
+// and EB-5 Unreserved, but a real date on Dates for Filing (15JAN15 / 01MAY24).
+// The two tables are stored independently — never derive one from the other.
+export const visaBulletinSeptember2026 = {
+  month: 'September',
+  year: 2026,
+  label: 'September 2026',
+  publishedDate: '2026-08-22',
+  // Manually populated from the official travel.state.gov September 2026
+  // bulletin, because the automated proxy/archive paths cannot reach
+  // Cloudflare-fronted DoS from CI.
+  fetchSource: 'manual',
+  fetchedAt: '2026-08-22T17:50:04.780Z',
+  sourceUrl: 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/2026/visa-bulletin-for-september-2026.html',
+  // USCIS AoS filing-chart designation: default carried forward from August
+  // (Family → Dates for Filing, Employment → Final Action Dates). Flip these
+  // if uscis.gov/visabulletininfo shows a different September designation.
+  uscisFilingChart: {
+    family: 'datesForFiling',
+    employment: 'finalActionDates',
+  },
+  family: {
+    finalActionDates: {
+      F1:  { all: '22JAN20' , china: '22JAN20' , india: '22JAN20' , mexico: '01JAN08' , philippines: '01MAY13' },
+      F2A: { all: '22AUG26' , china: '22AUG26' , india: '22AUG26' , mexico: '22AUG25' , philippines: '22AUG26' },
+      F2B: { all: '22AUG19' , china: '22AUG19' , india: '22AUG19' , mexico: '15FEB09' , philippines: '01JUN13' },
+      F3:  { all: '22OCT14' , china: '22OCT14' , india: '22OCT14' , mexico: '01JUL01' , philippines: '22FEB06' },
+      F4:  { all: '22OCT11' , china: '22OCT11' , india: '01NOV06' , mexico: '08APR01' , philippines: '22AUG07' },
+    },
+    datesForFiling: {
+      F1:  { all: '01FEB20' , china: '01FEB20' , india: '01FEB20' , mexico: '01DEC08' , philippines: '22APR15' },
+      F2A: { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+      F2B: { all: '01SEP19' , china: '01SEP19' , india: '01SEP19' , mexico: '15MAY10' , philippines: '01OCT13' },
+      F3:  { all: '01NOV14' , china: '01NOV14' , india: '01NOV14' , mexico: '15JUL01' , philippines: '08AUG06' },
+      F4:  { all: '01NOV11' , china: '01NOV11' , india: '15DEC06' , mexico: '30APR01' , philippines: '22MAR08' },
+    },
+  },
+  employment: {
+    finalActionDates: {
+      EB1:            { all: 'C'       , china: '01JUL23' , india: '15OCT22' , mexico: 'C'       , philippines: 'C' },
+      EB2:            { all: 'C'       , china: '01SEP21' , india: 'U'       , mexico: 'C'       , philippines: 'C' },
+      EB3:            { all: '01SEP24' , china: '01JAN22' , india: '01JAN14' , mexico: '01SEP24' , philippines: '01AUG23' },
+      EB3_OTHER:      { all: '01APR22' , china: '01MAY19' , india: '01JAN14' , mexico: '01APR22' , philippines: '01DEC21' },
+      EB4:            { all: '15DEC22' , china: '15DEC22' , india: '15DEC22' , mexico: '15DEC22' , philippines: '15DEC22' },
+      EB4_RELIGIOUS:  { all: '15DEC22' , china: '15DEC22' , india: '15DEC22' , mexico: '15DEC22' , philippines: '15DEC22' },
+      EB5_UNRESERVED: { all: 'C'       , china: '01DEC16' , india: 'U'       , mexico: 'C'       , philippines: 'C' },
+      EB5_RURAL:      { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+      EB5_HIGH_UNEMP: { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+      EB5_INFRA:      { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+    },
+    datesForFiling: {
+      EB1:            { all: 'C'       , china: '01DEC23' , india: '01DEC23' , mexico: 'C'       , philippines: 'C' },
+      EB2:            { all: 'C'       , china: '01JAN22' , india: '15JAN15' , mexico: 'C'       , philippines: 'C' },
+      EB3:            { all: 'C'       , china: '08JAN22' , india: '15JAN15' , mexico: 'C'       , philippines: '01JAN24' },
+      EB3_OTHER:      { all: '01AUG22' , china: '01OCT19' , india: '15JAN15' , mexico: '01AUG22' , philippines: '01AUG22' },
+      EB4:            { all: '01JAN23' , china: '01JAN23' , india: '01JAN23' , mexico: '01JAN23' , philippines: '01JAN23' },
+      EB4_RELIGIOUS:  { all: '01JAN23' , china: '01JAN23' , india: '01JAN23' , mexico: '01JAN23' , philippines: '01JAN23' },
+      EB5_UNRESERVED: { all: 'C'       , china: '01MAR17' , india: '01MAY24' , mexico: 'C'       , philippines: 'C' },
+      EB5_RURAL:      { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+      EB5_HIGH_UNEMP: { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+      EB5_INFRA:      { all: 'C'       , china: 'C'       , india: 'C'       , mexico: 'C'       , philippines: 'C' },
+    },
+  },
+};
+
+// ────────────────────────────────────────────────────────────────────────────
+// AUGUST 2026 — kept for month-over-month comparison
 // ────────────────────────────────────────────────────────────────────────────
 export const visaBulletinAugust2026 = {
   month: 'August',
@@ -414,6 +487,6 @@ export const visaBulletinApril2026 = {
 };
 
 // Newest first.
-export const visaBulletinHistory = [visaBulletinAugust2026, visaBulletinJuly2026, visaBulletinJune2026, visaBulletinMay2026];
-export const currentVisaBulletin = visaBulletinAugust2026;
-export const previousVisaBulletin = visaBulletinJuly2026;
+export const visaBulletinHistory = [visaBulletinSeptember2026, visaBulletinAugust2026, visaBulletinJuly2026, visaBulletinJune2026];
+export const currentVisaBulletin = visaBulletinSeptember2026;
+export const previousVisaBulletin = visaBulletinAugust2026;
