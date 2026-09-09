@@ -1,5 +1,117 @@
 export const newsItems = [
   {
+    id: 50,
+    title: {
+      en: "DHS Announces Rule for Certain Children Born in the United States to Foreign Government Employees",
+    },
+    date: "September 4, 2026",
+    dateEs: "4 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "The Department of Homeland Security today issued an interim final rule amending its regulations to allow certain children born in the United States to foreign government employees who are not U.S. citizens to register as lawful permanent residents.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/dhs-announces-rule-for-certain-children-born-in-the-united-states-to-foreign-government-employees",
+  },
+  {
+    id: 49,
+    title: {
+      en: "Court Order on Diversity Immigrant Visa Program Hold Policy",
+    },
+    date: "September 4, 2026",
+    dateEs: "4 de septiembre de 2026",
+    category: "Court Decisions",
+    summary: {
+      en: "On Aug. 28, 2026, the U.S. District Court for the Northern District of California issued an order in Medani, et al., v. Trump, et al., 26-cv-6332 (NDCA), temporarily vacating PM-602-0193 pending further litigation. USCIS is ordered, “to the extent practicable and in good faith,…",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/court-order-on-diversity-immigrant-visa-program-hold-policy",
+  },
+  {
+    id: 48,
+    title: {
+      en: "Naturalized U.S. Citizen Indicted for Lying to Obtain U.S. Citizenship After Committing Felonies",
+    },
+    date: "September 3, 2026",
+    dateEs: "3 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "A naturalized U.S. citizen made his initial appearance in court Sept. 2 for allegedly lying about his prior criminal acts to obtain U.S. citizenship. The U.S. Attorney's Office for the District of Nevada announced the charges.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/naturalized-us-citizen-indicted-for-lying-to-obtain-us-citizenship-after-committing-felonies",
+  },
+  {
+    id: 47,
+    title: {
+      en: "USCIS Opens New International Field Office in Ethiopia to Support Fraud Prevention",
+    },
+    date: "September 3, 2026",
+    dateEs: "3 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services (USCIS) is opening a new international field office in Addis Ababa, Ethiopia. The office will begin operations on September 9, 2026, and will handle USCIS immigration matters in Ethiopia.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/uscis-opens-new-international-field-office-in-ethiopia-to-support-fraud-prevention",
+  },
+  {
+    id: 46,
+    title: {
+      en: "Illegal Alien Indicted in Marriage-Related Immigration Fraud",
+    },
+    date: "September 3, 2026",
+    dateEs: "3 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services played a critical role in the investigation that led to the indictment of Miguel Angel Olivera‑Borda, 38, a Peruvian alien illegally present in the United States, after federal prosecutors presented evidence to a grand jury.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/illegal-alien-indicted-in-marriage-related-immigration-fraud",
+  },
+  {
+    id: 45,
+    title: {
+      en: "Aunt and U.S. Airman Nephew Arrested in Immigration Fraud Scheme",
+    },
+    date: "September 2, 2026",
+    dateEs: "2 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "Defendants allegedly lied about their relationship to obtain immigration benefits",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/aunt-and-us-airman-nephew-arrested-in-immigration-fraud-scheme",
+  },
+  {
+    id: 44,
+    title: {
+      en: "Recent Court Order on Hold Policies",
+    },
+    date: "August 28, 2026",
+    dateEs: "28 de agosto de 2026",
+    category: "Court Decisions",
+    summary: {
+      en: "On Aug. 24, 2026, the U.S. District Court for the Northern District of California issued an order in Red Eagle Law, L.C., et al., v. Joseph B. Edlow, 26-cv-04850-CRB (NDCA), enjoining PM 602-0192, and PM 602-0194.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/recent-court-order-on-hold-policies",
+  },
+  {
+    id: 43,
+    title: {
+      en: "DHS Proposes Additional H-1B Fee",
+    },
+    date: "August 24, 2026",
+    dateEs: "24 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "The Department of Homeland Security (DHS) is proposing to establish a $103,265 fee for all H-1B cap-subject petitions, including those eligible for the advanced degree exemption.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/dhs-proposes-additional-h-1b-fee",
+  },
+  {
     id: 42,
     title: {
       en: "USCIS to Publish New Editions of Form I-539 and Form I-765; Older Editions Will Be Rejected Starting Sept. 15",
