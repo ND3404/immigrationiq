@@ -1,6 +1,6 @@
 export const newsItems = [
   {
-    id: 50,
+    id: 52,
     title: {
       en: "DHS Announces Rule for Certain Children Born in the United States to Foreign Government Employees",
     },
@@ -14,7 +14,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/alerts/dhs-announces-rule-for-certain-children-born-in-the-united-states-to-foreign-government-employees",
   },
   {
-    id: 49,
+    id: 51,
     title: {
       en: "Court Order on Diversity Immigrant Visa Program Hold Policy",
     },
@@ -28,7 +28,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/alerts/court-order-on-diversity-immigrant-visa-program-hold-policy",
   },
   {
-    id: 48,
+    id: 50,
     title: {
       en: "Naturalized U.S. Citizen Indicted for Lying to Obtain U.S. Citizenship After Committing Felonies",
     },
@@ -42,7 +42,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/naturalized-us-citizen-indicted-for-lying-to-obtain-us-citizenship-after-committing-felonies",
   },
   {
-    id: 47,
+    id: 49,
     title: {
       en: "USCIS Opens New International Field Office in Ethiopia to Support Fraud Prevention",
     },
@@ -56,7 +56,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/alerts/uscis-opens-new-international-field-office-in-ethiopia-to-support-fraud-prevention",
   },
   {
-    id: 46,
+    id: 48,
     title: {
       en: "Illegal Alien Indicted in Marriage-Related Immigration Fraud",
     },
@@ -70,7 +70,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/illegal-alien-indicted-in-marriage-related-immigration-fraud",
   },
   {
-    id: 45,
+    id: 47,
     title: {
       en: "Aunt and U.S. Airman Nephew Arrested in Immigration Fraud Scheme",
     },
@@ -84,7 +84,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/aunt-and-us-airman-nephew-arrested-in-immigration-fraud-scheme",
   },
   {
-    id: 44,
+    id: 46,
     title: {
       en: "Recent Court Order on Hold Policies",
     },
@@ -98,7 +98,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/alerts/recent-court-order-on-hold-policies",
   },
   {
-    id: 43,
+    id: 45,
     title: {
       en: "DHS Proposes Additional H-1B Fee",
     },
@@ -110,6 +110,34 @@ export const newsItems = [
     },
     source: "USCIS Newsroom",
     url: "https://www.uscis.gov/newsroom/news-releases/dhs-proposes-additional-h-1b-fee",
+  },
+  {
+    id: 44,
+    title: {
+      en: "Chinese Alien Charged with Voter Fraud in Massachusetts",
+    },
+    date: "August 21, 2026",
+    dateEs: "21 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "A Chinese alien residing in Andover, Mass., was arrested for submitting a fraudulent voter registration and ballot in the 2024 presidential election using the name of another Chinese alien.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/chinese-alien-charged-with-voter-fraud-in-massachusetts",
+  },
+  {
+    id: 43,
+    title: {
+      en: "USCIS to Publish New Edition of Form I-485; Older Editions Will Be Rejected Starting Sept. 18",
+    },
+    date: "August 19, 2026",
+    dateEs: "19 de agosto de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "On Sept. 18, 2026, USCIS will publish a revised edition of Form I-485, Application to Register Permanent Residence or Adjust Status (edition date: 09/18/26).",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/uscis-to-publish-new-edition-of-form-i-485-older-editions-will-be-rejected-starting-sept-18",
   },
   {
     id: 42,
