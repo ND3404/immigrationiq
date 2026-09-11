@@ -1,5 +1,19 @@
 export const newsItems = [
   {
+    id: 53,
+    title: {
+      en: "USCIS Reaches H-2B Cap for First Half of FY 2027",
+    },
+    date: "September 11, 2026",
+    dateEs: "11 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services received enough petitions to meet the congressionally established H-2B cap for the first half of fiscal year (FY) 2027.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/uscis-reaches-h-2b-cap-for-first-half-of-fy-2027",
+  },
+  {
     id: 52,
     title: {
       en: "DHS Announces Rule for Certain Children Born in the United States to Foreign Government Employees",
