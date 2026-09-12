@@ -1,5 +1,19 @@
 export const newsItems = [
   {
+    id: 54,
+    title: {
+      en: "Department of Justice Removes Alien Terrorist in First Use of United States Alien Terrorist Removal Court",
+    },
+    date: "September 11, 2026",
+    dateEs: "11 de septiembre de 2026",
+    category: "Court Decisions",
+    summary: {
+      en: "In the first-ever case before the United States Alien Terrorist Removal Court (ATRC), Nazira Haji Zada, 47, an Afghan national previously residing in Fort Worth, Texas, was removed from the United States after conceding that she is an alien terrorist.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/department-of-justice-removes-alien-terrorist-in-first-use-of-united-states-alien-terrorist-removal",
+  },
+  {
     id: 53,
     title: {
       en: "USCIS Reaches H-2B Cap for First Half of FY 2027",
