@@ -1,5 +1,19 @@
 export const newsItems = [
   {
+    id: 55,
+    title: {
+      en: "Peruvian Alien Indicted for Illegally Voting",
+    },
+    date: "September 14, 2026",
+    dateEs: "14 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "A federal grand jury in Wichita indicted a Peruvian alien with multiple criminal offenses arising from allegedly voting in a federal election despite not being a U.S. citizen.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/peruvian-alien-indicted-for-illegally-voting",
+  },
+  {
     id: 54,
     title: {
       en: "Department of Justice Removes Alien Terrorist in First Use of United States Alien Terrorist Removal Court",
