@@ -1,5 +1,117 @@
 export const newsItems = [
   {
+    id: 63,
+    title: {
+      en: "USCIS Opens Asylum Office in Charlotte",
+    },
+    date: "October 9, 2026",
+    dateEs: "9 de octubre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services (USCIS) is opening an asylum office in Charlotte, North Carolina.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/uscis-opens-asylum-office-in-charlotte",
+  },
+  {
+    id: 62,
+    title: {
+      en: "Former Medical Doctor Convicted of Naturalization Fraud",
+    },
+    date: "October 9, 2026",
+    dateEs: "9 de octubre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services provided critical assistance to the investigation leading to the conviction of a former medical doctor for naturalization fraud.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/former-medical-doctor-convicted-of-naturalization-fraud",
+  },
+  {
+    id: 61,
+    title: {
+      en: "Italian Alien Charged With Voting in 2024 General Election and Lying About It",
+    },
+    date: "October 7, 2026",
+    dateEs: "7 de octubre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services provided critical assistance in the investigation that led to a federal indictment charging Andrea Catanese, 60, an Italian national, with voting by an alien, attempting to unlawfully procure naturalization, and making a false statement…",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/italian-alien-charged-with-voting-in-2024-general-election-and-lying-about-it",
+  },
+  {
+    id: 60,
+    title: {
+      en: "Former Syrian Prison Official Sentenced for Torture and Immigration Fraud",
+    },
+    date: "October 2, 2026",
+    dateEs: "2 de octubre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services assisted with the case that led to the sentencing of Samir Ousman Alsheikh, 74, a former Syrian prison warden and provincial governor.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/former-syrian-prison-official-sentenced-for-torture-and-immigration-fraud",
+  },
+  {
+    id: 59,
+    title: {
+      en: "Federal Grand Jury Indicts Ten Aliens for Voter Fraud in Minnesota Elections",
+    },
+    date: "October 2, 2026",
+    dateEs: "2 de octubre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "Defendants illegally voted in the November 2022 and 2024 general elections and the August 2026 primary election",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/federal-grand-jury-indicts-ten-aliens-for-voter-fraud-in-minnesota-elections",
+  },
+  {
+    id: 58,
+    title: {
+      en: "USCIS Announces FY 2027 Inflation Increase for Certain Immigration-Related Fees",
+    },
+    date: "September 30, 2026",
+    dateEs: "30 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services has issued a Federal Register notice that will increase certain H.R. 1 immigration-related fees for fiscal year 2027.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/uscis-announces-fy-2027-inflation-increase-for-certain-immigration-related-fees",
+  },
+  {
+    id: 57,
+    title: {
+      en: "USCIS Adjusts EB-5 Fees to Cover Program Costs and Strengthen Integrity Measures",
+    },
+    date: "September 29, 2026",
+    dateEs: "29 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services (USCIS) is updating fees for the EB-5 Immigrant Investor Program to ensure EB-5 fees fully recover the cost of operating the program, meet statutory processing time goals, and support integrity measures such as audits and site visits.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/alerts/uscis-adjusts-eb-5-fees-to-cover-program-costs-and-strengthen-integrity-measures",
+  },
+  {
+    id: 56,
+    title: {
+      en: "USCIS Assists Florida Investigation Leading to Charges for Unlawful Voting",
+    },
+    date: "September 29, 2026",
+    dateEs: "29 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services provided critical assistance to investigations that resulted in charges against 16 aliens accused of unlawfully voting in Florida elections.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/uscis-assists-florida-investigation-leading-to-charges-for-unlawful-voting",
+  },
+  {
     id: 55,
     title: {
       en: "Peruvian Alien Indicted for Illegally Voting",
