@@ -1,6 +1,20 @@
 export const newsItems = [
   {
-    id: 63,
+    id: 65,
+    title: {
+      en: "Cuban Alien Arrested for Unlawfully Voting",
+    },
+    date: "October 9, 2026",
+    dateEs: "9 de octubre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "A Cuban alien was arrested after being charged with unlawful voting by an alien. U.S. Citizenship and Immigration Services assisted the investigation.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/cuban-alien-arrested-for-unlawfully-voting",
+  },
+  {
+    id: 64,
     title: {
       en: "USCIS Opens Asylum Office in Charlotte",
     },
@@ -14,7 +28,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/alerts/uscis-opens-asylum-office-in-charlotte",
   },
   {
-    id: 62,
+    id: 63,
     title: {
       en: "Former Medical Doctor Convicted of Naturalization Fraud",
     },
@@ -28,7 +42,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/former-medical-doctor-convicted-of-naturalization-fraud",
   },
   {
-    id: 61,
+    id: 62,
     title: {
       en: "Italian Alien Charged With Voting in 2024 General Election and Lying About It",
     },
@@ -42,7 +56,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/italian-alien-charged-with-voting-in-2024-general-election-and-lying-about-it",
   },
   {
-    id: 60,
+    id: 61,
     title: {
       en: "Former Syrian Prison Official Sentenced for Torture and Immigration Fraud",
     },
@@ -56,7 +70,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/former-syrian-prison-official-sentenced-for-torture-and-immigration-fraud",
   },
   {
-    id: 59,
+    id: 60,
     title: {
       en: "Federal Grand Jury Indicts Ten Aliens for Voter Fraud in Minnesota Elections",
     },
@@ -70,7 +84,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/news-releases/federal-grand-jury-indicts-ten-aliens-for-voter-fraud-in-minnesota-elections",
   },
   {
-    id: 58,
+    id: 59,
     title: {
       en: "USCIS Announces FY 2027 Inflation Increase for Certain Immigration-Related Fees",
     },
@@ -84,7 +98,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/alerts/uscis-announces-fy-2027-inflation-increase-for-certain-immigration-related-fees",
   },
   {
-    id: 57,
+    id: 58,
     title: {
       en: "USCIS Adjusts EB-5 Fees to Cover Program Costs and Strengthen Integrity Measures",
     },
@@ -98,7 +112,7 @@ export const newsItems = [
     url: "https://www.uscis.gov/newsroom/alerts/uscis-adjusts-eb-5-fees-to-cover-program-costs-and-strengthen-integrity-measures",
   },
   {
-    id: 56,
+    id: 57,
     title: {
       en: "USCIS Assists Florida Investigation Leading to Charges for Unlawful Voting",
     },
@@ -110,6 +124,20 @@ export const newsItems = [
     },
     source: "USCIS Newsroom",
     url: "https://www.uscis.gov/newsroom/news-releases/uscis-assists-florida-investigation-leading-to-charges-for-unlawful-voting",
+  },
+  {
+    id: 56,
+    title: {
+      en: "Cuban Alien Convicted for International Alien Smuggling and Money Laundering Conspiracy",
+    },
+    date: "September 28, 2026",
+    dateEs: "28 de septiembre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services played a critical role in the investigation that led to the conviction of Lazaro Alain Cabrera-Rodriguez, 28, of Hialeah, Florida, for his role in an international alien smuggling and money laundering conspiracy.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/cuban-alien-convicted-for-international-alien-smuggling-and-money-laundering-conspiracy",
   },
   {
     id: 55,
