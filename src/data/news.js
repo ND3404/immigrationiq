@@ -1,5 +1,19 @@
 export const newsItems = [
   {
+    id: 66,
+    title: {
+      en: "Justice Department Moves to Strip Citizenship from 40 Criminals in Largest Single-Period Filing Under the Trump Administration",
+    },
+    date: "October 13, 2026",
+    dateEs: "13 de octubre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services partnered with the Department of Justice in its filing of denaturalization actions against dozens of individuals accused of serious offenses, including acting as an agent for a foreign government, committing voluntary manslaughter, and…",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/justice-department-moves-to-strip-citizenship-from-40-criminals-in-largest-single-period-filing",
+  },
+  {
     id: 65,
     title: {
       en: "Cuban Alien Arrested for Unlawfully Voting",
