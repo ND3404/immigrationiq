@@ -1,5 +1,19 @@
 export const newsItems = [
   {
+    id: 67,
+    title: {
+      en: "Liberian Child Rapist Convicted of Naturalization Fraud, Denaturalized, and Judicially Ordered Removed from the U.S.",
+    },
+    date: "October 15, 2026",
+    dateEs: "15 de octubre de 2026",
+    category: "USCIS Policy",
+    summary: {
+      en: "U.S. Citizenship and Immigration Services assisted in an investigation that resulted in the sentencing of Cyril Domaquik Clemens, 72, a native of Liberia, for naturalization fraud.",
+    },
+    source: "USCIS Newsroom",
+    url: "https://www.uscis.gov/newsroom/news-releases/liberian-child-rapist-convicted-of-naturalization-fraud-denaturalized-and-judicially-ordered-removed",
+  },
+  {
     id: 66,
     title: {
       en: "Justice Department Moves to Strip Citizenship from 40 Criminals in Largest Single-Period Filing Under the Trump Administration",
