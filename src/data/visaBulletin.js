@@ -117,7 +117,82 @@ export const EMPLOYMENT_CATEGORIES = [
 ];
 
 // ────────────────────────────────────────────────────────────────────────────
-// OCTOBER 2026 — current bulletin (manual population from the official PDF)
+// NOVEMBER 2026 — current bulletin (manual population from the official page)
+// ────────────────────────────────────────────────────────────────────────────
+// Number 20, Volume XI (demand cutoff October 5, 2026). Zero retrogressions.
+//
+// October's Rest-of-World employment retrogression partially reverses on
+// Final Action: EB-2 01JAN25 → 01APR25, EB-3 15MAY24 → 15JUN24,
+// EB-3 Other Workers 01JAN22 → 01JUN22. Family F1/F2B/F3/F4 (worldwide)
+// advance a full year on both charts; F2A Final Action 22SEP26 → 22OCT26
+// (still "C" on Dates for Filing). EB-2 and EB-5 Unreserved India hold their
+// October Final Action dates (01NOV13 / 01DEC23) — no return to "U".
+export const visaBulletinNovember2026 = {
+  month: 'November',
+  year: 2026,
+  label: 'November 2026',
+  // The page gives no separate publish date; the October 5 demand cutoff is
+  // the date the bulletin itself carries, so it anchors the staleness alarm.
+  publishedDate: '2026-10-05',
+  // Manually populated from the official travel.state.gov November 2026
+  // bulletin, because the automated proxy/archive paths cannot reach
+  // Cloudflare-fronted DoS from CI.
+  fetchSource: 'manual',
+  fetchedAt: '2026-10-27T00:48:45.552Z',
+  sourceUrl: 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/2027/visa-bulletin-for-november-2026.html',
+  // USCIS AoS filing-chart designation: carried forward from October
+  // (Family → Dates for Filing, Employment → Dates for Filing) pending
+  // confirmation at uscis.gov/visabulletininfo.
+  uscisFilingChart: {
+    family: 'datesForFiling',
+    employment: 'datesForFiling',
+  },
+  family: {
+    finalActionDates: {
+      F1:  { all: '22JAN21', china: '22JAN21', india: '22JAN21', mexico: '22SEP08', philippines: '01NOV13' },
+      F2A: { all: '22OCT26', china: '22OCT26', india: '22OCT26', mexico: '22APR26', philippines: '22OCT26' },
+      F2B: { all: '22AUG20', china: '22AUG20', india: '22AUG20', mexico: '15MAY10', philippines: '01OCT13' },
+      F3:  { all: '22OCT15', china: '22OCT15', india: '22OCT15', mexico: '15JUL01', philippines: '22JUL06' },
+      F4:  { all: '22OCT12', china: '22OCT12', india: '15DEC06', mexico: '22APR01', philippines: '15MAY08' },
+    },
+    datesForFiling: {
+      F1:  { all: '01FEB21', china: '01FEB21', india: '01FEB21', mexico: '01DEC08', philippines: '22APR15' },
+      F2A: { all: 'C'      , china: 'C'      , india: 'C'      , mexico: 'C'      , philippines: 'C' },
+      F2B: { all: '01SEP20', china: '01SEP20', india: '01SEP20', mexico: '22MAR11', philippines: '01OCT14' },
+      F3:  { all: '01NOV15', china: '01NOV15', india: '01NOV15', mexico: '01DEC02', philippines: '22OCT06' },
+      F4:  { all: '01NOV12', china: '01NOV12', india: '01FEB07', mexico: '30APR01', philippines: '22MAR09' },
+    },
+  },
+  employment: {
+    finalActionDates: {
+      EB1:            { all: 'C'      , china: '01AUG23', india: '01FEB23', mexico: 'C'      , philippines: 'C' },
+      EB2:            { all: '01APR25', china: '01OCT21', india: '01NOV13', mexico: '01APR25', philippines: '01APR25' },
+      EB3:            { all: '15JUN24', china: '22JAN22', india: '22JAN14', mexico: '15JUN24', philippines: '15AUG23' },
+      EB3_OTHER:      { all: '01JUN22', china: '01OCT19', india: '22JAN14', mexico: '01JUN22', philippines: '01JAN22' },
+      EB4:            { all: '15DEC22', china: '15DEC22', india: '15DEC22', mexico: '15DEC22', philippines: '15DEC22' },
+      EB4_RELIGIOUS:  { all: '15DEC22', china: '15DEC22', india: '15DEC22', mexico: '15DEC22', philippines: '15DEC22' },
+      EB5_UNRESERVED: { all: 'C'      , china: '01DEC16', india: '01DEC23', mexico: 'C'      , philippines: 'C' },
+      EB5_RURAL:      { all: 'C'      , china: 'C'      , india: 'C'      , mexico: 'C'      , philippines: 'C' },
+      EB5_HIGH_UNEMP: { all: 'C'      , china: 'C'      , india: 'C'      , mexico: 'C'      , philippines: 'C' },
+      EB5_INFRA:      { all: 'C'      , china: 'C'      , india: 'C'      , mexico: 'C'      , philippines: 'C' },
+    },
+    datesForFiling: {
+      EB1:            { all: 'C'      , china: '01JUL24', india: '01JUL24', mexico: 'C'      , philippines: 'C' },
+      EB2:            { all: '15MAR26', china: '01JAN23', india: '15JAN15', mexico: '15MAR26', philippines: '15MAR26' },
+      EB3:            { all: '01AUG24', china: '01APR24', india: '15JAN15', mexico: '01AUG24', philippines: '01JAN24' },
+      EB3_OTHER:      { all: '01JUL22', china: '01OCT20', india: '15JAN15', mexico: '01JUL22', philippines: '01JUN22' },
+      EB4:            { all: '01JAN25', china: '01JAN25', india: '01JAN25', mexico: '01JAN25', philippines: '01JAN25' },
+      EB4_RELIGIOUS:  { all: '01JAN25', china: '01JAN25', india: '01JAN25', mexico: '01JAN25', philippines: '01JAN25' },
+      EB5_UNRESERVED: { all: 'C'      , china: '01MAR21', india: '01MAY24', mexico: 'C'      , philippines: 'C' },
+      EB5_RURAL:      { all: 'C'      , china: 'C'      , india: 'C'      , mexico: 'C'      , philippines: 'C' },
+      EB5_HIGH_UNEMP: { all: 'C'      , china: 'C'      , india: 'C'      , mexico: 'C'      , philippines: 'C' },
+      EB5_INFRA:      { all: 'C'      , china: 'C'      , india: 'C'      , mexico: 'C'      , philippines: 'C' },
+    },
+  },
+};
+
+// ────────────────────────────────────────────────────────────────────────────
+// OCTOBER 2026 — kept for month-over-month comparison (manual, official PDF)
 // ────────────────────────────────────────────────────────────────────────────
 // First month of FY2027 (Number 19, Volume XI, CA/VO September 4, 2026).
 //
@@ -570,6 +645,6 @@ export const visaBulletinApril2026 = {
 };
 
 // Newest first.
-export const visaBulletinHistory = [visaBulletinOctober2026, visaBulletinSeptember2026, visaBulletinAugust2026, visaBulletinJuly2026];
-export const currentVisaBulletin = visaBulletinOctober2026;
-export const previousVisaBulletin = visaBulletinSeptember2026;
+export const visaBulletinHistory = [visaBulletinNovember2026, visaBulletinOctober2026, visaBulletinSeptember2026, visaBulletinAugust2026];
+export const currentVisaBulletin = visaBulletinNovember2026;
+export const previousVisaBulletin = visaBulletinOctober2026;
